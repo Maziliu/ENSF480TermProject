@@ -28,20 +28,25 @@ public class Database {
         return INSTANCE;
     }
 
-    public ResultSet executePreparedStatement(String query, String... queryVariables){
+    public ResultSet executeSelectPreparedStatement(String query, String... queryVariables) throws SQLException {
         ResultSet resultSet = null;
-        try{
-            PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
-            int index = 1;
-            for(String queryVariable : queryVariables){
-                preparedStatement.setString(index, queryVariable);
-                index++;
-            }
-            resultSet = preparedStatement.executeQuery();
-        } catch (SQLException e){
-            System.err.println("ERROR EXECUTING PREPARED STATEMENT: " + e.getMessage());
+        PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
+        int index = 1;
+        for(String queryVariable : queryVariables){
+            preparedStatement.setString(index, queryVariable);
+            index++;
         }
-
+        resultSet = preparedStatement.executeQuery();
         return resultSet;
+    }
+
+    public void executeDatabaseAlteringPreparedStatement(String query, String... queryVariables) throws SQLException {
+        PreparedStatement preparedStatement = CONNECTION.prepareStatement(query);
+        int index = 1;
+        for(String queryVariable : queryVariables){
+            preparedStatement.setString(index, queryVariable);
+            index++;
+        }
+        preparedStatement.executeUpdate();
     }
 }

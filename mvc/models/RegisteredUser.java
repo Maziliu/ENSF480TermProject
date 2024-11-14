@@ -1,20 +1,15 @@
 package mvc.models;
-public class RegisteredUser {
+public class RegisteredUser extends User{
     private int userID, theaterCredits;
-    private String email;
 
     public RegisteredUser(int userID, String email, int theaterCredits){
+        super(email);
         this.userID = userID;
-        this.email = email;
         this.theaterCredits = theaterCredits;
     }
 
     public int getUserID() {
         return userID;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     public int getTheaterCredits() {
