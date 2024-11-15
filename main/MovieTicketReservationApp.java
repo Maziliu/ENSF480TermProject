@@ -7,6 +7,8 @@ import exceptions.GenericException;
 import exceptions.auth.AlreadyLoggedInException;
 import exceptions.auth.UserAlreadyExists;
 import exceptions.auth.UserNotFoundException;
+import payment.Transaction.RefundTransactionStrategy;
+import payment.Transaction.TransactionStrategy;
 
 public class MovieTicketReservationApp {
     Authenticator auth;
@@ -34,6 +36,9 @@ public class MovieTicketReservationApp {
         // System.out.println(auth.getCurrentUser().getEmail());
 
         // System.out.println(UUID.randomUUID().toString());
+
+        RefundTransactionStrategy t = new RefundTransactionStrategy();
+        System.out.println(t.generateCreditCode(69.99));
     }
 
     public static void main(String[] args) {

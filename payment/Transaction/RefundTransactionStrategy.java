@@ -2,6 +2,7 @@ package payment.Transaction;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.UUID;
 
 import database.Database;
@@ -56,7 +57,7 @@ public class RefundTransactionStrategy implements TransactionStrategy {
         //Update registered user theater creds or send user email with creds code
     }
 
-    private String generateCreditCode() {
+    public String generateCreditCode(double refundAmount) throws GenericException {
         String creditsCode;
         Database dbInstance = Database.getInstance();
 
@@ -76,6 +77,13 @@ public class RefundTransactionStrategy implements TransactionStrategy {
             } 
         } while(true);
 
+
+        String query = "INSERT INTO creditcodes(code, credit_amount, expiration_date) VALUES (?, ?, ?)";
+        try {
+            dbInstance.executeDatabaseAlteringPreparedStatement(query, creditsCode, String.valueOf(refundAmount), String.valueOf(LocalDate.now().plusYears(1)));
+        } catch (SQLException e) {
+            throw new GenericException("ERROR OCCURED AT REFUNDTRANSACTIONSTRATEGY WHEN ATTMPTING TO INSERT NEWLY GENERATED CREDITSCODE: " + e.getMessage());
+        }
 
         return creditsCode;
     }
