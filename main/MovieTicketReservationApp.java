@@ -1,5 +1,7 @@
 package main;
 
+import java.util.UUID;
+
 import auth.Authenticator;
 import exceptions.GenericException;
 import exceptions.auth.AlreadyLoggedInException;
@@ -21,15 +23,17 @@ public class MovieTicketReservationApp {
         //     e.printStackTrace();
         // }
 
-        try {
-            auth.login("test@gmail.com", "1234");
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-        } catch (AlreadyLoggedInException e) {
-            e.printStackTrace();
-        }
+        // try {
+        //     auth.login("test@gmail.com", "1234");
+        // } catch (UserNotFoundException e) {
+        //     e.printStackTrace();
+        // } catch (AlreadyLoggedInException e) {
+        //     e.printStackTrace();
+        // }
 
-        System.out.println(auth.getCurrentUser().getEmail());
+        // System.out.println(auth.getCurrentUser().getEmail());
+
+        // System.out.println(UUID.randomUUID().toString());
     }
 
     public static void main(String[] args) {
