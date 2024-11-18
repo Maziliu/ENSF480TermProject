@@ -5,12 +5,12 @@ import java.sql.Date;
 public class Showtime {
     private Movie movie;
     private Date time;
-    //private SeatMap seatmap;
+    private SeatMap seatmap;
 
     public Showtime(Movie movie, Date time, int numberOfRows, int seatsPerRow){
         this.movie = movie;
         this.time = time;
-        //this.seatmap = new SeatMap(numberOfRows, seatsPerRow);
+        this.seatmap = new SeatMap(numberOfRows, seatsPerRow);
     }
 
     public Movie getMovie(){
@@ -21,7 +21,15 @@ public class Showtime {
         return time;
     }
 
-    // public SeatMap getSeatMap(){
-    //     return seatMap;
-    // }
+    public SeatMap getSeatMap(){
+        return seatmap;
+    }
+
+    public boolean reserveSeat(int row, char seat){
+        return seatmap.reserveSeat(row, seat);
+    }
+
+    public boolean cancelReservation(int row, char seat){
+        return seatmap.cancelReservation(row, seat);
+    }
 }
