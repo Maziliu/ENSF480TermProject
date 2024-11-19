@@ -9,10 +9,10 @@ public class Theater {
     private ArrayList<Movie> avaliableMovies;
 
     public Theater(String name, String address, Movie movie, Date time, int numberOfRows, int seatsPerRow){
-        addShowtime(new Showtime(movie, time, numberOfRows, seatsPerRow));
         this.name = name;
         this.address = address;
         this.showtimes = new ArrayList<>();
+        this.avaliableMovies = new ArrayList<>();
     }
 
     public String getName(){
@@ -28,6 +28,7 @@ public class Theater {
     }
 
     public void addShowtime(Showtime showtime){
+        Showtime showtime = new Showtime(movie, time, numberOfRows, seatsPerRow);
         this.showtimes.add(showtime);
         updateAvaliableMovies();
     }
@@ -53,7 +54,7 @@ public class Theater {
     public ArrayList<Movie> searchMovies(String title){
         ArrayList<Movie> result = new ArrayList<>();
         for (Showtime showtime : showtimes){
-            if (showtime.getMovie().getName().equalsIgnoreCase(title)){
+            if (showtime.getMovie().getName().toLowerCase().contains(title.toLowerCase())){
                 result.add(showtime.getMovie());
             }
         }
