@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Ticket {
     private int seatNumber;
     private Movie movie;
-    private Theater theater;
+    // private Theater theater;
     private Date showTime;
 
     public Ticket(Movie movie, int seatNumber) {
@@ -25,7 +25,7 @@ public class Ticket {
         return showTime;
     }
 
-    public Theater getTheater() {
-        return theater;
-    }
+    // public Theater getTheater() {
+    //     return theater;
+    // }
 }
