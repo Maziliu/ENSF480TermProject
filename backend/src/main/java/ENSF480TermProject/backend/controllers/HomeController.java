@@ -1,5 +1,6 @@
 package ENSF480TermProject.backend.controllers;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +28,12 @@ public class HomeController {
     public ResponseEntity<List<Movie>> searchMovies(@RequestParam String movieName){
         List<Movie> searchResults = searchService.searchMovie(movieName);
 
+        searchResults.sort(new Comparator<Movie>() {
+            @Override
+            public int compare(Movie left, Movie right){
+                return right.getMovieName().compareTo(left.getMovieName());
+            }
+        });
         return ResponseEntity.ok(searchResults);
     }
 }
