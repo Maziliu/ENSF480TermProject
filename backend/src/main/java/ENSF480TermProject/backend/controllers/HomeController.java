@@ -7,11 +7,13 @@ import java.util.Optional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ENSF480TermProject.backend.models.Movie;
+import ENSF480TermProject.backend.models.Theatre;
 import ENSF480TermProject.backend.services.search.SearchService;
 
 @RestController
@@ -31,9 +33,14 @@ public class HomeController {
         searchResults.sort(new Comparator<Movie>() {
             @Override
             public int compare(Movie left, Movie right){
-                return right.getMovieName().compareTo(left.getMovieName());
+                return left.getMovieName().compareTo(right.getMovieName());
             }
         });
         return ResponseEntity.ok(searchResults);
     }
+
+    // @GetMapping("/theatres/search")
+    // public ResponseEntity<List<Theatre>> searchTheatre(@RequestBody String address){
+        
+    // }
 }
