@@ -14,21 +14,29 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ENSF480TermProject.backend.models.Movie;
 import ENSF480TermProject.backend.models.Theatre;
-import ENSF480TermProject.backend.services.search.SearchService;
+import ENSF480TermProject.backend.services.search.MovieSearchService;
+import ENSF480TermProject.backend.services.search.TheatreSearchService;
 
 @RestController
 @RequestMapping("/api/browse")
 @CrossOrigin(origins = "http://localhost:3000")
 public class HomeController {
-    private final SearchService searchService;
+    private final MovieSearchService movieSearchService;
+    private final TheatreSearchService theatreSearchService;
 
-    public HomeController(SearchService searchService){
-        this.searchService = searchService;
+    public HomeController(MovieSearchService movieSearchService, TheatreSearchService theatreSearchService){
+        this.movieSearchService = movieSearchService;
+        this.theatreSearchService = theatreSearchService;
+    }
+
+    @GetMapping("/movies")
+    public ResponseEntity<List<Movie>> getAllMovies(){
+        return ResponseEntity.ok(movieSearchService.getAllMovies());
     }
 
     @GetMapping("/movies/search")
     public ResponseEntity<List<Movie>> searchMovies(@RequestParam String movieName){
-        List<Movie> searchResults = searchService.searchMovie(movieName);
+        List<Movie> searchResults = movieSearchService.searchMovie(movieName);
 
         searchResults.sort(new Comparator<Movie>() {
             @Override
@@ -39,8 +47,8 @@ public class HomeController {
         return ResponseEntity.ok(searchResults);
     }
 
-    // @GetMapping("/theatres/search")
-    // public ResponseEntity<List<Theatre>> searchTheatre(@RequestBody String address){
-        
-    // }
+    @GetMapping("/theatres")
+    public ResponseEntity<List<Theatre>> getAllTheatres(){
+       return ResponseEntity.ok(theatreSearchService.getAllTheatres());
+    }
 }

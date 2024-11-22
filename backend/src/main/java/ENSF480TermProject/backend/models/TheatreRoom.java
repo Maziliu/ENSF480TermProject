@@ -8,7 +8,7 @@ public class TheatreRoom {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer roomId;
+    private Long roomId;
 
     @Column(nullable = false)
     private String name;
@@ -19,12 +19,16 @@ public class TheatreRoom {
     @Column(columnDefinition = "JSON")
     private String movieList;
 
+    @ManyToOne
+    @JoinColumn(name = "theatre_id", nullable = false)
+    private Theatre theatre;
+
     // Get and Sets
-    public Integer getRoomId() {
+    public Long getRoomId() {
         return roomId;
     }
 
-    public void setRoomId(Integer roomId) {
+    public void setRoomId(Long roomId) {
         this.roomId = roomId;
     }
 
