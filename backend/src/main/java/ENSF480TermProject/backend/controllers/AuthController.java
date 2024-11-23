@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import ENSF480TermProject.backend.models.RegisteredUser;
 import ENSF480TermProject.backend.services.auth.Authenticator;
 
-
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 @CrossOrigin(origins = "http://localhost:3000")
 public class AuthController {
 
@@ -22,23 +21,67 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String email, @RequestParam String password) {
+    public ResponseEntity<Object> login(@RequestParam String email, @RequestParam String password) {
         Optional<RegisteredUser> user = authenticator.authenticateUser(email, password);
         if (user.isPresent()) {
-            return ResponseEntity.ok("Login successful!");
+            return ResponseEntity.ok().body(
+                new LoginResponse(true, "Login successful!")
+            );
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+            new LoginResponse(false, "Invalid credentials")
+        );
     }
- 
+
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestParam String email, @RequestParam String password){
-        Optional<RegisteredUser> user = authenticator.authenticateUser(password, password);
-        if(!user.isPresent()){
+    public ResponseEntity<Object> register(@RequestParam String email, @RequestParam String password) {
+        Optional<RegisteredUser> user = authenticator.authenticateUser(email, password);
+        if (!user.isPresent()) {
             authenticator.registerUser(email, password);
-            return ResponseEntity.ok("Registration Successful");
+            return ResponseEntity.ok().body(
+                new RegistrationResponse(true, "Registration successful")
+            );
         }
 
-        return ResponseEntity.status(HttpStatus.CONFLICT).body("Registration Failed: Email already in use");
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(
+            new RegistrationResponse(false, "Registration failed: Email already in use")
+        );
+    }
+
+    // These are classes to format response as JSON for frontend
+    static class LoginResponse {
+        private boolean authenticated;
+        private String authMessage;
+
+        public LoginResponse(boolean authenticated, String authMessage) {
+            this.authenticated = authenticated;
+            this.authMessage = authMessage;
+        }
+
+        public boolean isAuthenticated() {
+            return authenticated;
+        }
+
+        public String getAuthMessage() {
+            return authMessage;
+        }
+    }
+
+    static class RegistrationResponse {
+        private boolean success;
+        private String message;
+
+        public RegistrationResponse(boolean success, String message) {
+            this.success = success;
+            this.message = message;
+        }
+
+        public boolean isSuccess() {
+            return success;
+        }
+
+        public String getMessage() {
+            return message;
+        }
     }
 }
-

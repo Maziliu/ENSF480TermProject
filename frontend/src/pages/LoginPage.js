@@ -1,13 +1,16 @@
 import React from 'react';
-import Login from '../components/Login';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
+import LoginForm from '../forms/LoginForm';
 
-const LoginPage = () => {
+function LoginPage() {
   return (
     <div>
-      <h1>Login</h1>
-      <Login />
+      <Header />
+      <LoginForm />
+      <Footer />
     </div>
   );
-};
+}
 
 export default LoginPage;

@@ -18,7 +18,7 @@ import ENSF480TermProject.backend.services.search.MovieSearchService;
 import ENSF480TermProject.backend.services.search.TheatreSearchService;
 
 @RestController
-@RequestMapping("/api/browse")
+@RequestMapping("/browse")
 @CrossOrigin(origins = "http://localhost:3000")
 public class HomeController {
     private final MovieSearchService movieSearchService;
