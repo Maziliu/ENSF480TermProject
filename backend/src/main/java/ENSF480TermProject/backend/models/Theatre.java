@@ -29,7 +29,7 @@ public class Theatre {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "theatre")
     private List<TheatreRoom> theatreRooms;
 
     //CTORS

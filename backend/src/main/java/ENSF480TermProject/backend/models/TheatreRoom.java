@@ -4,19 +4,18 @@ package ENSF480TermProject.backend.models;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "Theatre_Rooms")
 public class TheatreRoom {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "room_id")
     private Long roomId;
 
-    @Column(nullable = false)
-    private String name;
-
-    @Column(columnDefinition = "JSON")
+    @Column(name = "seat_map", columnDefinition = "JSON")
     private String seatmap;
 
-    @Column(columnDefinition = "JSON")
+    @Column(name = "movie_list", columnDefinition = "JSON")
     private String movieList;
 
     @ManyToOne
@@ -30,14 +29,6 @@ public class TheatreRoom {
 
     public void setRoomId(Long roomId) {
         this.roomId = roomId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getSeatmap() {

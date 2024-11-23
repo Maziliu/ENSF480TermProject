@@ -10,7 +10,8 @@ import ENSF480TermProject.backend.models.Theatre;
 
 @Repository
 public interface TheatreRepository extends JpaRepository<Theatre, Long> {
-    @Query("SELECT t FROM Theatre t LEFT JOIN FETCH t.rooms")
+    @Query("SELECT t FROM Theatre t LEFT JOIN FETCH t.theatreRooms")
     List<Theatre> findAllWithRooms();
-} 
+}
+
 
