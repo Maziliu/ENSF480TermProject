@@ -19,7 +19,7 @@ const MoviePage = () => {
   const handleTheatreChange = (event) => {
     const theatreId = event.target.value;
     handleSelectTheatre(theatreId);
-    handleSelectShowtime(''); // Reset the showtime selection when theatre changes
+    handleSelectShowtime('');
   };
 
   const handleShowtimeChange = (event) => {
@@ -60,8 +60,8 @@ const MoviePage = () => {
         <select value={selectedTheatre} onChange={handleTheatreChange}>
           <option value="">Select a Theatre</option>
           {theatres?.map((theatre) => (
-            <option key={theatre.theatre_id} value={theatre.theatre_id}>
-              {theatre.name}
+            <option key={theatre.theatreId} value={theatre.theatreId}>
+              {theatre.theatreName}
             </option>
           ))}
         </select>

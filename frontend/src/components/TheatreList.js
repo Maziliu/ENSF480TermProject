@@ -1,32 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { fetchTheatres } from '../services/api';
+import { useSelectionContext } from '../contexts/SelectionContext';
 
-const TheatreList = ({ onSelectTheatre }) => {
+const TheatreList = () => {
   const [theatres, setTheatres] = useState([]);
-  const [selectedTheatre, setSelectedTheatre] = useState('');
+  const { selectedTheatre, handleSelectTheatre } = useSelectionContext();
 
   useEffect(() => {
     fetchTheatres()
-      .then((data) => {
-        console.log('Fetched theatres:', data);
-        setTheatres(data);
-      })
+      .then((data) => setTheatres(data))
       .catch((error) => console.error('Error fetching theatres:', error));
   }, []);
 
   const handleChange = (event) => {
-    const theatreId = event.target.value;
-    setSelectedTheatre(theatreId);
-    onSelectTheatre(theatreId);
+    const selectedName = event.target.value;
+    handleSelectTheatre(selectedName);
   };
 
   return (
     <div className="theatre-list">
       <select value={selectedTheatre} onChange={handleChange}>
         <option value="">Select a Theatre</option>
-        {theatres.map((theatre, index) => (
-          <option key={theatre.theatre_id || `theatre-${index}`} value={theatre.theatre_id}>
-            {theatre.theatre_name}
+        {theatres.map((theatre) => (
+          <option key={theatre.theatreId} value={theatre.theatreName}>
+            {theatre.theatreName}
           </option>
         ))}
       </select>

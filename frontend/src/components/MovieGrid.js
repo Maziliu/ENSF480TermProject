@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelectionContext } from '../contexts/SelectionContext';
 import MovieItem from './MovieItem';
@@ -10,7 +10,9 @@ const MovieGrid = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const url = selectedTheatre ? `http://localhost:8080/browse/theatres/search?theatreName=${selectedTheatre}` : 'http://localhost:8080/browse/movies';
+    const url = selectedTheatre
+      ? `http://localhost:8080/browse/theatres/search?theatreName=${encodeURIComponent(selectedTheatre)}`
+      : 'http://localhost:8080/browse/movies';
 
     fetch(url, {
       method: 'GET',

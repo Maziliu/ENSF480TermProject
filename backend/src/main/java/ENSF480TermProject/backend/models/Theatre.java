@@ -1,6 +1,7 @@
 package ENSF480TermProject.backend.models;
 
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -18,6 +19,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "Theatres")
 public class Theatre {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "theatre_id")
@@ -29,24 +31,29 @@ public class Theatre {
     @Column(name = "address", nullable = false, unique = true)
     private String address;
 
-    @OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL)
-    private List<TheatreRoom> theatreRooms;
+    @OneToMany(mappedBy = "theatre", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Set<TheatreRoom> theatreRooms;
 
-    //CTORS
+    // Constructors
     public Theatre() {}
 
-    public Theatre(String theatreName, String address, List<TheatreRoom> theatreRooms) {
+    public Theatre(String theatreName, String address, Set<TheatreRoom> theatreRooms) {
         this.theatreName = theatreName;
         this.address = address;
         this.theatreRooms = theatreRooms;
     }
 
-     // Getters and Setters
-    public String getName() {
+    // Getters and Setters
+    public Long getTheatreId() {
+        return theatreId;
+    }
+
+    public String getTheatreName() {
         return theatreName;
     }
 
-    public void setName(String theatreName) {
+    public void setTheatreName(String theatreName) {
         this.theatreName = theatreName;
     }
 
@@ -58,11 +65,12 @@ public class Theatre {
         this.address = address;
     }
 
-    public List<TheatreRoom> getRooms() {
+    public Set<TheatreRoom> getTheatreRooms() {
         return theatreRooms;
     }
 
-    public void setRooms(List<TheatreRoom> theatreRooms) {
+    public void setTheatreRooms(Set<TheatreRoom> theatreRooms) {
         this.theatreRooms = theatreRooms;
     }
 }
+

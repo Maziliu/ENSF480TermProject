@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.hibernate.annotations.ManyToAny;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -35,8 +37,8 @@ public class Movie {
     @Column(name = "rating_out_of_ten", nullable = true)
     private Double ratingOutOfTen;
 
-    @ManyToMany(mappedBy = "movies")
-    private List<TheatreRoom> theatreRooms;
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    private List<Showtime> showtimes;
 
     //CTORS
     public Movie(){}

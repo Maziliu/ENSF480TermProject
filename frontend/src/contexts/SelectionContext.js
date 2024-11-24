@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 const SelectionContext = createContext();
 
@@ -9,8 +9,8 @@ export const SelectionProvider = ({ children }) => {
   const [selectedMovie, setSelectedMovie] = useState('');
   const [selectedShowtime, setSelectedShowtime] = useState('');
 
-  const handleSelectTheatre = (theatreId) => {
-    setSelectedTheatre(theatreId);
+  const handleSelectTheatre = (theatreName) => {
+    setSelectedTheatre(theatreName);
     setSelectedShowtime('');
   };
 

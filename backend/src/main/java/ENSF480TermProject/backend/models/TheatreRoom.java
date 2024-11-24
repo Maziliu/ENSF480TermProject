@@ -1,7 +1,12 @@
 package ENSF480TermProject.backend.models;
 
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 
@@ -14,21 +19,15 @@ public class TheatreRoom {
     @Column(name = "room_id")
     private Long roomId;
 
-    @Column(name = "seat_map", columnDefinition = "JSON")
-    private String seatmap;
-
     @ManyToOne
     @JoinColumn(name = "theatre_id", nullable = false)
+    @JsonBackReference
     private Theatre theatre;
 
-    @ManyToMany
-    @JoinTable(
-        name = "room_movies",
-        joinColumns = @JoinColumn(name = "room_id"),
-        inverseJoinColumns = @JoinColumn(name = "movie_id")
-    )
-    private List<Movie> movies;
-
+    @OneToMany(mappedBy = "theatreRoom", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Set<Showtime> showtimes;
+    
     // Get and Sets
     public Long getRoomId() {
         return roomId;
@@ -38,12 +37,21 @@ public class TheatreRoom {
         this.roomId = roomId;
     }
 
-    public String getSeatmap() {
-        return seatmap;
+    public void setShowtimes(Set<Showtime> showtimes) {
+        this.showtimes = showtimes;
     }
 
-    public void setSeatmap(String seatmap) {
-        this.seatmap = seatmap;
+
+    public Theatre getTheatre() {
+        return theatre;
+    }
+
+    public Set<Showtime> getShowtimes() {
+        return showtimes;
+    }
+
+    public void setTheatre(Theatre theatre) {
+        this.theatre = theatre;
     }
 
 }

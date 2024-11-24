@@ -15,16 +15,13 @@ public class TheatreSearchService {
 
     private TheatreRepository theatreRepository;
 
+    @Autowired
     public TheatreSearchService(TheatreRepository theatreRepository) {
         this.theatreRepository = theatreRepository;
     }
 
     public List<Theatre> getAllTheatres() {
-        List<Theatre> theatres = theatreRepository.findAll();
-        for (Theatre theatre : theatres) {
-            theatre.getRooms().size();
-        }
-        return theatres;
+        return theatreRepository.findAllWithRoomsAndShowtimes();
     }
 
     public List<Movie> getAllMoviesAtSpecificTheatre(String theatreName) {
