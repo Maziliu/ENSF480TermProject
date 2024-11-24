@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import ENSF480TermProject.backend.models.RegisteredUser;
 import ENSF480TermProject.backend.services.auth.Authenticator;
+import ENSF480TermProject.backend.utils.auth.AuthenticatedUser;
 
 @RestController
 @RequestMapping("/auth")
@@ -22,20 +23,20 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestParam String email, @RequestParam String password) {
-        Optional<RegisteredUser> user = authenticator.authenticateUser(email, password);
+        Optional<AuthenticatedUser> user = authenticator.authenticateUser(email, password);
         if (user.isPresent()) {
             return ResponseEntity.ok().body(
-                new LoginResponse(true, "Login successful!")
+                new LoginResponse(true, "Login successful!", user.get().isAdmin())
             );
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
-            new LoginResponse(false, "Invalid credentials")
+            new LoginResponse(false, "Invalid credentials", false)
         );
     }
 
     @PostMapping("/register")
     public ResponseEntity<Object> register(@RequestParam String email, @RequestParam String password) {
-        Optional<RegisteredUser> user = authenticator.authenticateUser(email, password);
+        Optional<AuthenticatedUser> user = authenticator.authenticateUser(email, password);
         if (!user.isPresent()) {
             authenticator.registerUser(email, password);
             return ResponseEntity.ok().body(
@@ -50,12 +51,13 @@ public class AuthController {
 
     // These are classes to format response as JSON for frontend
     static class LoginResponse {
-        private boolean authenticated;
+        private boolean authenticated, isAdmin;
         private String authMessage;
 
-        public LoginResponse(boolean authenticated, String authMessage) {
+        public LoginResponse(boolean authenticated, String authMessage, boolean isAdmin) {
             this.authenticated = authenticated;
             this.authMessage = authMessage;
+            this.isAdmin = isAdmin;
         }
 
         public boolean isAuthenticated() {
@@ -64,6 +66,10 @@ public class AuthController {
 
         public String getAuthMessage() {
             return authMessage;
+        }
+
+        public boolean isAdmin(){
+            return isAdmin;
         }
     }
 

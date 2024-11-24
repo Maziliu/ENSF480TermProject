@@ -27,19 +27,24 @@ public class RegisteredUser {
     @Column(name = "address", nullable = true)
     private String address;
 
+    @Column(name = "is_admin", nullable = false)
+    private Boolean isAdmin;
+
     //CTORS
     public RegisteredUser() {}
 
     public RegisteredUser(String email, String password){
         this.email = email;
         this.password = password;
+        this.isAdmin = false;
     }
 
-    public RegisteredUser(String email, String password, int theatreCredits, String address) {
+    public RegisteredUser(String email, String password, int theatreCredits, String address, boolean isAdmin) {
         this.email = email;
         this.password = password;
         this.theatreCredits = theatreCredits;
         this. address = address;
+        this.isAdmin = isAdmin;
     }
 
     //Get
@@ -61,6 +66,10 @@ public class RegisteredUser {
 
     public Long getUserId() {
         return userId;
+    }
+
+    public Boolean isAdmin(){
+        return isAdmin;
     }
 
     //Set

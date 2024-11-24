@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import ENSF480TermProject.backend.database.RegisteredUserRepository;
 import ENSF480TermProject.backend.models.RegisteredUser;
+import ENSF480TermProject.backend.utils.auth.AuthenticatedUser;
 
 @Service
 public class Authenticator {
@@ -19,13 +20,15 @@ public class Authenticator {
         userRepository.save(new RegisteredUser(email, password));
     }
 
-    public Optional<RegisteredUser> authenticateUser(String email, String password){
+    public Optional<AuthenticatedUser> authenticateUser(String email, String password) {
         Optional<RegisteredUser> registeredUser = userRepository.findByEmail(email);
 
-        if( registeredUser.isPresent() && password.equals(registeredUser.get().getPassword())){
-            return registeredUser;
+        if (registeredUser.isPresent() && password.equals(registeredUser.get().getPassword())) {
+            boolean isAdmin = userRepository.checkIfAdmin(registeredUser.get().getUserId());
+            return Optional.of(new AuthenticatedUser(registeredUser.get(), isAdmin));
         }
-        
+
         return Optional.empty();
     }
+
 }
