@@ -47,7 +47,8 @@ const MoviePage = () => {
     <div className="movie-page">
       <Header />
       <div className="movie-poster">
-        <img src={movie.posterUrl} alt={movie.movieName} />
+        {/* Add a fallback for missing poster URL */}
+        <img src={movie.posterUrl || 'default-poster.png'} alt={movie.movieName || 'Movie Poster'} />
       </div>
       <div className="movie-details">
         <h1>{movie.movieName}</h1>
@@ -68,10 +69,14 @@ const MoviePage = () => {
         <select value={selectedShowtime} onChange={handleShowtimeChange} disabled={!selectedTheatre}>
           <option value="">Select a Showtime</option>
           {showtimes
-            ?.filter((showtime) => showtime.theatre_id === parseInt(selectedTheatre))
+            ?.filter((showtime) =>
+              theatres
+                ?.find((theatre) => theatre.theatreId === parseInt(selectedTheatre))
+                ?.theatreRooms.some((room) => room.showtimes.some((st) => st.showtimeId === showtime.showtimeId))
+            )
             .map((showtime) => (
-              <option key={showtime.id} value={showtime.id}>
-                {new Date(showtime.time).toLocaleString()}
+              <option key={showtime.showtimeId} value={showtime.showtimeId}>
+                {new Date(showtime.airTime).toLocaleString()}
               </option>
             ))}
         </select>

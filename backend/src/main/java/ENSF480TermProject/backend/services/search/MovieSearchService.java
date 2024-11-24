@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ENSF480TermProject.backend.database.MovieRepository;
 import ENSF480TermProject.backend.models.Movie;
+import ENSF480TermProject.backend.models.Showtime;
 
 @Service
 public class MovieSearchService {
@@ -26,5 +27,9 @@ public class MovieSearchService {
 
     public Movie getMovieById(Long movieId){
         return movieRepository.findById(movieId).orElseThrow(() -> new RuntimeException("Movie not found with this id: " + movieId));
+    }
+
+    public List<Showtime> getAllShowtimes(){
+        return movieRepository.findAllShowtimes();
     }
 }

@@ -5,7 +5,7 @@ export const fetchMovieById = async (id) => {
 };
 
 export const fetchShowtimes = async () => {
-  const response = await fetch('http://localhost:8080/Showtimes');
+  const response = await fetch('http://localhost:8080/movies/showtimes');
   if (!response.ok) throw new Error('Failed to fetch showtimes');
   return response.json();
 };
