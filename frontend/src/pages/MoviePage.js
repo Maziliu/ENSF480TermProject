@@ -47,7 +47,6 @@ const MoviePage = () => {
     <div className="movie-page">
       <Header />
       <div className="movie-poster">
-        {/* Add a fallback for missing poster URL */}
         <img src={movie.posterUrl || 'default-poster.png'} alt={movie.movieName || 'Movie Poster'} />
       </div>
       <div className="movie-details">

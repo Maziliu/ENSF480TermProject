@@ -15,3 +15,14 @@ export const fetchTheatres = async () => {
   if (!response.ok) throw new Error('Failed to fetch theatres');
   return response.json();
 };
+
+export const fetchSeatData = async (showtimeId) => {
+  const response = await fetch(`http://localhost:8080/seats/${showtimeId}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  });
+  if (!response.ok) {
+    throw new Error('Failed to fetch seat data');
+  }
+  return await response.json();
+};
