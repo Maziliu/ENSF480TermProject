@@ -1,10 +1,15 @@
 package ENSF480TermProject.backend.models;
 
+import java.util.List;
+
+import org.hibernate.annotations.ManyToAny;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,7 +20,7 @@ public class Movie {
     @Column(name = "movie_id")
     private Long movieId;
 
-    @Column(name = "movie_name", nullable = false)
+    @Column(name = "movie_name", nullable = false, unique = true)
     private String movieName;
 
     @Column(name = "duration_in_seconds", nullable = false)
@@ -29,6 +34,9 @@ public class Movie {
 
     @Column(name = "rating_out_of_ten", nullable = true)
     private Double ratingOutOfTen;
+
+    @ManyToMany(mappedBy = "movies")
+    private List<TheatreRoom> theatreRooms;
 
     //CTORS
     public Movie(){}

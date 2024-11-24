@@ -1,6 +1,8 @@
 package ENSF480TermProject.backend.models;
 
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -21,6 +23,14 @@ public class TheatreRoom {
     @ManyToOne
     @JoinColumn(name = "theatre_id", nullable = false)
     private Theatre theatre;
+
+    @ManyToMany
+    @JoinTable(
+        name = "room_movies",
+        joinColumns = @JoinColumn(name = "room_id"),
+        inverseJoinColumns = @JoinColumn(name = "movie_id")
+    )
+    private List<Movie> movies;
 
     // Get and Sets
     public Long getRoomId() {

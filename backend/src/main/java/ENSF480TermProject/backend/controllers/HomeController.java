@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,5 +51,15 @@ public class HomeController {
     @GetMapping("/theatres")
     public ResponseEntity<List<Theatre>> getAllTheatres(){
        return ResponseEntity.ok(theatreSearchService.getAllTheatres());
+    }
+
+    @GetMapping("/theatres/search")
+    public ResponseEntity<List<Movie>> getMoviesAtSpecificTheatre(String theatreName){
+        List<Movie> results = theatreSearchService.getAllMoviesAtSpecificTheatre(theatreName);
+        if(results.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(theatreSearchService.getAllMoviesAtSpecificTheatre(theatreName));
     }
 }

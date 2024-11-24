@@ -26,10 +26,10 @@ public class Theatre {
     @Column(name = "theatre_name", nullable = false)
     private String theatreName;
 
-    @Column(name = "address", nullable = false)
+    @Column(name = "address", nullable = false, unique = true)
     private String address;
 
-    @OneToMany(mappedBy = "theatre")
+    @OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL)
     private List<TheatreRoom> theatreRooms;
 
     //CTORS

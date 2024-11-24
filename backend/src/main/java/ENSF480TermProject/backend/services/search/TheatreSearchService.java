@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ENSF480TermProject.backend.database.TheatreRepository;
+import ENSF480TermProject.backend.models.Movie;
 import ENSF480TermProject.backend.models.Theatre;
 import jakarta.transaction.Transactional;
 
@@ -26,5 +27,9 @@ public class TheatreSearchService {
             theatre.getRooms().size();
         }
         return theatres;
+    }
+
+    public List<Movie> getAllMoviesAtSpecificTheatre(String theatreName) {
+        return theatreRepository.findMoviesByTheatreName(theatreName);
     }
 }
