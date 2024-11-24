@@ -13,14 +13,12 @@ import jakarta.transaction.Transactional;
 @Service
 public class TheatreSearchService {
 
-    @Autowired
     private TheatreRepository theatreRepository;
 
     public TheatreSearchService(TheatreRepository theatreRepository) {
         this.theatreRepository = theatreRepository;
     }
 
-    @Transactional
     public List<Theatre> getAllTheatres() {
         List<Theatre> theatres = theatreRepository.findAll();
         for (Theatre theatre : theatres) {

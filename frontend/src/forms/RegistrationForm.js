@@ -11,7 +11,6 @@ const RegistrationForm = () => {
   const handleRegistration = (event) => {
     event.preventDefault();
 
-    // Validate input fields
     if (!email || !password || !confirmPassword) {
       setRegistrationMessage('All fields are required.');
       return;
@@ -52,7 +51,6 @@ const RegistrationForm = () => {
     setShowLogin(true);
   };
 
-  // If the user opts to switch to the login form, render it
   if (showLogin) {
     return <LoginForm />;
   }

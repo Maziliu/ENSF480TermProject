@@ -11,4 +11,5 @@ import ENSF480TermProject.backend.models.Movie;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long>{
     List<Movie> findByMovieNameContainingIgnoreCase(String movieName);
+    
 }

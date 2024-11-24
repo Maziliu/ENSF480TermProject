@@ -1,23 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { fetchTheatres } from '../services/api';
 
 const TheatreList = ({ onSelectTheatre }) => {
   const [theatres, setTheatres] = useState([]);
   const [selectedTheatre, setSelectedTheatre] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:8080/browse/theatres', {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error('API call failed');
-        }
+    fetchTheatres()
+      .then((data) => {
+        console.log('Fetched theatres:', data);
+        setTheatres(data);
       })
-      .then((data) => setTheatres(data))
-      .catch((error) => console.log(error));
+      .catch((error) => console.error('Error fetching theatres:', error));
   }, []);
 
   const handleChange = (event) => {
@@ -30,9 +24,9 @@ const TheatreList = ({ onSelectTheatre }) => {
     <div className="theatre-list">
       <select value={selectedTheatre} onChange={handleChange}>
         <option value="">Select a Theatre</option>
-        {theatres.map((theatre) => (
-          <option key={theatre.id} value={theatre.id}>
-            {theatre.name}
+        {theatres.map((theatre, index) => (
+          <option key={theatre.theatre_id || `theatre-${index}`} value={theatre.theatre_id}>
+            {theatre.theatre_name}
           </option>
         ))}
       </select>

@@ -6,7 +6,12 @@ export const useAuthContext = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const isAuthenticated = sessionStorage.getItem('authenticated');
-  const [authenticated, setAuthenticated] = useState(isAuthenticated ? isAuthenticated : false);
+  const [authenticated, setAuthenticated] = useState(isAuthenticated === 'true');
 
-  return <AuthContext.Provider value={{ authenticated, setAuthenticated }}>{children}</AuthContext.Provider>;
+  const logout = () => {
+    sessionStorage.removeItem('authenticated');
+    setAuthenticated(false);
+  };
+
+  return <AuthContext.Provider value={{ authenticated, setAuthenticated, logout }}>{children}</AuthContext.Provider>;
 };

@@ -17,9 +17,6 @@ public class TheatreRoom {
     @Column(name = "seat_map", columnDefinition = "JSON")
     private String seatmap;
 
-    @Column(name = "movie_list", columnDefinition = "JSON")
-    private String movieList;
-
     @ManyToOne
     @JoinColumn(name = "theatre_id", nullable = false)
     private Theatre theatre;
@@ -49,12 +46,5 @@ public class TheatreRoom {
         this.seatmap = seatmap;
     }
 
-    public String getMovieList() {
-        return movieList;
-    }
-
-    public void setMovieList(String movieList) {
-        this.movieList = movieList;
-    }
 }
 

@@ -17,7 +17,7 @@ function LoginForm() {
     if (isInitialRender) {
       setIsInitialRender(false);
     } else if (authenticated) {
-      navigate('/Products');
+      navigate('/');
     }
   }, [authenticated]);
 
@@ -45,6 +45,7 @@ function LoginForm() {
       setAuthenticationMessage(data.authMessage);
       setAuthenticated(data.authenticated);
       sessionStorage.setItem('authenticated', data.authenticated);
+      navigate('/');
     } catch (error) {
       setAuthenticationMessage(error.message || 'An error occurred');
     }

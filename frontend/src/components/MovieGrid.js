@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelectionContext } from '../contexts/SelectionContext';
 import MovieItem from './MovieItem';
 import '../styles/MovieGrid.css';
 
-const MovieGrid = ({ selectedTheatre, onSelectMovie }) => {
+const MovieGrid = () => {
+  const { selectedTheatre, handleSelectMovie } = useSelectionContext();
   const [movies, setMovies] = useState([]);
   const navigate = useNavigate();
 
@@ -26,8 +28,8 @@ const MovieGrid = ({ selectedTheatre, onSelectMovie }) => {
   }, [selectedTheatre]);
 
   const handleMovieClick = (id) => {
-    onSelectMovie(id);
-    navigate(`/movie/${id}`);
+    handleSelectMovie(id);
+    navigate(`/movies/${id}`);
   };
 
   return (

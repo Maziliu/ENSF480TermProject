@@ -23,4 +23,8 @@ public class MovieSearchService {
     public List<Movie> getAllMovies(){
         return movieRepository.findAll();
     }
+
+    public Movie getMovieById(Long movieId){
+        return movieRepository.findById(movieId).orElseThrow(() -> new RuntimeException("Movie not found with this id: " + movieId));
+    }
 }

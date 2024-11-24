@@ -1,24 +1,19 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { useAuthContext } from '../contexts/AuthContext';
+import LogoutButton from './buttons/LogoutButton';
 
-function Header() {
-  const headerStyle = {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  };
+const Header = () => {
+  const { authenticated } = useAuthContext();
 
   return (
-    <div>
-      <div className="header" style={headerStyle}>
-        <img style={{ height: '60px' }} src="/images/logo.png" className="logo" alt="acmeplex logo" />
-        <h1 style={{ fontWeight: 'normal', fontSize: '20px' }}>AcmePlex</h1>
-      </div>
-      <div className="navbar" style={headerStyle}>
-        <a href="/">Home</a>
-        <a href="/Login">Login</a>
-      </div>
-    </div>
+    <header>
+      <nav>
+        <Link to="/">Home</Link>
+        {authenticated ? <LogoutButton /> : <Link to="/login">Login</Link>}
+      </nav>
+    </header>
   );
-}
+};
 
 export default Header;

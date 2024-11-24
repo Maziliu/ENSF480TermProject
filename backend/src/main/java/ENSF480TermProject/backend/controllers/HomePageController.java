@@ -21,11 +21,11 @@ import ENSF480TermProject.backend.services.search.TheatreSearchService;
 @RestController
 @RequestMapping("/browse")
 @CrossOrigin(origins = "http://localhost:3000")
-public class HomeController {
+public class HomePageController {
     private final MovieSearchService movieSearchService;
     private final TheatreSearchService theatreSearchService;
 
-    public HomeController(MovieSearchService movieSearchService, TheatreSearchService theatreSearchService){
+    public HomePageController(MovieSearchService movieSearchService, TheatreSearchService theatreSearchService){
         this.movieSearchService = movieSearchService;
         this.theatreSearchService = theatreSearchService;
     }

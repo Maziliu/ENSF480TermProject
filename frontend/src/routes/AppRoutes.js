@@ -1,12 +1,14 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import LoginPage from '../pages/LoginPage';
 import HomePage from '../pages/HomePage';
+import MoviePage from '../pages/MoviePage';
+import LoginPage from '../pages/LoginPage';
 
-const AppRoutes = ({ selectedTheatre, handleSelectTheatre, handleSelectMovie }) => (
+const AppRoutes = () => (
   <Routes>
-    <Route path="/" element={<HomePage selectedTheatre={selectedTheatre} handleSelectTheatre={handleSelectTheatre} handleSelectMovie={handleSelectMovie} />} />
-    <Route path="/Login" element={<LoginPage />} />
+    <Route path="/" element={<HomePage />} />
+    <Route path="/login" element={<LoginPage />} />
+    <Route path="/movies/:id" element={<MoviePage />} />
   </Routes>
 );
 

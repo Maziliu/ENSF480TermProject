@@ -1,14 +1,11 @@
 import React from 'react';
 
-const MovieItem = ({ movie }) => {
-  return (
-    <div className="movie-item">
-      <div className="movie-poster">
-        <img src={movie.posterUrl} alt={movie.title} />
-      </div>
-      <div className="movie-title">{movie.movieName}</div>
-    </div>
-  );
-};
+const MovieItem = ({ movie }) => (
+  <div className="movie-item">
+    <img src={movie.posterUrl} alt={movie.movieName} />
+    <h3>{movie.movieName}</h3>
+    <p>{movie.genre}</p>
+  </div>
+);
 
 export default MovieItem;
