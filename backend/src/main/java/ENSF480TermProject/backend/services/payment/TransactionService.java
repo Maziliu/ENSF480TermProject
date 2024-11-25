@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
-import ENSF480TermProject.backend.dtos.Transaction.PaymentDTO;
-import ENSF480TermProject.backend.dtos.Transaction.RefundDTO;
-import ENSF480TermProject.backend.dtos.Transaction.TicketPurchaseDTO;
-import ENSF480TermProject.backend.dtos.Transaction.TicketRefundDTO;
+import ENSF480TermProject.backend.dtos.Transaction.requests.TicketPurchaseDTO;
+import ENSF480TermProject.backend.dtos.Transaction.requests.TicketRefundDTO;
+import ENSF480TermProject.backend.dtos.Transaction.responses.PaymentDTO;
+import ENSF480TermProject.backend.dtos.Transaction.responses.RefundDTO;
 import ENSF480TermProject.backend.enums.TransactionType;
 import ENSF480TermProject.backend.interfaces.TransactionStrategy;
 import ENSF480TermProject.backend.models.Purchase;

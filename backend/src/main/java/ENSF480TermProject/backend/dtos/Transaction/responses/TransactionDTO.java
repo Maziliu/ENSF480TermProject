@@ -1,4 +1,4 @@
-package ENSF480TermProject.backend.dtos.Transaction;
+package ENSF480TermProject.backend.dtos.Transaction.responses;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

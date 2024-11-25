@@ -9,8 +9,7 @@ import javax.swing.text.html.parser.Entity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import ENSF480TermProject.backend.dtos.Transaction.RefundDTO;
-import ENSF480TermProject.backend.dtos.Transaction.TransactionDTO;
+import ENSF480TermProject.backend.dtos.Transaction.responses.RefundDTO;
 import ENSF480TermProject.backend.enums.RefundStatus;
 import ENSF480TermProject.backend.enums.TransactionStatus;
 import ENSF480TermProject.backend.enums.TransactionType;
@@ -63,6 +62,7 @@ public class RefundTransactionStrategy implements TransactionStrategy{
         }
 
         Purchase purchaseToRefund = (Purchase) transactionToRefund.get();
+        refund.setTransactionAmount(purchaseToRefund.getTransactionAmount());
 
         //Finds the ticket that associated with purchase and checks existance
         Optional<Ticket> ticket = ticketRepository.findById(purchaseToRefund.getTicketId());

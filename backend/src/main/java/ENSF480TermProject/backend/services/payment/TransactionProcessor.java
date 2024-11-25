@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import ENSF480TermProject.backend.dtos.Transaction.PaymentDTO;
-import ENSF480TermProject.backend.dtos.Transaction.TransactionDTO;
+import ENSF480TermProject.backend.dtos.Transaction.responses.PaymentDTO;
+import ENSF480TermProject.backend.dtos.Transaction.responses.TransactionDTO;
 import ENSF480TermProject.backend.enums.PaymentType;
 import ENSF480TermProject.backend.enums.TransactionType;
 import ENSF480TermProject.backend.interfaces.TransactionStrategy;

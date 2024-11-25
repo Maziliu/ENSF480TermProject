@@ -1,6 +1,6 @@
 package ENSF480TermProject.backend.interfaces;
 
-import ENSF480TermProject.backend.dtos.Transaction.TransactionDTO;
+import ENSF480TermProject.backend.dtos.Transaction.responses.TransactionDTO;
 import ENSF480TermProject.backend.enums.TransactionType;
 import ENSF480TermProject.backend.models.Transaction;
 import ENSF480TermProject.backend.repositories.RegisteredUserRepository;

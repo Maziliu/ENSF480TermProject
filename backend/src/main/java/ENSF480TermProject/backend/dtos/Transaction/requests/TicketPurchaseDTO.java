@@ -1,4 +1,4 @@
-package ENSF480TermProject.backend.dtos.Transaction;
+package ENSF480TermProject.backend.dtos.Transaction.requests;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

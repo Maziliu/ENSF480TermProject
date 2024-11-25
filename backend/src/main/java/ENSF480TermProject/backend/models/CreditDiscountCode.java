@@ -40,6 +40,7 @@ public class CreditDiscountCode {
         this.creditAmount = creditAmount;
         this.creationDate = LocalDateTime.now();
         this.expireDate = creationDate.plusYears(1);
+        this.codeStatus = CreditDiscountCodeStatus.ACTIVE;
     }
 
     //Get
