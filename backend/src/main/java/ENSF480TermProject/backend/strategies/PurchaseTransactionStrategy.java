@@ -3,6 +3,8 @@ package ENSF480TermProject.backend.strategies;
 import java.math.BigDecimal;
 import java.util.Optional;
 
+import org.springframework.stereotype.Component;
+
 import ENSF480TermProject.backend.dtos.Transaction.PaymentDTO;
 import ENSF480TermProject.backend.enums.TransactionType;
 import ENSF480TermProject.backend.interfaces.TransactionStrategy;
@@ -15,9 +17,25 @@ import ENSF480TermProject.backend.repositories.TicketRepository;
 import ENSF480TermProject.backend.repositories.TransactionRepository;
 import jakarta.persistence.EntityNotFoundException;
 
+@Component
 public class PurchaseTransactionStrategy implements TransactionStrategy {
+    private final TransactionRepository transactionRepository;
+    private final RegisteredUserRepository registeredUserRepository;
+    private final TicketRepository ticketRepository;
+
+    public PurchaseTransactionStrategy(TransactionRepository transactionRepository, RegisteredUserRepository registeredUserRepository, TicketRepository ticketRepository) {
+        this.transactionRepository = transactionRepository;
+        this.registeredUserRepository = registeredUserRepository;
+        this.ticketRepository = ticketRepository;
+    }
+    
     @Override
-    public PaymentDTO processTransaction(Transaction transaction, TransactionRepository transactionRepository, RegisteredUserRepository registeredUserRepository, TicketRepository ticketRepository) {
+    public TransactionType getType() {
+        return TransactionType.PURCHASE;
+    }
+    
+    @Override
+    public PaymentDTO processTransaction(Transaction transaction) {
         Purchase purchase = (Purchase) transaction;
         PaymentDTO paymentDTO = null;
 
@@ -48,5 +66,7 @@ public class PurchaseTransactionStrategy implements TransactionStrategy {
         transactionRepository.save(purchase);
         return paymentDTO;
     }
+
+
 }
 

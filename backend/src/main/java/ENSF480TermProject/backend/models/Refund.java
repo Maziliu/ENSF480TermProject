@@ -19,7 +19,7 @@ public class Refund extends Transaction{
     }
 
     public Refund(BigDecimal transactionAmount, LocalDateTime transactionDateTime, Long userId, String userEmail, UUID refundedTransactionId) {
-        super(transactionAmount, transactionDateTime, new RefundTransactionStrategy(), userId, userEmail);
+        super(transactionAmount, transactionDateTime, userId, userEmail);
         this.refundedTransactionId = refundedTransactionId;
     }
 
