@@ -1,0 +1,28 @@
+/* Select Theater */
+.theatre-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+  
+.theatre-list select {
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 12px;
+    border: 2px solid white;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+  
+.theatre-list select:hover {
+    border-color: #4ccc;
+}
+  
+.theatre-list select:focus {
+    outline: none;
+    border-color: #4ccc;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}

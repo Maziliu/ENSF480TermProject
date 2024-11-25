@@ -1,11 +1,13 @@
 import React from 'react';
+import '../styles/Footer.css';
+
 
 function Footer() {
-  return (
-    <div>
-      <p style={{ textAlign: 'left' }}>© 2024 AcmePlex All rights reserved.</p>
+  return(
+    <div className='footer'>
+        <p>© 2024 AcmePlex All rights reserved.</p>
     </div>
-  );
+  )
 }
 
 export default Footer;

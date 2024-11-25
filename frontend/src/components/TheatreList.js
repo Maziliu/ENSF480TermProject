@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchTheatres } from '../services/api';
 import { useSelectionContext } from '../contexts/SelectionContext';
+import '../styles/TheaterList.css';
 
 const TheatreList = () => {
   const [theatres, setTheatres] = useState([]);
