@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/SearchBar.css';
+import searchIcon from '../images/search.png';
 
 const SearchBar = ({handleSetMovieList, query, setQuery}) => {
   
@@ -24,8 +26,13 @@ const SearchBar = ({handleSetMovieList, query, setQuery}) => {
   }, [query]);
 
   return (
-    <div>
-      <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search movies..." />
+    <div className='search'>
+      <form className='search-bar'>
+        <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search movies..." />
+        <button className='search-button'>
+          <img src={searchIcon} alt="🔍" className='search-icon'/>
+        </button>
+      </form>
     </div>
   );
 };
