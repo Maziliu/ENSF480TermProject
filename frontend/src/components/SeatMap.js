@@ -36,7 +36,7 @@ const SeatMap = () => {
 
   const handleProceedToPayment = () => {
     if (selectedSeat) {
-      navigate(`/payment/${showtimeId}/${selectedSeat.row}-${selectedSeat.column}`);
+      navigate(`/payment/${showtimeId}/${selectedSeat.row + 1}-${selectedSeat.column + 1}`);
     } else {
       alert('Please select a seat.');
     }

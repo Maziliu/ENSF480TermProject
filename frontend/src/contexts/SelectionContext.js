@@ -18,6 +18,8 @@ export const SelectionProvider = ({ children }) => {
     setSelectedTheatreName(theatreName);
     setSelectedShowtime('');
     setSelectedShowtimeTime('');
+    console.log("selected theatre: ", selectedTheatreName);
+    console.log("selected theatreid: ", selectedTheatre);
   };
 
   const handleSelectMovie = (movieId, movieName) => {
@@ -25,6 +27,8 @@ export const SelectionProvider = ({ children }) => {
     setSelectedMovieName(movieName);
     setSelectedShowtime('');
     setSelectedShowtimeTime('');
+    console.log("selected movie:", selectedMovieName);
+    console.log("selected movieid: ", selectedMovie);
   };
 
   const handleSelectShowtime = (showtimeId, showtimeTime) => {

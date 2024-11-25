@@ -18,13 +18,37 @@ const AdminPage = () => {
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
+  function formatShowtime(newShowtime) {
+    console.log("date: ", newShowtime.date);
+    console.log("time: ", newShowtime.time);
+    const date = new Date(newShowtime.date + 'T' + newShowtime.time);
+    
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    
+    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+  }
+
+  const splitDatetime = (datetime)=> {
+    const [date, time] = datetime.split('T');
+    
+    return {
+        date: date,// 'YYYY-MM-DD'
+        time: time// 'HH:MM:SS'
+    };
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const usersResponse = await fetch('http://localhost:8080/users');
-        const theatresResponse = await fetch('http://locahost:8080/theatres');
-        const moviesResponse = await fetch('http://localhost:5000/movies');
-        const showtimesResponse = await fetch('http://localhost:5000/showtimes');
+        const usersResponse = await fetch('http://localhost:5000/Users');
+        const theatresResponse = await fetch('http://localhost:5000/Theatres');
+        const moviesResponse = await fetch('http://localhost:5000/Movies');
+        const showtimesResponse = await fetch('http://localhost:5000/Showtimes');
 
         const usersData = await usersResponse.json();
         const theatresData = await theatresResponse.json();
@@ -70,8 +94,8 @@ const AdminPage = () => {
       setNewShowtime({
         theatreId: selectedShowtime.theatreId,
         movieId: selectedShowtime.movieId,
-        date: selectedShowtime.date,
-        time: selectedShowtime.time,
+        date: splitDatetime(selectedShowtime.time).date,
+        time: splitDatetime(selectedShowtime.time).time,
       });
     } else {
       setNewShowtime({ theatreId: '', movieId: '', date: '', time: '' });
@@ -80,8 +104,9 @@ const AdminPage = () => {
 
   const handleAddOrUpdateTheatre = () => {
     const newTheatreData = { name: newTheatre.name, location: newTheatre.location };
+    console.log("sending: ", newTheatreData);
     const method = selectedTheatre ? 'PUT' : 'POST';
-    const url = selectedTheatre ? `http://localhost:8080/theatres/update/${selectedTheatre.id}` : 'http://localhost:8080/theatres/add';
+    const url = selectedTheatre ? `http://localhost:5000/Theatres/Update/${selectedTheatre.id}` : 'http://localhost:8080/theatres/add';
 
     fetch(url, {
       method,
@@ -112,6 +137,10 @@ const AdminPage = () => {
       });
   };
 
+  const handleRemoveTheatre = () =>{
+    console.log("need to implement remove");
+  }
+
   const handleAddOrUpdateMovie = () => {
     const newMovieData = {
       title: newMovie.title,
@@ -120,8 +149,9 @@ const AdminPage = () => {
       description: newMovie.description,
       rating: newMovie.rating,
     };
+    console.log("sending: ", newMovieData);
     const method = selectedMovie ? 'PUT' : 'POST';
-    const url = selectedMovie ? `http://localhost:8080/movies/update/${selectedMovie.id}` : 'http://localhost:8080/movies/add';
+    const url = selectedMovie ? `http://localhost:5000/Movies/Update/${selectedMovie.id}` : 'http://localhost:8080/movies/add';
 
     fetch(url, {
       method,
@@ -152,15 +182,20 @@ const AdminPage = () => {
       });
   };
 
+  const handleRemoveMovie = () =>{
+    console.log("need to implement remove");
+  }
+
   const handleAddOrUpdateShowtime = () => {
     const newShowtimeData = {
       theatreId: newShowtime.theatreId,
       movieId: newShowtime.movieId,
-      date: newShowtime.date,
-      time: newShowtime.time,
+      time: formatShowtime(newShowtime.date, newShowtime.time)
     };
+    console.log("sending: ", newShowtimeData);
+
     const method = selectedShowtime ? 'PUT' : 'POST';
-    const url = selectedShowtime ? `http://localhost:8080/showtimes/update/${selectedShowtime.id}` : 'http://localhost:8080/showtimes/add';
+    const url = selectedShowtime ? `http://localhost:5000/Showtimes/Update/${selectedShowtime.id}` : 'http://localhost:8080/showtimes/add';
 
     fetch(url, {
       method,
@@ -191,8 +226,12 @@ const AdminPage = () => {
       });
   };
 
+  const handleRemoveShowtime = () =>{
+    console.log("need to implement remove");
+  }
+
   const handleUpdateUserRole = (username, newRole) => {
-    fetch(`http://localhost:8080/user/update/${username}`, {
+    fetch(`http://localhost:5000/User/Update/${username}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ role: newRole }),
@@ -215,7 +254,7 @@ const AdminPage = () => {
   };
 
   const handleRemoveUser = (username) => {
-    fetch(`http://localhost:8080/user/${username}/unregister`, { method: 'DELETE' })
+    fetch(`http://localhost:5000/User/${username}/Unregister`, { method: 'DELETE' })
       .then(response => response.json())
       .then(data => {
         if (data.message) {
@@ -280,6 +319,7 @@ const AdminPage = () => {
               <li key={theatre.id}>
                 {theatre.name} - {theatre.location}
                 <button onClick={() => setSelectedTheatre(theatre)}>Edit</button>
+                <button onClick={() => handleRemoveTheatre(theatre.id)}>Remove</button>
               </li>
             ))}
           </ul>
@@ -324,6 +364,7 @@ const AdminPage = () => {
               <li key={movie.id}>
                 {movie.title} - {movie.genre}
                 <button onClick={() => setSelectedMovie(movie)}>Edit</button>
+                <button onClick={() => handleRemoveMovie(movie.id)}>Remove</button>
               </li>
             ))}
           </ul>
@@ -369,8 +410,9 @@ const AdminPage = () => {
           <ul>
             {showtimes.map((showtime) => (
               <li key={showtime.id}>
-                {showtime.theatreId} - {showtime.movieId} - {showtime.date} {showtime.time}
+                {theatres.find(theatre => theatre.id === showtime.theatreId).name} - {movies.find(movie => movie.id === showtime.movieId).title} - {new Date(showtime.time).toLocaleString()}
                 <button onClick={() => setSelectedShowtime(showtime)}>Edit</button>
+                <button onClick={() => handleRemoveShowtime(showtime.remove)}>Remove</button>
               </li>
             ))}
           </ul>

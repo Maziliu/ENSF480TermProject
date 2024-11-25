@@ -97,7 +97,7 @@ const PaymentPage = () => {
       return;
     }
 
-    const [row, column] = seatName.split('-').map(Number);
+    const [row, column] = seatName.split('-').map(num => Number(num) - 1);
     const selectedSeat = {
         row,
         column,
@@ -128,7 +128,7 @@ const PaymentPage = () => {
 
     console.log(paymentData);
 
-    fetch('http://localhost:8080/payment', {
+    fetch('http://localhost:8080/transaction/purchase', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(paymentData)
