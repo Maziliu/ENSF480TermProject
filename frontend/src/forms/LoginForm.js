@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext';
 import RegistrationForm from './RegistrationForm';
+import '../styles/LoginForm.css';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -63,24 +64,24 @@ function LoginForm() {
 
   return (
     <div>
-      <h1>Login</h1>
-      <form onSubmit={handleAuthentication}>
-        <p style={{ color: 'red' }}>{authenticationMessage}</p>
+      <h1 className='header'>Login</h1>
+      <form className='login-container' onSubmit={handleAuthentication}>
+        <p className='login-error-message'>{authenticationMessage}</p>
 
-        <div>
-          <label>Email:</label>
+        <div className='login-input'>
+          <label>Email</label>
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" required />
         </div>
 
-        <div>
-          <label>Password:</label>
+        <div className='login-input'>
+          <label>Password</label>
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" required />
         </div>
 
-        <button type="submit">Login</button>
+        <button className='login-button' type="submit">Login</button>
       </form>
 
-      <button onClick={gotoSignupForm}>Switch to Signup</button>
+      <button className='login-switch' onClick={gotoSignupForm}>Switch to Signup</button>
     </div>
   );
 }

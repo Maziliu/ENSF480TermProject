@@ -10,32 +10,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ENSF480TermProject.backend.dtos.Transaction.PaymentDTO;
-import ENSF480TermProject.backend.dtos.Transaction.RefundDTO;
-import ENSF480TermProject.backend.dtos.Transaction.TicketPurchaseDTO;
-import ENSF480TermProject.backend.dtos.Transaction.TicketRefundDTO;
+import ENSF480TermProject.backend.dtos.Transaction.requests.TicketPurchaseDTO;
+import ENSF480TermProject.backend.dtos.Transaction.requests.TicketRefundDTO;
+import ENSF480TermProject.backend.dtos.Transaction.responses.PaymentDTO;
+import ENSF480TermProject.backend.dtos.Transaction.responses.RefundDTO;
 import ENSF480TermProject.backend.models.Purchase;
-import ENSF480TermProject.backend.services.payment.PaymentService;
+import ENSF480TermProject.backend.services.payment.TransactionService;
 
 @RestController
 @RequestMapping("/transaction")
 @CrossOrigin(origins = "http://localhost:3000")
 public class TransactionController {
 
-    private final PaymentService paymentService;
+    private final TransactionService transactionService;
 
-    public TransactionController(PaymentService paymentService) {
-        this.paymentService = paymentService;
+    public TransactionController(TransactionService transactionService) {
+        this.transactionService = transactionService;
     }
 
     @PostMapping("/purchase") 
     public ResponseEntity<PaymentDTO> makePurchase(@RequestBody TicketPurchaseDTO purchaseJSON) {
-        return paymentService.makePurchase(purchaseJSON).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.badRequest().build()); 
+        return transactionService.makePurchase(purchaseJSON).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.badRequest().build()); 
     }
 
-    // @PostMapping("/refund")
-    // public ResponseEntity<RefundDTO> makeRefund(@RequestBody TicketRefundDTO refundDTO){
-        
-    // }
+    @PostMapping("/refund")
+    public ResponseEntity<RefundDTO> makeRefund(@RequestBody TicketRefundDTO refundJSON){
+        return transactionService.makeRefund(refundJSON).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.badRequest().build());
+    }
 }
 

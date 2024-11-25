@@ -1,0 +1,50 @@
+/* Main Style */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3 {
+    font-weight: normal;
+    color: #f4f4f4;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+}
+
+.title-container {
+    flex-grow: 1;
+    justify-content: center;
+    margin-left: 33%;
+}
+
+/* Logo */
+.logoimage {
+    height: 40px;
+    width: auto;
+}
+
+.logo-link {
+    text-decoration: none;
+    color: white;
+    font-size: 15px;
+    font-weight: normal;
+    padding: 10px 15px;
+    transition: color 0.3s ease, background-color 0.3s;
+    cursor: pointer;
+}
+
+.logo-link:hover {
+    color: rgb(82, 82, 235);
+}
+
+  

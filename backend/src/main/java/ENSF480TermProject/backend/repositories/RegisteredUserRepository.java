@@ -23,4 +23,9 @@ public interface RegisteredUserRepository extends JpaRepository<RegisteredUser, 
     @Transactional
     @Query("UPDATE RegisteredUser ru SET ru.theatreCredits = ru.theatreCredits - :amount WHERE ru.userId = :user_id AND ru.theatreCredits >= :amount")
     int subtractTheatreCredits(@Param("user_id") Long userId, @Param("amount") int amount);
+    
+    @Modifying
+    @Transactional
+    @Query("UPDATE RegisteredUser ru SET ru.theatreCredits = ru.theatreCredits + :amount WHERE ru.userId = :user_id")
+    int addTheatreCredits(@Param("user_id") Long userId, @Param("amount") int amount);
 }

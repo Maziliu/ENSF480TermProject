@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchTheatres } from '../services/api';
 import { useSelectionContext } from '../contexts/SelectionContext';
+import '../styles/TheaterList.css';
 
 const TheatreList = () => {
   const [theatres, setTheatres] = useState([]);
@@ -13,8 +14,8 @@ const TheatreList = () => {
   }, []);
 
   const handleChange = (event) => {
-    const selectedId = event.target.key;
-    const selectedName = event.target.value;
+    const selectedId = event.target.value;
+    const selectedName = event.target.options[event.target.selectedIndex].text;
     handleSelectTheatre(selectedId, selectedName);
   };
 
@@ -23,7 +24,7 @@ const TheatreList = () => {
       <select value={selectedTheatre} onChange={handleChange}>
         <option value="">Select a Theatre</option>
         {theatres.map((theatre) => (
-          <option key={theatre.theatreId} value={theatre.theatreName}>
+          <option key={theatre.theatreId} value={theatre.theatreId}>
             {theatre.theatreName}
           </option>
         ))}

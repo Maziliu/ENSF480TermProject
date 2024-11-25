@@ -50,21 +50,15 @@ public abstract class Transaction {
     @Column(name = "transaction_status", nullable = false)
     private TransactionStatus transactionStatus;
 
-    @Transient
-    @JsonIgnore
-    private final TransactionStrategy transactionStrategy;
-
-    public Transaction(BigDecimal transactionAmount, LocalDateTime transactionDateTime, TransactionStrategy transactionStrategy, Long userId, String userEmail) {
+    public Transaction(BigDecimal transactionAmount, LocalDateTime transactionDateTime, Long userId, String userEmail) {
         this.transactionAmount = transactionAmount.setScale(2, RoundingMode.HALF_UP);
         this.transactionDateTime = transactionDateTime;
-        this.transactionStrategy = transactionStrategy;
         this.userId = userId;
         this.userEmail = userEmail;
         this.transactionStatus = TransactionStatus.PAID;
     }
 
     public Transaction() {
-        this.transactionStrategy = null;
     }
 
     //Get
@@ -82,10 +76,6 @@ public abstract class Transaction {
 
     public Long getUserId() {
         return userId;
-    }
-
-    public TransactionStrategy getTransactionStrategy() {
-        return transactionStrategy;
     }
 
     public String getUserEmail() {

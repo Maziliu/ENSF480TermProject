@@ -22,13 +22,13 @@ public class Purchase extends Transaction {
 
     
     public Purchase(Ticket ticket, RegisteredUser registeredUser, BigDecimal transactionAmount) {
-        super(transactionAmount, LocalDateTime.now(), new PurchaseTransactionStrategy(), registeredUser.getUserId(), registeredUser.getEmail());
+        super(transactionAmount, LocalDateTime.now(), registeredUser.getUserId(), registeredUser.getEmail());
         this.ticketId = ticket.getTicketId();
         this.ticket = ticket;
     }
 
     public Purchase(Ticket ticket, String userEmail, BigDecimal transactionAmount) {
-        super(transactionAmount, LocalDateTime.now(), new PurchaseTransactionStrategy(), null, userEmail);
+        super(transactionAmount, LocalDateTime.now(), null, userEmail);
         this.ticketId = ticket.getTicketId();
         this.ticket = ticket;
     }

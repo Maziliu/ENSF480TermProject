@@ -6,6 +6,7 @@ import TheatreList from '../components/TheatreList';
 import { useState, useEffect } from 'react';
 import { useSelectionContext } from '../contexts/SelectionContext';
 
+
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState('');

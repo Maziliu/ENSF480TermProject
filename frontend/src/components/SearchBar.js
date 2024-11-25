@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useSelectionContext } from '../contexts/SelectionContext';
+import '../styles/SearchBar.css';
+import searchIcon from '../images/search.png';
 
 const SearchBar = ({handleSetMovieList, query, setQuery}) => {
+  const { handleSelectTheatre } = useSelectionContext();
   
   useEffect(() => {
     console.log('Searching for:', query)
@@ -14,6 +18,7 @@ const SearchBar = ({handleSetMovieList, query, setQuery}) => {
     })
       .then((response) => {
         if (response.ok) {
+          handleSelectTheatre('','');
           return response.json();
         } else {
           throw new Error('API call failed');
@@ -24,8 +29,13 @@ const SearchBar = ({handleSetMovieList, query, setQuery}) => {
   }, [query]);
 
   return (
-    <div>
-      <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search movies..." />
+    <div className='search'>
+      <form className='search-bar'>
+        <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search movies..." />
+        <button className='search-button'>
+          <img src={searchIcon} alt="🔍" className='search-icon'/>
+        </button>
+      </form>
     </div>
   );
 };

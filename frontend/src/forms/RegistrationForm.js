@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import LoginForm from './LoginForm';
+import '../styles/RegistrationForm.css';
+
 
 const RegistrationForm = () => {
   const [email, setEmail] = useState('');
@@ -57,22 +59,29 @@ const RegistrationForm = () => {
 
   return (
     <div>
-      <h1>Register</h1>
+      <h1 className='header'>Register</h1>
       <p style={{ color: 'red' }}>{registrationMessage}</p>
-      <form onSubmit={handleRegistration}>
-        <label>Email:</label>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" required />
-        <br />
-        <label>Password:</label>
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" required />
-        <br />
-        <label>Confirm Password:</label>
-        <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm your password" required />
-        <br />
-        <button type="submit">Register</button>
+      <form className='registration-container' onSubmit={handleRegistration}>
+        <div className='registration-input'>
+          <label>Email</label>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" required />
+        </div>
+        
+        <div className='registration-input'>
+          <label>Password</label>
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" required />
+        </div>
+      
+        <div className='registration-input'>
+          <label>Confirm Password</label>
+          <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm your password" required />
+        </div>
+        
+        <button className='registration-button' type="submit">Register</button>
       </form>
-      <button onClick={gotoLoginForm}>Switch to Login</button>
+      <button className='registration-switch' onClick={gotoLoginForm}>Switch to Login</button>
     </div>
+    
   );
 };
 
