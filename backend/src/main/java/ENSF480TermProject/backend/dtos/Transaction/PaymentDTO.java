@@ -3,17 +3,20 @@ package ENSF480TermProject.backend.dtos.Transaction;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import ENSF480TermProject.backend.enums.TransactionType;
 
 public class PaymentDTO {
+    private UUID transactionId;
     private TransactionType transactionType;
     private LocalDateTime transactionDate;
     private PaymentBreakdown paymentBreakdown;
     private Long userId = null;
     private String userEmail;
 
-    public PaymentDTO(TransactionType transactionType, LocalDateTime transactionDate, BigDecimal totalTransactionAmount, Long userId, String userEmail) {
+    public PaymentDTO(UUID transactionId, TransactionType transactionType, LocalDateTime transactionDate, BigDecimal totalTransactionAmount, Long userId, String userEmail) {
+        this.transactionId = transactionId;
         this.transactionType = transactionType;
         this.transactionDate = transactionDate;
         this.userId = userId;
@@ -21,7 +24,8 @@ public class PaymentDTO {
 
         this.paymentBreakdown = new PaymentBreakdown(totalTransactionAmount, new BigDecimal(0), totalTransactionAmount);
     }
-    public PaymentDTO(TransactionType transactionType, LocalDateTime transactionDate, BigDecimal totalTransactionAmount, BigDecimal amountPaidByCredits, BigDecimal amountPaidByUser, Long userId, String userEmail) {
+    public PaymentDTO(UUID transactionId, TransactionType transactionType, LocalDateTime transactionDate, BigDecimal totalTransactionAmount, BigDecimal amountPaidByCredits, BigDecimal amountPaidByUser, Long userId, String userEmail) {
+         this.transactionId = transactionId;
         this.transactionType = transactionType;
         this.transactionDate = transactionDate;
         this.userId = userId;
@@ -51,6 +55,10 @@ public class PaymentDTO {
         return userId;
     }
 
+    public UUID getTransactionId() {
+        return transactionId;
+    }
+
     //Set
     public void setPaymentBreakdown(PaymentBreakdown paymentBreakdown) {
         this.paymentBreakdown = paymentBreakdown;
@@ -70,6 +78,10 @@ public class PaymentDTO {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public void setTransactionId(UUID transactionId) {
+        this.transactionId = transactionId;
     }
 
     public static class PaymentBreakdown {

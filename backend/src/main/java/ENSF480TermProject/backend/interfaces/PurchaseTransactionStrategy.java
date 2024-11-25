@@ -16,10 +16,9 @@ public class PurchaseTransactionStrategy implements TransactionStrategy {
     public PaymentDTO proccessTransaction(Transaction transaction, TransactionRepository transactionRepository, RegisteredUserRepository registeredUserRepository) {
         if (transaction.getUserId() == null) {
             return new PaymentDTO(
+                transaction.getTransactionId(),
                 TransactionType.PURCHASE,
                 transaction.getTransactionDateTime(),
-                transaction.getTransactionAmount(),
-                BigDecimal.ZERO, 
                 transaction.getTransactionAmount(), 
                 null, 
                 transaction.getUserEmail()
@@ -54,6 +53,7 @@ public class PurchaseTransactionStrategy implements TransactionStrategy {
             transactionRepository.save(transaction);
 
             return new PaymentDTO(
+                transaction.getTransactionId(),
                 TransactionType.PURCHASE,
                 transaction.getTransactionDateTime(),
                 transactionAmount,
