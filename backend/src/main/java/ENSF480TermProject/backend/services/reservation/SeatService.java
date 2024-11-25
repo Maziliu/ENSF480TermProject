@@ -8,8 +8,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import ENSF480TermProject.backend.database.ShowtimeRepository;
 import ENSF480TermProject.backend.models.Showtime;
+import ENSF480TermProject.backend.repositories.ShowtimeRepository;
 import ENSF480TermProject.backend.utils.SeatPosition;
 
 @Service

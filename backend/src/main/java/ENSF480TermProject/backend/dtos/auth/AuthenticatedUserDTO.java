@@ -1,12 +1,12 @@
-package ENSF480TermProject.backend.utils.auth;
+package ENSF480TermProject.backend.dtos.auth;
 
 import ENSF480TermProject.backend.models.RegisteredUser;
 
-public class AuthenticatedUser {
+public class AuthenticatedUserDTO {
     private RegisteredUser user;
     private boolean isAdmin;
 
-    public AuthenticatedUser(RegisteredUser user, boolean isAdmin) {
+    public AuthenticatedUserDTO(RegisteredUser user, boolean isAdmin) {
         this.user = user;
         this.isAdmin = isAdmin;
     }

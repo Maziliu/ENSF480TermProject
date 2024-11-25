@@ -6,9 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import ENSF480TermProject.backend.dtos.auth.AuthenticatedUserDTO;
 import ENSF480TermProject.backend.models.RegisteredUser;
 import ENSF480TermProject.backend.services.auth.Authenticator;
-import ENSF480TermProject.backend.utils.auth.AuthenticatedUser;
 
 @RestController
 @RequestMapping("/auth")
@@ -23,7 +23,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestParam String email, @RequestParam String password) {
-        Optional<AuthenticatedUser> user = authenticator.authenticateUser(email, password);
+        Optional<AuthenticatedUserDTO> user = authenticator.authenticateUser(email, password);
         if (user.isPresent()) {
             return ResponseEntity.ok().body(
                 new LoginResponse(true, "Login successful!", user.get().isAdmin())
@@ -36,7 +36,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<Object> register(@RequestParam String email, @RequestParam String password) {
-        Optional<AuthenticatedUser> user = authenticator.authenticateUser(email, password);
+        Optional<AuthenticatedUserDTO> user = authenticator.authenticateUser(email, password);
         if (!user.isPresent()) {
             authenticator.registerUser(email, password);
             return ResponseEntity.ok().body(

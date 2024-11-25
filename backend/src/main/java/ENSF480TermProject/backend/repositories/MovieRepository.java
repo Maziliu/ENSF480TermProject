@@ -1,4 +1,4 @@
-package ENSF480TermProject.backend.database;
+package ENSF480TermProject.backend.repositories;
 
 import java.util.List;
 import java.util.Optional;
