@@ -18,13 +18,15 @@ const MoviePage = () => {
 
   const handleTheatreChange = (event) => {
     const theatreId = event.target.value;
-    handleSelectTheatre(theatreId);
+    const theatreName = event.target.options[event.target.selectedIndex].text;
+    handleSelectTheatre(theatreId, theatreName);
     handleSelectShowtime('');
   };
 
   const handleShowtimeChange = (event) => {
     const showtimeId = event.target.value;
-    handleSelectShowtime(showtimeId);
+    const showtimeTime = event.target.options[event.target.selectedIndex].text;
+    handleSelectShowtime(showtimeId, showtimeTime);
   };
 
   const handleGetTicketsClick = () => {

@@ -13,8 +13,9 @@ const TheatreList = () => {
   }, []);
 
   const handleChange = (event) => {
+    const selectedId = event.target.key;
     const selectedName = event.target.value;
-    handleSelectTheatre(selectedName);
+    handleSelectTheatre(selectedId, selectedName);
   };
 
   return (

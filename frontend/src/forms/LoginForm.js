@@ -8,7 +8,7 @@ function LoginForm() {
   const [password, setPassword] = useState('');
   const [authenticationMessage, setAuthenticationMessage] = useState('');
   const [showSignup, setShowSignup] = useState(false);
-  const { authenticated, setAuthenticated } = useAuthContext();
+  const { role, userId, setRole, setUserId } = useAuthContext();
   const [isInitialRender, setIsInitialRender] = useState(true);
 
   const navigate = useNavigate();
@@ -16,10 +16,10 @@ function LoginForm() {
   useEffect(() => {
     if (isInitialRender) {
       setIsInitialRender(false);
-    } else if (authenticated) {
+    } else if (role != 'guest') {
       navigate('/');
     }
-  }, [authenticated]);
+  }, [role]);
 
   const handleAuthentication = async (event) => {
     event.preventDefault();
@@ -43,8 +43,10 @@ function LoginForm() {
 
       const data = await response.json();
       setAuthenticationMessage(data.authMessage);
-      setAuthenticated(data.authenticated);
-      sessionStorage.setItem('authenticated', data.authenticated);
+      setRole(data.admin ? 'admin' : 'user');
+      setUserId(email);
+      sessionStorage.setItem('role', role);
+      sessionStorage.setItem('userId', userId);
       navigate('/');
     } catch (error) {
       setAuthenticationMessage(error.message || 'An error occurred');

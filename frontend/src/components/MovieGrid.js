@@ -4,9 +4,8 @@ import { useSelectionContext } from '../contexts/SelectionContext';
 import MovieItem from './MovieItem';
 import '../styles/MovieGrid.css';
 
-const MovieGrid = () => {
+const MovieGrid = ({ handleSetMovieList, movies }) => {
   const { selectedTheatre, handleSelectMovie } = useSelectionContext();
-  const [movies, setMovies] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,19 +24,19 @@ const MovieGrid = () => {
           throw new Error('API call failed');
         }
       })
-      .then((data) => setMovies(data))
+      .then((data) => handleSetMovieList(data))
       .catch((error) => console.error('Error fetching movies:', error));
   }, [selectedTheatre]);
 
-  const handleMovieClick = (id) => {
-    handleSelectMovie(id);
+  const handleMovieClick = (id, name) => {
+    handleSelectMovie(id, name);
     navigate(`/movies/${id}`);
   };
 
   return (
     <div className="movie-grid">
       {movies.map((movie) => (
-        <div key={movie.movieId} onClick={() => handleMovieClick(movie.movieId)}>
+        <div key={movie.movieId} onClick={() => handleMovieClick(movie.movieId, movie.movieName)}>
           <MovieItem movie={movie} />
         </div>
       ))}
