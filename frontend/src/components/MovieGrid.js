@@ -5,12 +5,12 @@ import MovieItem from './MovieItem';
 import '../styles/MovieGrid.css';
 
 const MovieGrid = ({ handleSetMovieList, movies }) => {
-  const { selectedTheatre, handleSelectMovie } = useSelectionContext();
+  const { selectedTheatreName, handleSelectMovie } = useSelectionContext();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const url = selectedTheatre
-      ? `http://localhost:8080/browse/theatres/search?theatreName=${encodeURIComponent(selectedTheatre)}`
+    const url = selectedTheatreName
+      ? `http://localhost:8080/browse/theatres/search?theatreName=${encodeURIComponent(selectedTheatreName)}`
       : 'http://localhost:8080/browse/movies';
 
     fetch(url, {
@@ -26,7 +26,7 @@ const MovieGrid = ({ handleSetMovieList, movies }) => {
       })
       .then((data) => handleSetMovieList(data))
       .catch((error) => console.error('Error fetching movies:', error));
-  }, [selectedTheatre]);
+  }, [selectedTheatreName]);
 
   const handleMovieClick = (id, name) => {
     handleSelectMovie(id, name);
