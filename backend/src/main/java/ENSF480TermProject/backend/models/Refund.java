@@ -14,12 +14,10 @@ public class Refund extends Transaction{
     @Column(name = "refunded_transaction_id", nullable = true)
     private UUID refundedTransactionId;
 
-    public Refund() {
-        super();
-    }
+    public Refund() {}
 
-    public Refund(BigDecimal transactionAmount, LocalDateTime transactionDateTime, Long userId, String userEmail, UUID refundedTransactionId) {
-        super(transactionAmount, transactionDateTime, userId, userEmail);
+    public Refund(LocalDateTime transactionDateTime, Long userId, String userEmail, UUID refundedTransactionId) {
+        super(BigDecimal.valueOf(0), transactionDateTime, userId, userEmail);
         this.refundedTransactionId = refundedTransactionId;
     }
 

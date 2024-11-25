@@ -12,19 +12,6 @@ public class RefundDTO extends TransactionDTO {
     private CreditDiscountCode creditDiscountCode;
     private Refund refund;
 
-    //For Registered Users
-    public RefundDTO(RefundStatus refundStatus, LocalDateTime transactionDateTime, BigDecimal refundAmount, Long userId) {
-        this.transactionBreakdown = new TransactionBreakdown(refundAmount, refundAmount, new BigDecimal(0));
-        this.refundStatus = refundStatus;
-    }
-
-    //For no account users
-    public RefundDTO(RefundStatus refundStatus, LocalDateTime transactionDateTime, BigDecimal refundAmount, String userEmail, CreditDiscountCode creditDiscountCode){
-        this.transactionBreakdown = new TransactionBreakdown(refundAmount, refundAmount.multiply(new BigDecimal(0.85)), new BigDecimal(0));
-        this.refundStatus = refundStatus;
-        this.creditDiscountCode = creditDiscountCode;
-    }
-
     public RefundDTO() {
         refundStatus = RefundStatus.SUCCESS;
     }

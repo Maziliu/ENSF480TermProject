@@ -1,5 +1,6 @@
 package ENSF480TermProject.backend.strategies;
 
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -14,11 +15,13 @@ import ENSF480TermProject.backend.enums.RefundStatus;
 import ENSF480TermProject.backend.enums.TransactionStatus;
 import ENSF480TermProject.backend.enums.TransactionType;
 import ENSF480TermProject.backend.interfaces.TransactionStrategy;
+import ENSF480TermProject.backend.models.CreditDiscountCode;
 import ENSF480TermProject.backend.models.Purchase;
 import ENSF480TermProject.backend.models.Refund;
 import ENSF480TermProject.backend.models.Showtime;
 import ENSF480TermProject.backend.models.Ticket;
 import ENSF480TermProject.backend.models.Transaction;
+import ENSF480TermProject.backend.repositories.CreditDiscountCodeRepository;
 import ENSF480TermProject.backend.repositories.RegisteredUserRepository;
 import ENSF480TermProject.backend.repositories.TicketRepository;
 import ENSF480TermProject.backend.repositories.TransactionRepository;
@@ -30,12 +33,14 @@ public class RefundTransactionStrategy implements TransactionStrategy{
     private final TransactionRepository transactionRepository;
     private final RegisteredUserRepository registeredUserRepository;
     private final TicketRepository ticketRepository;
+    private final CreditDiscountCodeRepository creditDiscountCodeRepository;
 
     @Autowired
-    public RefundTransactionStrategy(TransactionRepository transactionRepository, RegisteredUserRepository registeredUserRepository, TicketRepository ticketRepository) {
+    public RefundTransactionStrategy(TransactionRepository transactionRepository, RegisteredUserRepository registeredUserRepository, TicketRepository ticketRepository, CreditDiscountCodeRepository creditDiscountCodeRepository) {
         this.transactionRepository = transactionRepository;
         this.registeredUserRepository = registeredUserRepository;
         this.ticketRepository = ticketRepository;
+        this.creditDiscountCodeRepository = creditDiscountCodeRepository;
     }
 
     @Override
@@ -80,20 +85,20 @@ public class RefundTransactionStrategy implements TransactionStrategy{
             refundResponse.setRefundStatus(RefundStatus.FAILED_PAST_REFUND_PERIOD);
             return refundResponse;
         }
-
+  
+        //Create the refund transaction in db
+        transactionRepository.save(refund);
+        
+        int roundedRefundAmount = refund.getTransactionAmount().setScale(0, RoundingMode.HALF_UP).intValue();
+        if(userId == null){ //Guest User
+            CreditDiscountCode creditDiscountCode = creditDiscountCodeRepository.save(new CreditDiscountCode(roundedRefundAmount));
+            refundResponse.setCreditDiscountCode(creditDiscountCode);
+        } else { //RegisteredUser
+            registeredUserRepository.addTheatreCredits(userId, roundedRefundAmount);
+        }
+        
         //Update the existing transaction to REFUDED
         transactionRepository.updateTransactionStatusToRefunded(purchaseToRefund.getTransactionId());
-
-        //Create the refund transaction
-        transactionRepository.save(refund);
-
-        
-        if(userId == null){ //Guest User
-            //Generate the code
-            
-        } else { //RegisteredUser
-
-        }
 
         //Complete the response
         refundResponse.setTransaction(refund);
