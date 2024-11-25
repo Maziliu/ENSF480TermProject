@@ -1,6 +1,7 @@
 package ENSF480TermProject.backend.models;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -16,9 +17,9 @@ import jakarta.persistence.Table;
 @Table(name = "Tickets")
 public class Ticket {
     @Id
-    @Column(name = "ticket_id", nullable = false, updatable = false, unique = true)
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID ticketId;
+    @Column(name = "ticket_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long ticketId;
 
     @Column(name = "ticket_amount", nullable = false, precision = 10, scale = 2)
     private BigDecimal ticketAmount;
@@ -32,16 +33,25 @@ public class Ticket {
     @Column(name = "seat_number", nullable = false)
     private String seatNumber;
 
+    @Column(name = "buyer_email", nullable = false)
+    private String buyerEmail;
+
+    @Column(name = "creation_date", nullable = false)
+    private LocalDateTime creationDate;
+
     public Ticket() {}
 
-    public Ticket(BigDecimal ticketAmount, Long movieId, Long theaterId, String seatNumber) {
+    public Ticket(String buyerEmail, BigDecimal ticketAmount, Long movieId, Long theaterId, String seatNumber) {
+        this.buyerEmail = buyerEmail;
         this.ticketAmount = ticketAmount;
         this.movieId = movieId;
         this.seatNumber = seatNumber;
+        this.theatreId = theaterId;
+        this.creationDate = LocalDateTime.now();
     }
 
     //Get
-    public UUID getTicketId() {
+    public Long getTicketId() {
         return ticketId;
     }
 
@@ -57,8 +67,20 @@ public class Ticket {
         return seatNumber;
     }
 
+    public Long getTheatreId() {
+        return theatreId;
+    }
+
+    public String getBuyerEmail() {
+        return buyerEmail;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
     //Set
-    public void setTicketId(UUID ticketId) {
+    public void setTicketId(Long ticketId) {
         this.ticketId = ticketId;
     }
 
@@ -74,5 +96,15 @@ public class Ticket {
         this.seatNumber = seatNumber;
     }
 
-    
+    public void setTheatreId(Long theatreId) {
+        this.theatreId = theatreId;
+    }
+
+    public void setBuyerEmail(String buyerEmail) {
+        this.buyerEmail = buyerEmail;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
 }

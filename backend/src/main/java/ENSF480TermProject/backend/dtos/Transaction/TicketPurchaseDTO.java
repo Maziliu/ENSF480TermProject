@@ -11,6 +11,7 @@ public class TicketPurchaseDTO {
     private String address, email, movie, theatre;
     private BigDecimal discount, gst, ticketPrice, totalPrice;
     private ShowtimeDTO showtime;
+    private String seatName;
     
     @Override
     public String toString() {
@@ -57,6 +58,10 @@ public class TicketPurchaseDTO {
         return totalPrice;
     }
 
+    public String getSeatName() {
+        return seatName;
+    }
+
     //Set
     public void setAddress(String address) {
         this.address = address;
@@ -93,6 +98,10 @@ public class TicketPurchaseDTO {
         this.totalPrice = totalPrice;
     }
 
+    public void setSeatName(String seatName) {
+        this.seatName = seatName;
+    }
+
     public static class ShowtimeDTO {
         private Long id, movie_id, theatre_id;
         private LocalDateTime time;
@@ -109,7 +118,7 @@ public class TicketPurchaseDTO {
         }
 
         public Long getTheatre_id() {
-            return theatre_id;
+            return this.theatre_id;
         }
 
         public LocalDateTime getTime() {

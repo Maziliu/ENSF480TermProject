@@ -1,27 +1,36 @@
 package ENSF480TermProject.backend.models;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
-import ENSF480TermProject.backend.enums.TransactionType;
-import ENSF480TermProject.backend.interfaces.PurchaseTransactionStrategy;
+import ENSF480TermProject.backend.strategies.PurchaseTransactionStrategy;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Purchase extends Transaction {
     @Column(name = "item_description")
     private String itemDescription;
 
-    public Purchase(BigDecimal transactionAmount, LocalDateTime transactionDate, Long userId, String userEmail, String... itemDescription) {
-        super(transactionAmount, transactionDate, new PurchaseTransactionStrategy(), userId, userEmail);
+    @Column(name = "ticket_id")
+    private Long ticketId;
 
-        StringBuilder descriptionBuilder = new StringBuilder();
-        for (String description : itemDescription) {
-            descriptionBuilder.append(description).append(" ");
-        }
-        this.itemDescription = descriptionBuilder.toString().trim();
+    @Transient
+    Ticket ticket;
+
+    
+    public Purchase(Ticket ticket, RegisteredUser registeredUser, BigDecimal transactionAmount) {
+        super(transactionAmount, LocalDateTime.now(), new PurchaseTransactionStrategy(), registeredUser.getUserId(), registeredUser.getEmail());
+        this.ticketId = ticket.getTicketId();
+        this.ticket = ticket;
+    }
+
+    public Purchase(Ticket ticket, String userEmail, BigDecimal transactionAmount) {
+        super(transactionAmount, LocalDateTime.now(), new PurchaseTransactionStrategy(), null, userEmail);
+        this.ticketId = ticket.getTicketId();
+        this.ticket = ticket;
     }
 
     public Purchase() { }
@@ -31,8 +40,23 @@ public class Purchase extends Transaction {
         return itemDescription;
     }
 
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public Long getTicketId() {
+        return ticketId;
+    }
+
     //Set
     public void setItemDescription(String itemDescription) {
         this.itemDescription = itemDescription;
     }
+
+    public void setTicket(Ticket ticket) {
+        this.ticketId = ticket.getTicketId();
+        this.ticket = ticket;
+    }
+
+
 }

@@ -1,3 +1,5 @@
+
+
 -- Insert sample data into Movies table
 INSERT IGNORE INTO Movies (movie_name, duration_in_seconds, description, genre, rating_out_of_ten) VALUES
 ('Inception', 8880, 'A thief with the ability to enter people''s dreams takes on a final heist.', 'Sci-Fi, Action', 8.8),

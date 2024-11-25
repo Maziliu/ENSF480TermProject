@@ -5,6 +5,9 @@ import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import ENSF480TermProject.backend.enums.TransactionStatus;
 import ENSF480TermProject.backend.enums.TransactionType;
 import ENSF480TermProject.backend.interfaces.TransactionStrategy;
 import jakarta.persistence.Column;
@@ -43,7 +46,12 @@ public abstract class Transaction {
     @Column(name = "user_email", nullable = true)
     private String userEmail;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "transaction_status", nullable = false)
+    private TransactionStatus transactionStatus;
+
     @Transient
+    @JsonIgnore
     private final TransactionStrategy transactionStrategy;
 
     public Transaction(BigDecimal transactionAmount, LocalDateTime transactionDateTime, TransactionStrategy transactionStrategy, Long userId, String userEmail) {
@@ -52,6 +60,7 @@ public abstract class Transaction {
         this.transactionStrategy = transactionStrategy;
         this.userId = userId;
         this.userEmail = userEmail;
+        this.transactionStatus = TransactionStatus.PAID;
     }
 
     public Transaction() {
