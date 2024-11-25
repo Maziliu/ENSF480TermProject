@@ -13,6 +13,6 @@ import jakarta.transaction.Transactional;
 public interface TransactionRepository extends JpaRepository<Transaction, UUID>{
     @Transactional
     @Modifying
-    @Query("UPDATE Transaction t SET t.paymentStatus = 'REFUNDED' WHERE t.transactionId = :transactionId")
+    @Query("UPDATE Transaction t SET t.transactionStatus = 'REFUNDED' WHERE t.transactionId = :transactionId")
     int updateTransactionStatusToRefunded(@Param("transactionId") UUID transactionId);
 }
