@@ -9,28 +9,40 @@ export const SelectionProvider = ({ children }) => {
   const [selectedMovie, setSelectedMovie] = useState('');
   const [selectedShowtime, setSelectedShowtime] = useState('');
 
-  const handleSelectTheatre = (theatreName) => {
-    setSelectedTheatre(theatreName);
+  const [selectedTheatreName, setSelectedTheatreName] = useState('');
+  const [selectedMovieName, setSelectedMovieName] = useState('');
+  const [selectedShowtimeTime, setSelectedShowtimeTime] = useState('');
+
+  const handleSelectTheatre = (theatreId, theatreName) => {
+    setSelectedTheatre(theatreId);
+    setSelectedTheatreName(theatreName);
     setSelectedShowtime('');
+    setSelectedShowtimeTime('');
   };
 
-  const handleSelectMovie = (movieId) => {
+  const handleSelectMovie = (movieId, movieName) => {
     setSelectedMovie(movieId);
+    setSelectedMovieName(movieName);
     setSelectedShowtime('');
+    setSelectedShowtimeTime('');
   };
 
-  const handleSelectShowtime = (showtimeId) => {
+  const handleSelectShowtime = (showtimeId, showtimeTime) => {
     setSelectedShowtime(showtimeId);
+    setSelectedShowtimeTime(showtimeTime);
   };
 
   return (
     <SelectionContext.Provider
       value={{
         selectedTheatre,
+        selectedTheatreName,
         handleSelectTheatre,
         selectedMovie,
+        selectedMovieName,
         handleSelectMovie,
         selectedShowtime,
+        selectedShowtimeTime,
         handleSelectShowtime,
       }}
     >

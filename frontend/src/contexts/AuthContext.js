@@ -5,13 +5,18 @@ const AuthContext = createContext();
 export const useAuthContext = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const isAuthenticated = sessionStorage.getItem('authenticated');
-  const [authenticated, setAuthenticated] = useState(isAuthenticated === 'true');
+  const savedRole = sessionStorage.getItem('role');
+  const savedUserId = sessionStorage.getItem('userId');
+
+  const [role, setRole] = useState(savedRole ? savedRole : 'guest');
+  const [userId, setUserId] = useState(savedUserId ? savedUserId : '');
 
   const logout = () => {
-    sessionStorage.removeItem('authenticated');
-    setAuthenticated(false);
+    sessionStorage.removeItem('role');
+    sessionStorage.removeItem('userId');
+    setRole('guest');
+    setUserId('guest');
   };
 
-  return <AuthContext.Provider value={{ authenticated, setAuthenticated, logout }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ role, setRole, userId, setUserId, logout }}>{children}</AuthContext.Provider>;
 };

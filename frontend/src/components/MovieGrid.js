@@ -4,14 +4,13 @@ import { useSelectionContext } from '../contexts/SelectionContext';
 import MovieItem from './MovieItem';
 import '../styles/MovieGrid.css';
 
-const MovieGrid = () => {
-  const { selectedTheatre, handleSelectMovie } = useSelectionContext();
-  const [movies, setMovies] = useState([]);
+const MovieGrid = ({ handleSetMovieList, movies }) => {
+  const { selectedTheatreName, handleSelectMovie } = useSelectionContext();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const url = selectedTheatre
-      ? `http://localhost:8080/browse/theatres/search?theatreName=${encodeURIComponent(selectedTheatre)}`
+    const url = selectedTheatreName
+      ? `http://localhost:8080/browse/theatres/search?theatreName=${encodeURIComponent(selectedTheatreName)}`
       : 'http://localhost:8080/browse/movies';
 
     fetch(url, {
@@ -25,19 +24,19 @@ const MovieGrid = () => {
           throw new Error('API call failed');
         }
       })
-      .then((data) => setMovies(data))
+      .then((data) => handleSetMovieList(data))
       .catch((error) => console.error('Error fetching movies:', error));
-  }, [selectedTheatre]);
+  }, [selectedTheatreName]);
 
-  const handleMovieClick = (id) => {
-    handleSelectMovie(id);
+  const handleMovieClick = (id, name) => {
+    handleSelectMovie(id, name);
     navigate(`/movies/${id}`);
   };
 
   return (
     <div className="movie-grid">
       {movies.map((movie) => (
-        <div key={movie.movieId} onClick={() => handleMovieClick(movie.movieId)}>
+        <div key={movie.movieId} onClick={() => handleMovieClick(movie.movieId, movie.movieName)}>
           <MovieItem movie={movie} />
         </div>
       ))}
