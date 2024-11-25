@@ -14,55 +14,55 @@ public class PurchaseTransactionStrategy implements TransactionStrategy {
 
     @Override
     public PaymentDTO proccessTransaction(Transaction transaction, TransactionRepository transactionRepository, RegisteredUserRepository registeredUserRepository) {
-        // if (transaction.getUserId() == null) {
-        //     return new PaymentDTO(
-        //         TransactionType.PURCHASE,
-        //         transaction.getTransactionDateTime(),
-        //         transaction.getTransactionAmount(),
-        //         BigDecimal.ZERO, 
-        //         transaction.getTransactionAmount(), 
-        //         null, 
-        //         transaction.getUserEmail()
-        //     );
-        // }
+        if (transaction.getUserId() == null) {
+            return new PaymentDTO(
+                TransactionType.PURCHASE,
+                transaction.getTransactionDateTime(),
+                transaction.getTransactionAmount(),
+                BigDecimal.ZERO, 
+                transaction.getTransactionAmount(), 
+                null, 
+                transaction.getUserEmail()
+            );
+        }
 
 
-        // Optional<RegisteredUser> userOpt = registeredUserRepository.findById(transaction.getUserId());
-        // Optional<Integer> theaterCreditsOpt = registeredUserRepository.findTheatreCreditsById(transaction.getUserId());
+        Optional<RegisteredUser> userOpt = registeredUserRepository.findById(transaction.getUserId());
+        Optional<Integer> theaterCreditsOpt = registeredUserRepository.findTheatreCreditsById(transaction.getUserId());
 
-        // if (userOpt.isPresent() && theaterCreditsOpt.isPresent()) {
-        //     RegisteredUser user = userOpt.get();
-        //     int theaterCredits = theaterCreditsOpt.get();
+        if (userOpt.isPresent() && theaterCreditsOpt.isPresent()) {
+            RegisteredUser user = userOpt.get();
+            int theaterCredits = theaterCreditsOpt.get();
 
-        //     BigDecimal creditsAsBigDecimal = BigDecimal.valueOf(theaterCredits);
-        //     BigDecimal transactionAmount = transaction.getTransactionAmount();
+            BigDecimal creditsAsBigDecimal = BigDecimal.valueOf(theaterCredits);
+            BigDecimal transactionAmount = transaction.getTransactionAmount();
 
-        //     BigDecimal paidByCredits;
-        //     BigDecimal paidByUser;
+            BigDecimal paidByCredits;
+            BigDecimal paidByUser;
 
-        //     if (creditsAsBigDecimal.compareTo(transactionAmount) >= 0) {
-        //         paidByCredits = transactionAmount;
-        //         paidByUser = BigDecimal.ZERO;
-        //         registeredUserRepository.subtractTheatreCredits(user.getUserId(), transactionAmount.intValue());
+            if (creditsAsBigDecimal.compareTo(transactionAmount) >= 0) {
+                paidByCredits = transactionAmount;
+                paidByUser = BigDecimal.ZERO;
+                registeredUserRepository.subtractTheatreCredits(user.getUserId(), transactionAmount.intValue());
 
-        //     } else {
-        //         paidByCredits = creditsAsBigDecimal; 
-        //         paidByUser = transactionAmount.subtract(creditsAsBigDecimal); 
-        //         registeredUserRepository.subtractTheatreCredits(user.getUserId(), theaterCredits);
-        //     }
+            } else {
+                paidByCredits = creditsAsBigDecimal; 
+                paidByUser = transactionAmount.subtract(creditsAsBigDecimal); 
+                registeredUserRepository.subtractTheatreCredits(user.getUserId(), theaterCredits);
+            }
 
-        //     transactionRepository.save(transaction);
+            transactionRepository.save(transaction);
 
-        //     return new PaymentDTO(
-        //         TransactionType.PURCHASE,
-        //         transaction.getTransactionDateTime(),
-        //         transactionAmount,
-        //         paidByCredits,
-        //         paidByUser,
-        //         transaction.getUserId(),
-        //         user.getEmail()
-        //     );
-        // }
+            return new PaymentDTO(
+                TransactionType.PURCHASE,
+                transaction.getTransactionDateTime(),
+                transactionAmount,
+                paidByCredits,
+                paidByUser,
+                transaction.getUserId(),
+                user.getEmail()
+            );
+        }
 
         return null;
     }

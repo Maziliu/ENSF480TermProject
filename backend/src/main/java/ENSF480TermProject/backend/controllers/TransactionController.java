@@ -12,7 +12,7 @@ import ENSF480TermProject.backend.dtos.Transaction.TicketPurchaseDTO;
 import ENSF480TermProject.backend.services.payment.PaymentService;
 
 @RestController
-@RequestMapping("/payment")
+@RequestMapping("/transaction")
 @CrossOrigin(origins = "http://localhost:3000")
 public class TransactionController {
 

@@ -16,11 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 public interface RegisteredUserRepository extends JpaRepository<RegisteredUser, Long> {
     Optional<RegisteredUser> findByEmail(String email);
 
-    // @Query("SELECT ru.theatreCredits FROM RegisteredUser ru WHERE ru.userId = :user_id")
-    // Optional<Integer> findTheatreCreditsById(@Param("user_id") Long userId);
+    @Query("SELECT ru.theatreCredits FROM RegisteredUser ru WHERE ru.userId = :user_id")
+    Optional<Integer> findTheatreCreditsById(@Param("user_id") Long userId);
 
-    // @Modifying
-    // @Transactional
-    // @Query("UPDATE RegisteredUser ru SET ru.theatreCredits = ru.theatreCredits - :amount WHERE ru.userId = :user_id AND ru.theatreCredits >= :amount")
-    // int subtractTheatreCredits(@Param("user_id") Long userId, @Param("amount") int amount);
+    @Modifying
+    @Transactional
+    @Query("UPDATE RegisteredUser ru SET ru.theatreCredits = ru.theatreCredits - :amount WHERE ru.userId = :user_id AND ru.theatreCredits >= :amount")
+    int subtractTheatreCredits(@Param("user_id") Long userId, @Param("amount") int amount);
 }
