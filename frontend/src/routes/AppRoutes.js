@@ -7,6 +7,7 @@ import SeatMap from '../components/SeatMap';
 import PaymentPage from '../pages/PaymentPage';
 import AdminPage from '../pages/AdminPage';
 import UserAccountPage from '../pages/UserAccountPage';
+import CancelTicketPage from '../pages/CancelTicketPage';
 
 const AppRoutes = () => (
   <Routes>
@@ -16,6 +17,7 @@ const AppRoutes = () => (
     <Route path="/seats/:showtimeId" element={<SeatMap />} />
     <Route path="/payment/:showtimeId/:seatName" element={<PaymentPage />} />
     <Route path="/account" element={<UserAccountPage />} />
+    <Route path="/cancel" element={<CancelTicketPage />} />
     <Route path="/admin" element={<AdminPage />} />
   </Routes>
 );

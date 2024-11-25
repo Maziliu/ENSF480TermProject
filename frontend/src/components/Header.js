@@ -14,6 +14,12 @@ const Header = () => {
       </div>
       <nav>
         <Link to="/">Home</Link>
+        {(role === "user") && (
+            <Link to='/account'>User Account</Link>
+        )}
+        {(role === "admin") && (
+            <Link to='/admin'>Admin Dashboard</Link>
+        )}
         {role !== 'guest' ? <LogoutButton /> : <Link to="/login">Login</Link>}
       </nav>
     </header>
