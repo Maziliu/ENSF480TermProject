@@ -18,7 +18,7 @@ const SearchBar = ({handleSetMovieList, query, setQuery}) => {
     })
       .then((response) => {
         if (response.ok) {
-          handleSelectTheatre('','');
+          //handleSelectTheatre('','');
           return response.json();
         } else {
           throw new Error('API call failed');

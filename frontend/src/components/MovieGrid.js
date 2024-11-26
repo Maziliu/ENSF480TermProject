@@ -4,8 +4,9 @@ import { useSelectionContext } from '../contexts/SelectionContext';
 import MovieItem from './MovieItem';
 import '../styles/MovieGrid.css';
 
-const MovieGrid = ({ handleSetMovieList, movies }) => {
+const MovieGrid = ({ handleSetMovieList, movies , queriedMovies, query }) => {
   const { selectedTheatreName, handleSelectMovie } = useSelectionContext();
+  const [filteredMovies, setFilteredMovies] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,18 +29,37 @@ const MovieGrid = ({ handleSetMovieList, movies }) => {
       .catch((error) => console.error('Error fetching movies:', error));
   }, [selectedTheatreName]);
 
+
+  useEffect(() =>{
+    setFilteredMovies(movies.filter(movie => queriedMovies.some(qMovie => qMovie.movieId === movie.movieId)));
+  }, [queriedMovies, movies])
+
   const handleMovieClick = (id, name) => {
     handleSelectMovie(id, name);
     navigate(`/movies/${id}`);
   };
+
+  if (queriedMovies.length !== 0 && filteredMovies.length !== 0){
+    return (
+      <div className="movie-grid">{
+      filteredMovies.map((movie) => (
+        <div key={movie.movieId} onClick={() => handleMovieClick(movie.movieId, movie.movieName)}>
+          <MovieItem movie={movie} />
+        </div> ))}
+      </div>)
+  }
+
+  if (query && filteredMovies.length === 0){
+    return (
+      <div className="movie-grid"></div> )
+  }
 
   return (
     <div className="movie-grid">
       {movies.map((movie) => (
         <div key={movie.movieId} onClick={() => handleMovieClick(movie.movieId, movie.movieName)}>
           <MovieItem movie={movie} />
-        </div>
-      ))}
+        </div> ))}
     </div>
   );
 };

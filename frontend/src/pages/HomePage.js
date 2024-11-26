@@ -9,14 +9,15 @@ import { useSelectionContext } from '../contexts/SelectionContext';
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
+  const [queriedMovies, setQueriedMovies] = useState([]);
   const [query, setQuery] = useState('');
 
   return (
     <div>
       <Header />
-      <SearchBar handleSetMovieList={setMovies} setQuery={setQuery} query={query}/>
-      {!query && <TheatreList />}
-      <MovieGrid handleSetMovieList={setMovies} movies={movies} />
+      <SearchBar handleSetMovieList={setQueriedMovies} setQuery={setQuery} query={query}/>
+      {<TheatreList />}
+      <MovieGrid handleSetMovieList={setMovies} movies={movies} queriedMovies={queriedMovies} query={query} />
       <Footer />
     </div>
   );
