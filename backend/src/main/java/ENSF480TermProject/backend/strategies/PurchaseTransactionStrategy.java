@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
-import ENSF480TermProject.backend.dtos.Transaction.responses.PaymentDTO;
+import ENSF480TermProject.backend.dtos.transaction.PaymentResponseDTO;
 import ENSF480TermProject.backend.enums.TransactionType;
 import ENSF480TermProject.backend.interfaces.TransactionStrategy;
 import ENSF480TermProject.backend.models.Purchase;
@@ -35,12 +35,12 @@ public class PurchaseTransactionStrategy implements TransactionStrategy {
     }
     
     @Override
-    public PaymentDTO processTransaction(Transaction transaction) {
+    public PaymentResponseDTO processTransaction(Transaction transaction) {
         Purchase purchase = (Purchase) transaction;
-        PaymentDTO paymentDTO = null;
+        PaymentResponseDTO paymentDTO = null;
 
         if (purchase.getUserId() == null) {
-            paymentDTO = new PaymentDTO(purchase);
+            paymentDTO = new PaymentResponseDTO(purchase);
         } else {
             Optional<RegisteredUser> userOpt = registeredUserRepository.findById(purchase.getUserId());
             Optional<Integer> theaterCreditsOpt = registeredUserRepository.findTheatreCreditsById(purchase.getUserId());
@@ -58,7 +58,7 @@ public class PurchaseTransactionStrategy implements TransactionStrategy {
             BigDecimal paidByUser = transactionAmount.subtract(paidByCredits);
             registeredUserRepository.subtractTheatreCredits(user.getUserId(), paidByCredits.intValue());
 
-            paymentDTO = new PaymentDTO(purchase, user, paidByCredits, paidByUser);
+            paymentDTO = new PaymentResponseDTO(purchase, user, paidByCredits, paidByUser);
         }
 
         Ticket savedTicket = ticketRepository.save(purchase.getTicket());

@@ -1,6 +1,6 @@
 package ENSF480TermProject.backend.enums;
 
-public enum SubscriptionType {
-    CANCELLATION,
+public enum SubscriptionStatus {
+    CANCELLED,
     ANNUAL
 }

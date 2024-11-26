@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
-import ENSF480TermProject.backend.dtos.Transaction.requests.TicketPurchaseDTO;
-import ENSF480TermProject.backend.dtos.Transaction.requests.TicketRefundDTO;
-import ENSF480TermProject.backend.dtos.Transaction.responses.PaymentDTO;
-import ENSF480TermProject.backend.dtos.Transaction.responses.RefundDTO;
+import ENSF480TermProject.backend.dtos.transaction.PaymentResponseDTO;
+import ENSF480TermProject.backend.dtos.transaction.RefundResponseDTO;
+import ENSF480TermProject.backend.dtos.transaction.TicketPurchaseRequestDTO;
+import ENSF480TermProject.backend.dtos.transaction.TicketRefundRequestDTO;
 import ENSF480TermProject.backend.enums.TransactionType;
 import ENSF480TermProject.backend.interfaces.TransactionStrategy;
 import ENSF480TermProject.backend.models.Purchase;
@@ -39,23 +39,23 @@ public class TransactionService {
         return user.isPresent() ? user.get().getUserId() : null;
     }
 
-    public Optional<PaymentDTO> makePurchase(TicketPurchaseDTO ticketPurchaseDTO) {
+    public Optional<PaymentResponseDTO> makePurchase(TicketPurchaseRequestDTO ticketPurchaseDTO) {
         Optional<RegisteredUser> user = registeredUserRepository.findByEmail(ticketPurchaseDTO.getEmail());
         Long userId = user.isPresent() ? user.get().getUserId() : null;
 
         Ticket ticket = new Ticket(ticketPurchaseDTO.getEmail(), ticketPurchaseDTO.getTicketPrice(),ticketPurchaseDTO.getShowtime().getMovie_id(), ticketPurchaseDTO.getShowtime().getTheatre_id(), ticketPurchaseDTO.getSeatName());
         Purchase purchase = (userId == null) ? new Purchase(ticket, ticketPurchaseDTO.getEmail(), ticketPurchaseDTO.getTotalPrice()) : new Purchase(ticket, user.get(), ticketPurchaseDTO.getTotalPrice());
 
-        PaymentDTO paymentDTO = (PaymentDTO) transactionProcessor.processTransaction(purchase, TransactionType.PURCHASE);
+        PaymentResponseDTO paymentDTO = (PaymentResponseDTO) transactionProcessor.processTransaction(purchase, TransactionType.PURCHASE);
         return Optional.of(paymentDTO);
     }
 
-    public Optional<RefundDTO> makeRefund(TicketRefundDTO ticketRefundDTO){
+    public Optional<RefundResponseDTO> makeRefund(TicketRefundRequestDTO ticketRefundDTO){
         Long userId = findUserIdFromDatabaseByEmail(ticketRefundDTO.getUserEmail());
 
         Refund transaction = new Refund(LocalDateTime.now(), userId, ticketRefundDTO.getUserEmail(), ticketRefundDTO.getTransactionId());
 
-        RefundDTO refundDTO = (RefundDTO) transactionProcessor.processTransaction(transaction, TransactionType.REFUND);
+        RefundResponseDTO refundDTO = (RefundResponseDTO) transactionProcessor.processTransaction(transaction, TransactionType.REFUND);
         return Optional.of(refundDTO);
     }
 }
