@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import ENSF480TermProject.backend.dtos.Transaction.responses.PaymentDTO;
-import ENSF480TermProject.backend.dtos.Transaction.responses.TransactionDTO;
+import ENSF480TermProject.backend.dtos.transaction.PaymentResponseDTO;
+import ENSF480TermProject.backend.dtos.transaction.TransactionResponseDTO;
 import ENSF480TermProject.backend.enums.PaymentType;
 import ENSF480TermProject.backend.enums.TransactionType;
 import ENSF480TermProject.backend.interfaces.TransactionStrategy;
@@ -25,7 +25,7 @@ public class TransactionProcessor {
         this.strategyRegistry = strategyRegistry;
     }
 
-    public TransactionDTO processTransaction(Transaction transaction, TransactionType transactionType) {
+    public TransactionResponseDTO processTransaction(Transaction transaction, TransactionType transactionType) {
         TransactionStrategy strategy = strategyRegistry.getStrategy(transactionType);
         return strategy.processTransaction(transaction);
     }

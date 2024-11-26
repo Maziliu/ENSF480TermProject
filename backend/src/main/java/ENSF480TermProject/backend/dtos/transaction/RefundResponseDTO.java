@@ -1,4 +1,4 @@
-package ENSF480TermProject.backend.dtos.Transaction.responses;
+package ENSF480TermProject.backend.dtos.transaction;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -7,12 +7,12 @@ import ENSF480TermProject.backend.enums.RefundStatus;
 import ENSF480TermProject.backend.models.CreditDiscountCode;
 import ENSF480TermProject.backend.models.Refund;
 
-public class RefundDTO extends TransactionDTO {
+public class RefundResponseDTO extends TransactionResponseDTO {
     private RefundStatus refundStatus;
     private CreditDiscountCode creditDiscountCode;
     private Refund refund;
 
-    public RefundDTO() {
+    public RefundResponseDTO() {
         refundStatus = RefundStatus.SUCCESS;
     }
 

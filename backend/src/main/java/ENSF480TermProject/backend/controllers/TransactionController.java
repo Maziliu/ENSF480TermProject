@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ENSF480TermProject.backend.dtos.Transaction.requests.TicketPurchaseDTO;
-import ENSF480TermProject.backend.dtos.Transaction.requests.TicketRefundDTO;
-import ENSF480TermProject.backend.dtos.Transaction.responses.PaymentDTO;
-import ENSF480TermProject.backend.dtos.Transaction.responses.RefundDTO;
+import ENSF480TermProject.backend.dtos.transaction.PaymentResponseDTO;
+import ENSF480TermProject.backend.dtos.transaction.RefundResponseDTO;
+import ENSF480TermProject.backend.dtos.transaction.TicketPurchaseRequestDTO;
+import ENSF480TermProject.backend.dtos.transaction.TicketRefundRequestDTO;
 import ENSF480TermProject.backend.models.Purchase;
 import ENSF480TermProject.backend.services.payment.TransactionService;
 
@@ -29,12 +29,12 @@ public class TransactionController {
     }
 
     @PostMapping("/purchase") 
-    public ResponseEntity<PaymentDTO> makePurchase(@RequestBody TicketPurchaseDTO purchaseJSON) {
+    public ResponseEntity<PaymentResponseDTO> makePurchase(@RequestBody TicketPurchaseRequestDTO purchaseJSON) {
         return transactionService.makePurchase(purchaseJSON).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.badRequest().build()); 
     }
 
     @PostMapping("/refund")
-    public ResponseEntity<RefundDTO> makeRefund(@RequestBody TicketRefundDTO refundJSON){
+    public ResponseEntity<RefundResponseDTO> makeRefund(@RequestBody TicketRefundRequestDTO refundJSON){
         return transactionService.makeRefund(refundJSON).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.badRequest().build());
     }
 }

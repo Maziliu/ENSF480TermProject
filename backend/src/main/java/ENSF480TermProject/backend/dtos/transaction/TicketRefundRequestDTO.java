@@ -1,13 +1,13 @@
-package ENSF480TermProject.backend.dtos.Transaction.requests;
+package ENSF480TermProject.backend.dtos.transaction;
 
 import java.util.UUID;
 
-public class TicketRefundDTO {
+public class TicketRefundRequestDTO {
     private UUID transactionId;
     private Long userId;
     private String userEmail;
 
-    public TicketRefundDTO() {}
+    public TicketRefundRequestDTO() {}
 
     //Get
     public UUID getTransactionId() {

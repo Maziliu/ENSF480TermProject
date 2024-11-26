@@ -1,4 +1,4 @@
-package ENSF480TermProject.backend.dtos.Transaction.requests;
+package ENSF480TermProject.backend.dtos.transaction;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import ENSF480TermProject.backend.models.Ticket;
 
-public class TicketPurchaseDTO {
+public class TicketPurchaseRequestDTO {
     private String address, email, movie, theatre;
     private BigDecimal discount, gst, ticketPrice, totalPrice;
     private ShowtimeDTO showtime;
@@ -19,7 +19,7 @@ public class TicketPurchaseDTO {
                 " For movie: " + movie + " at theatre: " + theatre + " at Time: " + showtime.getTime();
     }
 
-    public TicketPurchaseDTO() {}
+    public TicketPurchaseRequestDTO() {}
 
     //Get
     public String getAddress() {

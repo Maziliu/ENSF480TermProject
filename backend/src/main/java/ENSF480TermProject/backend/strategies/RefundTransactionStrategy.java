@@ -9,7 +9,7 @@ import javax.swing.text.html.parser.Entity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import ENSF480TermProject.backend.dtos.Transaction.responses.RefundDTO;
+import ENSF480TermProject.backend.dtos.transaction.RefundResponseDTO;
 import ENSF480TermProject.backend.enums.RefundStatus;
 import ENSF480TermProject.backend.enums.TransactionStatus;
 import ENSF480TermProject.backend.enums.TransactionType;
@@ -48,8 +48,8 @@ public class RefundTransactionStrategy implements TransactionStrategy{
     }
 
     @Override
-    public RefundDTO processTransaction(Transaction transaction) {
-        RefundDTO refundResponse = new RefundDTO();
+    public RefundResponseDTO processTransaction(Transaction transaction) {
+        RefundResponseDTO refundResponse = new RefundResponseDTO();
         
         Refund refund = (Refund) transaction;
         Long userId = transaction.getUserId();

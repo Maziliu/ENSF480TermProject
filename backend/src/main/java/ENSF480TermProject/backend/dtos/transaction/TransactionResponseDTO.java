@@ -1,4 +1,4 @@
-package ENSF480TermProject.backend.dtos.Transaction.responses;
+package ENSF480TermProject.backend.dtos.transaction;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -9,40 +9,16 @@ import ENSF480TermProject.backend.enums.TransactionType;
 import ENSF480TermProject.backend.models.RegisteredUser;
 import ENSF480TermProject.backend.models.Transaction;
 
-public class TransactionDTO {
+public class TransactionResponseDTO {
     protected Transaction transaction;
-    // protected Long userId;
-    // protected String userEmail;
-    // protected TransactionType transactionType;
     protected TransactionBreakdown transactionBreakdown;
     protected RegisteredUser registeredUser;
-    // protected UUID transactionId;
-    // protected LocalDateTime transactionDateTime;
+
 
     //Get
     public TransactionBreakdown getTransactionBreakdown() {
         return transactionBreakdown;
     }
-
-    // public TransactionType getTransactionType() {
-    //     return transactionType;
-    // }
-
-    // public String getUserEmail() {
-    //     return userEmail;
-    // }
-
-    // public Long getUserId() {
-    //     return userId;
-    // }
-
-    // public LocalDateTime getTransactionDateTime() {
-    //     return transactionDateTime;
-    // }
-
-    // public UUID getTransactionId() {
-    //     return transactionId;
-    // }
 
     public Transaction getTransaction() {
         return transaction;
