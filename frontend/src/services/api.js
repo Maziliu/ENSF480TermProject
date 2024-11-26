@@ -16,6 +16,12 @@ export const fetchTheatres = async () => {
   return response.json();
 };
 
+export const fetchMovies = async () => {
+  const response = await fetch('http://localhost:8080/movies');
+  if (!response.ok) throw new Error('Failed to fetch movies');
+  return response.json();
+}
+
 export const fetchSeatData = async (showtimeId) => {
   const response = await fetch(`http://localhost:8080/seats/${showtimeId}`, {
     method: 'GET',

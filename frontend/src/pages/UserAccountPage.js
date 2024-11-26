@@ -25,26 +25,13 @@ const UserAccountPage = () => {
             setMessage(data.error);
           } else {
             setUserDetails(data);
+            setSavedCards(data.savedCards);
             setIsLoading(false);
           }
         })
         .catch(error => {
           console.error('Error fetching user details:', error);
           setMessage('Failed to load user details.');
-        });
-
-      fetch(`http://127.0.0.1:5000/User/${userId}/SavedCards`)
-        .then(response => response.json())
-        .then(data => {
-          if (data.error) {
-            setMessage(data.error);
-          } else {
-            setSavedCards(data);
-          }
-        })
-        .catch(error => {
-          console.error('Error fetching saved cards:', error);
-          setMessage('Failed to load saved cards.');
         });
     };
 
