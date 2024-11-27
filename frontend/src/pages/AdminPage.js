@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
+import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import ManageUsers from '../components/ManageUsers'
 import ManageMovies from '../components/ManageMovies';
@@ -14,6 +15,7 @@ const AdminPage = () => {
   return (
     <div>
       <Header />
+      <Navigation />
       <h1>Admin Dashboard</h1>
       <button onClick={() => setSelectedTab('manageUsers')}>Manage Users</button>
       <button onClick={() => setSelectedTab('theatres')}>Manage Theatres</button>

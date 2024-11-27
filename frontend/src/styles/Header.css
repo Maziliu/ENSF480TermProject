@@ -24,13 +24,13 @@ h1, h2, h3 {
 .title-container {
     flex-grow: 1;
     justify-content: center;
-    margin-left: 33%;
+    margin-left: 35%;
 }
 
 /* Logo */
 .logoimage {
-    height: 40px;
-    width: auto;
+    height: 100px;
+    width: 100px;
 }
 
 .logo-link {

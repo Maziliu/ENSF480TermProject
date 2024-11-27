@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
+import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 //not sure completely how we want to implement this either
 const CancelTicketPage = () => {
@@ -45,6 +46,7 @@ const CancelTicketPage = () => {
   return (
     <div className="cancel-ticket-page">
     <Header />
+    <Navigation />
       <h1>Cancel Ticket</h1>
       <div>
         <label>

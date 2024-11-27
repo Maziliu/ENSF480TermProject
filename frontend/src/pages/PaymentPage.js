@@ -1,4 +1,5 @@
 import Header from '../components/Header.js';
+import Navigation from '../components/Navigation';
 import Footer from '../components/Footer.js';
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -186,6 +187,7 @@ const PaymentPage = () => {
   return (
     <div>
       <Header />
+      <Navigation />
       <div className="payment-page">
         <h1>Payment Page</h1>
         <div>Movie: {selectedMovieName}</div>

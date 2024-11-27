@@ -1,4 +1,5 @@
 import Header from '../components/Header';
+import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import React, { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
@@ -22,6 +23,7 @@ const ReceiptPage = () => {
   return (
     <div>
     <Header />
+    <Navigation />
     <div className="receipt-page">
       <h1>Receipt</h1>
       <div>Movie: {receiptData.movie || 'N/A'}</div>

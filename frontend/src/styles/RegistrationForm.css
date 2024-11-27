@@ -1,21 +1,26 @@
 /* Registration Form */
+
+/* Container for all input fields */
 .registration-container {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    height: 270px;
+    height: 580px;
     background-color: #282828;
-    width: 600px;
+    width: 725px;
     border-radius: 10px;
     margin: 0 auto;
     transform: translateY(-30px);
+    padding-left: 10px;
 }
 
 .registration-input {
     margin-bottom: 10px;
+    padding-top: 12px;
     display: flex;
     flex-direction: column;
+    background-color: #282828;
 }
 
 .registration-input label {
@@ -32,7 +37,7 @@
     border-radius: 5px;
     background-color: #333;
     color: white;
-    margin-right: 180px;
+    margin-right: 170px;
 }
 
 .registration-input input:hover {
@@ -45,7 +50,36 @@
     border-color: #4ccc;
     outline: none;
 }
-  
+
+/* Registration table left */
+.registration-table-left {
+    padding-top: 22px;
+}
+
+/* Registration table right */
+.payment-method-list select {
+    width: 97%;
+    padding: 8px;
+    font-size: 14px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    box-sizing: border-box;
+}
+
+.payment-method-list select:hover {
+    border-color: #4ccc;
+    outline: none;
+}
+
+.payment-method-list select:focus {
+    border-color: #4ccc;
+    outline: none;
+}
+
+ 
+/* Buttons */
 .registration-button {
     width: 55%;
     margin-right: 10px;
@@ -64,8 +98,6 @@
 
 .registration-switch {
     display: block;
-    margin-top: 20px;
-    margin: 0 auto;
     padding: 5px 15px;
     font-size: 14px;
     color: white;
@@ -73,7 +105,7 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
-    margin-left: 375px;
+    margin-left: 315px;
     margin-top: -22px;
     margin-bottom: 25px;
 }
@@ -83,6 +115,8 @@
     color: #000;
 }
 
+
+/* error */
 .registration-error-message {
     color: red;
     text-align: center;

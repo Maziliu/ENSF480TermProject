@@ -16,9 +16,9 @@
     border-radius: 50px;
     transition: color 0.3s ease, background-color 0.3s ease;
     display: inline-block;
-    margin-top: -110px;
+    margin-top: -180px;
 }
-  
+
 .nav-link:hover {
     background-color: #4ccc;
 }

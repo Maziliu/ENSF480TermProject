@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import MovieGrid from '../components/MovieGrid';
 import SearchBar from '../components/SearchBar';
 import TheatreList from '../components/TheatreList';
+import Navigation from '../components/Navigation';
 import { useState, useEffect } from 'react';
 import { useSelectionContext } from '../contexts/SelectionContext';
 
@@ -15,6 +16,7 @@ const HomePage = () => {
   return (
     <div>
       <Header />
+      <Navigation />
       <SearchBar handleSetMovieList={setQueriedMovies} setQuery={setQuery} query={query}/>
       {<TheatreList />}
       <MovieGrid handleSetMovieList={setMovies} movies={movies} queriedMovies={queriedMovies} query={query} />

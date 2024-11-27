@@ -1,0 +1,62 @@
+/* Registration Form */
+
+/* Box containing elements */
+.movie-page {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 200px;
+    background-color: #282828;
+    width: 450px;
+    border-radius: 10px;
+    margin: 0 auto;
+    padding-left: 10px;
+}
+
+.movie-poster {
+    
+}
+
+.movie-details {
+
+}
+
+.selection-lists select {
+    width: 33;
+    padding: 8px;
+    font-size: 14px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    box-sizing: border-box;
+}
+
+.selection-lists select:hover {
+    border-color: #4ccc;
+    outline: none;
+}
+
+.selection-lists select:focus {
+    border-color: #4ccc;
+    outline: none;
+}
+
+/* Buttons */
+.select-movie--button {
+    width: 55%;
+    margin-right: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.select-movie-button:hover {
+    background-color: #4ccc;
+}
