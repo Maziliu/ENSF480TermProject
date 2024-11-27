@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import LoginForm from './LoginForm';
+import '../styles/RegistrationForm.css';
 
 const RegistrationForm = () => {
   const [email, setEmail] = useState('');
@@ -121,37 +122,37 @@ const RegistrationForm = () => {
 
   return (
     <div>
-      <h1>Register</h1>
+      <h1 className='header'>Register</h1>
       <p style={{ color: 'red' }}>{registrationMessage}</p>
-      <form onSubmit={handleRegistration}>
-        <label>Email:</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" required /> <br />
-        <label>Password:</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" required /> <br />
-        <label>Confirm Password:</label>
-            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm your password" required /><br />
-        <label>First Name: </label>
-            <input type="text" onChange={(e)=> setFirstName(e.target.value)}placeholder='Enter First Name'/> <br/>
-        <label>Last Name: </label>
-            <input type="text" onChange={(e)=> setLastName(e.target.value)}placeholder='Enter Last Name'/> <br/>
-        <label>Address: </label>
-            <input type="text" value={address} onChange={(e)=>setAddress(e.target.value)} placeholder='Enter Address' required />
-        <div className="payment-method-list"><select  onChange={(e)=>setPaymentMethod(e.target.value)}>
+      <form className='registration-container' onSubmit={handleRegistration}>
+        <div className='registration-input'><label>Email:</label>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" required /></div>
+        <div className='registration-input'><label>Password:</label>
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" required /> </div>
+        <div className='registration-input'><label>Confirm Password:</label>
+            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Confirm your password" required /></div>
+        <div className='registration-input'><label>First Name: </label>
+            <input type="text" onChange={(e)=> setFirstName(e.target.value)}placeholder='Enter your first name'/> </div>
+        <div className='registration-input'><label>Last Name: </label>
+            <input type="text" onChange={(e)=> setLastName(e.target.value)}placeholder='Enter your last name'/> </div>
+        <div className='registration-input'><label>Address: </label>
+            <input type="text" value={address} onChange={(e)=>setAddress(e.target.value)} placeholder='Enter your address' required /></div>
+        <div className='registration-input'><div className="payment-method-list"><select  onChange={(e)=>setPaymentMethod(e.target.value)}>
           <option value="">Select a Payment Method</option>
           <option value="credit">Credit</option>
           <option value="debit">Debit</option>
-        </select></div>
-        <label>Cardholder Name: </label>
-            <input type="text" value={cardholderName} onChange={(e)=>setCardholderName(e.target.value)} placeholder='Enter Cardholder Name' required /> <br/>
-        <label>Card Number: </label>
-            <input type="text" value={cardNumber} onChange={(e)=>setCardNumber(e.target.value)} placeholder='Enter Card Number' required /> <br/>
-        <label>cvv: </label>
-            <input type="text" value={cvv} onChange={(e)=>setCvv(e.target.value)} placeholder='Enter CVV'required /> <br/>
-        <label>Expiration Date (MM/YY): </label>
-            <input type="text" value={expiryDate} onChange={(e)=>setexpiryDate(e.target.value)} placeholder='Enter Expiration Date' required /> <br/>
-        <button type="submit">Register</button>
+        </select></div></div>
+        <div className='registration-input'><label>Cardholder Name: </label>
+            <input type="text" value={cardholderName} onChange={(e)=>setCardholderName(e.target.value)} placeholder='Enter cardholder name' required /> </div>
+        <div className='registration-input'><label>Card Number: </label>
+            <input type="text" value={cardNumber} onChange={(e)=>setCardNumber(e.target.value)} placeholder='Enter card number' required /> </div>
+        <div className='registration-input'><label>cvv: </label>
+            <input type="text" value={cvv} onChange={(e)=>setCvv(e.target.value)} placeholder='Enter CVV'required /> </div>
+        <div className='registration-input'><label>Expiration Date (MM/YY): </label>
+            <input type="text" value={expiryDate} onChange={(e)=>setexpiryDate(e.target.value)} placeholder='Enter expiration date' required /> </div>
+        <button  className='registration-button' type="submit">Register</button>
       </form>
-      <button onClick={gotoLoginForm}>Switch to Login</button>
+      <button className='registration-switch' onClick={gotoLoginForm}>Switch to Login</button>
     </div>
   );
 };
