@@ -69,7 +69,11 @@ const RegistrationForm = () => {
       password,
       paymentCard,
     };
+
     console.log("registration: ", userDetails);
+    const confirmRegistration = window.confirm("Are you sure you want to register? \nBy pressing 'OK', you consent to annual automatic $20.00 account fee.");
+    if (!confirmRegistration) return;
+
     fetch('http://localhost:8080/auth/register', {
       method: 'POST',
       headers: {

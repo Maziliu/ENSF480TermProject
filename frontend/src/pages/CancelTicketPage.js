@@ -3,19 +3,26 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 //not sure completely how we want to implement this either
 const CancelTicketPage = () => {
-  const [cancellationCode, setCancellationCode] = useState('');
+  const [transactionId, setTransactionId] = useState('');
   const [message, setMessage] = useState('');
   const [refundAmount, setRefundAmount] = useState(null);
   const [discountCode, setDiscountCode] = useState('');
+  const [userEmail, setUserEmail] = useState('');
 
-  const handleCancellationCodeChange = (event) => {
-    setCancellationCode(event.target.value);
-  };
+  const handleCancelTicket = () => {
+    if (!userEmail || !transactionId){
+      setMessage("All fields must be filled.");
+      return;
+    }
+    const refundData = {
+      userEmail,
+      transactionId
+    }
 
-  const getTransaction = () => {
-    fetch(`http://localhost:8080/transaction/${transactionId}`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
+    fetch(`http://localhost:8080/refund`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(refundData)
     })
       .then(response => response.json())
       .then(data => {
@@ -41,11 +48,19 @@ const CancelTicketPage = () => {
       <h1>Cancel Ticket</h1>
       <div>
         <label>
+          Email:
+          <input
+            type="text"
+            value={userEmail}
+            onChange={(e)=>setUserEmail(e.target.value)}
+          />
+        </label> <br/>
+        <label>
           Cancellation Code:
           <input
             type="text"
-            value={cancellationCode}
-            onChange={handleCancellationCodeChange}
+            value={transactionId}
+            onChange={(e)=>setTransactionId(e.target.value)}
           />
         </label>
       </div>

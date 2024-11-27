@@ -44,7 +44,7 @@ function LoginForm() {
 
       const data = await response.json();
       console.log("userdeeets:", data);
-      setRole(data.admin ? 'admin' : 'user');
+      setRole(data.user.admin ? 'admin' : 'user');
       setUserId(data.user.userId);
       sessionStorage.setItem('role', role);
       sessionStorage.setItem('userId', userId);
