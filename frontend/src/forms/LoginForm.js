@@ -43,9 +43,9 @@ function LoginForm() {
       }
 
       const data = await response.json();
-      setAuthenticationMessage(data.authMessage);
+      console.log("userdeeets:", data);
       setRole(data.admin ? 'admin' : 'user');
-      setUserId(email);
+      setUserId(data.user.userId);
       sessionStorage.setItem('role', role);
       sessionStorage.setItem('userId', userId);
       navigate('/');

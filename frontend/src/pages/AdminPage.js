@@ -7,6 +7,7 @@ import ManageTheatres from '../components/ManageTheatres';
 import ManageShowtimes from '../components/ManageShowtimes';
 //NOT ADJUSTED TO THIS FRONTEND FORMAT AT ALL
 //ALSO NEED TO FIX SHOWTIME ADD/UPDATE/DELETE and add delete option for all thingies
+// ALSO STILL NOT COMPLETLEY SURE HOW WE WILL IMPLEMENT NEW RELEASES FOR RUs
 const AdminPage = () => {
   const [selectedTab, setSelectedTab] = useState('');
 

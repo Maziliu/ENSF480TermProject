@@ -18,12 +18,14 @@ const UserAccountPage = () => {
   //fetch user details and saved cards
   useEffect(() => {
     const fetchUserDetails = () => {
-      fetch(`http://127.0.0.1:5000/User/${userId}/Details`)
+      fetch(`http://localhost:8080/user/${userId}/details`)
+      //fetch(`http://localhost:8080/user/1/details`)
         .then(response => response.json())
         .then(data => {
           if (data.error) {
             setMessage(data.error);
           } else {
+            console.log("userdeets:", data);
             setUserDetails(data);
             setSavedCards(data.savedCards);
             setIsLoading(false);
@@ -40,11 +42,33 @@ const UserAccountPage = () => {
 
   //handle updating user details
   const handleUpdateDetails = () => {
-    const updatedData = { first_name: userDetails.first_name, last_name: userDetails.last_name, email: userDetails.email, address: userDetails.address };
-    fetch(`http://127.0.0.1:5000/User/${userId}/UpdateDetails`, {
+    const updatedData = { 
+      ...userDetails,
+      savedCards: [...savedCards]
+      };
+
+    console.log("updated details: ", updatedData);
+  
+    if (newCard.cardholderName && newCard.cardNumber && newCard.expiryDate && newCard.cvv) {
+          //validate card fields if 'new' payment method is selected
+      //validate cvv
+      if (!/^\d{3}$/.test(newCard.cvv)) {
+        alert('Please enter a valid 3-digit cvv.');
+        return;
+      }
+
+      //validate expiry date
+      if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(newCard.expiryDate)) {
+        alert('Please enter a valid expiry date in MM/YY format.');
+        return;
+      }
+      updatedData.savedCards.push(newCard);
+    }
+
+    fetch(`http://localhost:8080/user/${userId}/update-details`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updatedData),
+      body: new URLSearchParams(updatedData).toString(),
     })
       .then(response => response.json())
       .then(data => {
@@ -60,67 +84,9 @@ const UserAccountPage = () => {
       });
   };
 
-  //handle adding a new card
-  const handleAddCard = () => {
-    if (!newCard.cardholderName || !newCard.cardNumber || !newCard.expiryDate || !newCard.cvv){
-      alert('Please fill in all payment information fields.')
-      return;
-    }
-    const cardData = { ...newCard };  // Get the new card details
-    fetch(`http://127.0.0.1:5000/User/${userId}/AddCard`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(cardData),
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data.message) {
-          setSavedCards([...savedCards, newCard]);
-          setMessage('New card added successfully');
-        } else {
-          setMessage('Failed to add new card.');
-        }
-      })
-      .catch(error => {
-        console.error('Error adding new card:', error);
-        setMessage('Failed to add new card.');
-      });
-  };
-
-  //handle updating an existing card
-  const handleUpdateCard = () => {
-    if (!selectedCard.cardholderName || !selectedCard.cardNumber || !selectedCard.expiryDate || !selectedCard.cvv){
-      alert('Please fill in all payment information fields.')
-      return;
-    }
-    const updatedCardData = { ...selectedCard };
-    fetch(`http://127.0.0.1:5000/User/${userId}/UpdateCard`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updatedCardData),
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data.message) {
-          // Update the saved cards list
-          const updatedCards = savedCards.map(card => 
-            card.cardNumber === selectedCard.cardNumber ? updatedCardData : card
-          );
-          setSavedCards(updatedCards);
-          setMessage('Card updated successfully');
-        } else {
-          setMessage('Failed to update card.');
-        }
-      })
-      .catch(error => {
-        console.error('Error updating card:', error);
-        setMessage('Failed to update card.');
-      });
-  };
-
   //handle paying the annual fee
   const handlePayFee = () => {
-    fetch(`http://127.0.0.1:5000/User/${userId}/PayFee`, {
+    fetch(`http://localhost:8080/User/${userId}/PayFee`, {
       method: 'POST',
     })
       .then(response => response.json())
@@ -142,7 +108,7 @@ const UserAccountPage = () => {
   const handleUnregister = () => {
     const confirmUnregister = window.confirm('Are you sure you want to unregister?');
     if (confirmUnregister) {
-      fetch(`http://127.0.0.1:5000/User/${userId}/Unregister`, {
+      fetch(`http://localhost:8080/User/${userId}/Unregister`, {
         method: 'DELETE',
       })
         .then(response => response.json())
@@ -181,12 +147,12 @@ const UserAccountPage = () => {
         <h3>Personal Information</h3>
         <input
           type="text"
-          value={userDetails.first_name}
+          value={userDetails.firstName}
           onChange={(e) => setUserDetails({ ...userDetails, first_name: e.target.value })}
         />
         <input
           type="text"
-          value={userDetails.last_name}
+          value={userDetails.lastName}
           onChange={(e) => setUserDetails({ ...userDetails, last_name: e.target.value })}
         />
         <input
@@ -206,7 +172,7 @@ const UserAccountPage = () => {
         <h3>Saved Payment Cards</h3>
         <div>
           {/* Radio select for existing cards */}
-          {savedCards.map((card, index) => (
+          {savedCards && savedCards.map((card, index) => (
             <div key={index}>
               <input 
                 type="radio" 
@@ -257,7 +223,7 @@ const UserAccountPage = () => {
                 value={selectedCard.cvv}
                 onChange={(e) => setSelectedCard({ ...selectedCard, cvv: e.target.value })}
               />
-              <button onClick={handleUpdateCard}>Update Card</button>
+              <button onClick={handleUpdateDetails}>Update Card</button>
             </div>
           )}
 
@@ -288,14 +254,15 @@ const UserAccountPage = () => {
                 value={newCard.cvv}
                 onChange={(e) => setNewCard({ ...newCard, cvv: e.target.value })}
               />
-              <button onClick={handleAddCard}>Add New Card</button>
+              <button onClick={handleUpdateDetails}>Add New Card</button>
             </div>
           )}
         </div>
       </div>
-
+      {/* ALSO IDK IF WE WANNA DO SOMETHING LIKE THIS OR JUST DO
+      ANNUAL FEE STUFF COMPLETLEY BACKEND OR JUST HAVE "AUTOMATIC BILLING: JAN 12, 2025" ON ACCOUNT PAGE OR SMTHING */}
       {!userDetails.has_paid && (
-        <div>
+        <div>                    
           <h3>Pay Annual Fee</h3>
           <button onClick={handlePayFee}>Pay $20.00</button>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-
+//not sure completely how we want to implement this either
 const CancelTicketPage = () => {
   const [cancellationCode, setCancellationCode] = useState('');
   const [message, setMessage] = useState('');
@@ -12,11 +12,10 @@ const CancelTicketPage = () => {
     setCancellationCode(event.target.value);
   };
 
-  const handleCancelTicket = () => {
-    fetch('http://localhost:8080/cancel', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ cancellationCode }),
+  const getTransaction = () => {
+    fetch(`http://localhost:8080/transaction/${transactionId}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
     })
       .then(response => response.json())
       .then(data => {
