@@ -8,7 +8,7 @@ import { useSelectionContext } from '../contexts/SelectionContext.js';
 const PaymentPage = () => {
   const { showtimeId, seatName } = useParams();
   const navigate = useNavigate();
-  const { authenticated, role, userId } = useAuthContext();
+  const { role, userId } = useAuthContext();
   const { selectedTheatre, selectedTheatreName, selectedMovie, selectedMovieName, selectedShowtime, selectedShowtimeTime } = useSelectionContext();
   const [ticketPrice, setTicketPrice] = useState(10); //example ticket price
   const [gst, setGst] = useState(0);
@@ -50,7 +50,7 @@ const PaymentPage = () => {
         })
         .catch(error => console.error('Error fetching user details:', error));
     }
-  }, [authenticated, userId, role]);
+  }, [userId, role]);
 
   const handleApplyPromoCode = () => {
     fetch(`http://127.0.0.1:8080/promoCode/${promoCode}`, {
@@ -71,6 +71,20 @@ const PaymentPage = () => {
         alert('Invalid promo code');
       });
   };
+
+  function convertDate(dateString) {
+    const date = new Date(dateString);
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based, so add 1
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    const formattedDate = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+    return formattedDate;
+  }
 
   const handlePayment = () => {
     //validate email and address for all users
@@ -112,15 +126,15 @@ const PaymentPage = () => {
     }
 
     const paymentData = {
-      selectedShowtime,
-      selectedSeat,
+      Showtime: {theatre_id:parseInt(selectedTheatre), movie_id:selectedMovie, id:parseInt(selectedShowtime), time:convertDate(selectedShowtimeTime)},
+      seatName,
       ticketPrice,
       gst,
       totalPrice,
       email,
       address,
-      selectedMovie,
-      selectedTheatre,
+      movie:selectedMovieName,
+      theatre:selectedTheatreName,
       discount,
       paymentCard,
       //selectedCard, // Add selected card information

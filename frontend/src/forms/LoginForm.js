@@ -9,7 +9,7 @@ function LoginForm() {
   const [password, setPassword] = useState('');
   const [authenticationMessage, setAuthenticationMessage] = useState('');
   const [showSignup, setShowSignup] = useState(false);
-  const { role, userId, setRole, setUserId } = useAuthContext();
+  const { role, userId, setRole, setUserId, setUserEmail } = useAuthContext();
   const [isInitialRender, setIsInitialRender] = useState(true);
 
   const navigate = useNavigate();
@@ -46,8 +46,10 @@ function LoginForm() {
       console.log("userdeeets:", data);
       setRole(data.user.admin ? 'admin' : 'user');
       setUserId(data.user.userId);
+      setUserEmail(data.user.email);
       sessionStorage.setItem('role', role);
       sessionStorage.setItem('userId', userId);
+      sessionStorage.setItem('userEmail', userId);
       navigate('/');
     } catch (error) {
       setAuthenticationMessage(error.message || 'An error occurred');

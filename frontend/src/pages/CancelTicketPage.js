@@ -19,7 +19,7 @@ const CancelTicketPage = () => {
       transactionId
     }
 
-    fetch(`http://localhost:8080/refund`, {
+    fetch(`http://localhost:8080/transaction/refund`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(refundData)
