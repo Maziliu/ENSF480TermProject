@@ -23,25 +23,15 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestParam String email, @RequestParam String password) {
-        Optional<AuthenticatedUserDTO> user = authenticator.authenticateUser(email, password);
-        if (user.isPresent()) {
-            return ResponseEntity.ok().body(
-                new LoginResponse(true, "Login successful!", user.get().isAdmin())
-            );
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
-            new LoginResponse(false, "Invalid credentials", false)
-        );
+        Optional<AuthenticatedUserDTO> result = authenticator.authenticateUser(email, password);
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping("/register")
     public ResponseEntity<Object> register(@RequestParam String email, @RequestParam String password) {
         Optional<AuthenticatedUserDTO> user = authenticator.authenticateUser(email, password);
         if (!user.isPresent()) {
-            authenticator.registerUser(email, password);
-            return ResponseEntity.ok().body(
-                new RegistrationResponse(true, "Registration successful")
-            );
+            return ResponseEntity.ok(authenticator.registerUser(email, password));
         }
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(

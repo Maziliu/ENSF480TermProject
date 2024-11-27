@@ -16,8 +16,8 @@ public class Authenticator {
         this.userRepository = userRepository;
     }
 
-    public void registerUser(String email, String password){
-        userRepository.save(new RegisteredUser(email, password));
+    public RegisteredUser registerUser(String email, String password){
+        return userRepository.save(new RegisteredUser(email, password));
     }
 
     public Optional<AuthenticatedUserDTO> authenticateUser(String email, String password) {
