@@ -92,7 +92,7 @@ const RegistrationForm = () => {
       .then((data) => {
         console.log("reg suc ", data);
         if (data) {
-          fetch(`http://localhost:8080/user/${data.userId}/update-details`, {
+          fetch(`http://localhost:8080/user/${data.user.userId}/update-details`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(userDetails),

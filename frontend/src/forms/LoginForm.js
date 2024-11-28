@@ -17,7 +17,7 @@ function LoginForm() {
   useEffect(() => {
     if (isInitialRender) {
       setIsInitialRender(false);
-    } else if (role != 'guest') {
+    } else if (role !== 'guest') {
       navigate('/');
     }
   }, [role]);
