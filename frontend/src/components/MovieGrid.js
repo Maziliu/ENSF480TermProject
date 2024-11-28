@@ -4,7 +4,7 @@ import { useSelectionContext } from '../contexts/SelectionContext';
 import MovieItem from './MovieItem';
 import '../styles/MovieGrid.css';
 
-const MovieGrid = ({ handleSetMovieList, movies , queriedMovies, query }) => {
+const MovieGrid = ({ handleSetMovieList, movies , queriedMovies, query, setNewReleases }) => {
   const { selectedTheatreName, handleSelectMovie } = useSelectionContext();
   const [filteredMovies, setFilteredMovies] = useState([]);
   const navigate = useNavigate();
@@ -25,7 +25,11 @@ const MovieGrid = ({ handleSetMovieList, movies , queriedMovies, query }) => {
           throw new Error('API call failed');
         }
       })
-      .then((data) => handleSetMovieList(data))
+      .then((data) => {
+        if (data) {
+          handleSetMovieList(data);
+          setNewReleases(data);
+  }})
       .catch((error) => console.error('Error fetching movies:', error));
   }, [selectedTheatreName]);
 
