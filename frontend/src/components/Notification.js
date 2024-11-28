@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useSelectionContext } from '../contexts/SelectionContext';
+import { useNavigate } from 'react-router-dom';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import '../styles/Notification.css';
@@ -31,7 +33,9 @@ const CustomDot = ({ onMove, index, onClick, active }) => {
 };
 
 const Notification = ({ movies }) => {
+  const { handleSelectMovie } = useSelectionContext();
   const [showPopup, setShowPopup] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (movies && movies.length > 0) {
@@ -62,6 +66,11 @@ const Notification = ({ movies }) => {
     },
   };
 
+  const handleMovieClick = (id, name) => {
+    handleSelectMovie(id, name);
+    navigate(`/movies/${id}`);
+  };
+
   return (
     <>
       {showPopup && (
@@ -84,7 +93,8 @@ const Notification = ({ movies }) => {
             >
                 {movies.map((movie) => (
                 <div className="movie-item" key={movie.id}>
-                    <div className="movie-poster-placeholder" />
+                    <div className="movie-poster-placeholder" 
+                    onClick={() => handleMovieClick(movie.movieId, movie.movieName)} />
                         <img
                         src={movie.posterUrl}
                         alt={movie.movieName}
