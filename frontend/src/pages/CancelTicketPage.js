@@ -58,7 +58,7 @@ const CancelTicketPage = () => {
           />
         </label> <br/>
         <label>
-          Cancellation Code:
+          Booking ID:
           <input
             type="text"
             value={transactionId}
