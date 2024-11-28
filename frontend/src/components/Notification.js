@@ -92,15 +92,15 @@ const Notification = ({ movies }) => {
               className="movie-carousel"
             >
                 {movies.map((movie) => (
-                <div className="movie-item" key={movie.id}>
-                    <div className="movie-poster-placeholder" 
+                <div className="movie-item2" key={movie.id}>
+                    <div className="movie-poster-placeholder2" 
                     onClick={() => handleMovieClick(movie.movieId, movie.movieName)} />
                         <img
                         src={movie.posterUrl}
                         alt={movie.movieName}
-                        className="movie-poster"
+                        className="movie-poster2"
                         />
-                        <div className="movie-details">
+                        <div className="movie-details2">
                         <h3>{movie.movieName}</h3>
                     </div>
                 </div>
