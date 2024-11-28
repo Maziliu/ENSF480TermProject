@@ -1,5 +1,6 @@
 package ENSF480TermProject.backend.models;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.hibernate.annotations.ManyToAny;
@@ -36,6 +37,12 @@ public class Movie {
 
     @Column(name = "rating_out_of_ten", nullable = true)
     private Double ratingOutOfTen;
+
+    @Column(name = "is_released", nullable = true)
+    private Boolean isReleased;
+
+    @Column(name = "release_date", nullable = true)
+    private LocalDateTime releaseDate;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private List<Showtime> showtimes;
@@ -80,5 +87,49 @@ public class Movie {
     public Double getRatingOutOfTen() {
         return ratingOutOfTen;
     }
+
+    public LocalDateTime getReleaseDate() {
+        return releaseDate;
+    }
+
+    public Boolean getIsReleased(){
+        return this.isReleased;
+    }
+
     //Set
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setDurationInSeconds(int durationInSeconds) {
+        this.durationInSeconds = durationInSeconds;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public void setMovieId(Long movieId) {
+        this.movieId = movieId;
+    }
+
+    public void setMovieName(String movieName) {
+        this.movieName = movieName;
+    }
+
+    public void setRatingOutOfTen(Double ratingOutOfTen) {
+        this.ratingOutOfTen = ratingOutOfTen;
+    }
+
+    public void setReleaseDate(LocalDateTime releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public void setIsReleased(Boolean isReleased) {
+        this.isReleased = isReleased;
+    }
+
+    public void setShowtimes(List<Showtime> showtimes) {
+        this.showtimes = showtimes;
+    }
 }

@@ -12,7 +12,9 @@ CREATE TABLE IF NOT EXISTS Movies (
     duration_in_seconds INT NOT NULL,
     description VARCHAR(255),
     genre VARCHAR(255),
-    rating_out_of_ten DOUBLE
+    rating_out_of_ten DOUBLE,
+    is_released boolean,
+    release_date DATETIME
 );
 
 -- Create Theatres table

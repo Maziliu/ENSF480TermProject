@@ -76,6 +76,10 @@ public class PaymentCard {
         return expireDate;
     }
 
+    public RegisteredUser getRegisteredUser() {
+        return registeredUser;
+    }
+
     //Set
     public void setCardHolderName(String cardHolderName) {
         this.cardHolderName = cardHolderName;
@@ -95,6 +99,10 @@ public class PaymentCard {
 
     public void setExpireDate(YearMonth expireDate) {
         this.expireDate = expireDate;
+    }
+
+    public void setRegisteredUser(RegisteredUser registeredUser) {
+        this.registeredUser = registeredUser;
     }
 
     @Override

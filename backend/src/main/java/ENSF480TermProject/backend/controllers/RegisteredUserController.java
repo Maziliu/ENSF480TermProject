@@ -1,18 +1,23 @@
 package ENSF480TermProject.backend.controllers;
 
+import java.lang.StackWalker.Option;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ENSF480TermProject.backend.dtos.user.PaymentCardDTO;
 import ENSF480TermProject.backend.dtos.user.UserDetailsDTO;
 import ENSF480TermProject.backend.models.RegisteredUser;
 import ENSF480TermProject.backend.services.user.RegisteredUserService;
@@ -39,4 +44,20 @@ public class RegisteredUserController {
         return result.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with ID " + userId + " not found."));
     }
 
+    @DeleteMapping("/{userId:[0-9]+}/delete-user")
+    public ResponseEntity<String> deleteUser(@PathVariable("userId") Long userId){
+        Optional<String> result = registeredUserService.deleteUser(userId);
+
+        return result.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Failed to delete user with ID " + userId));
+    }
+
+    @PostMapping("/{userId:[0-9]+}/add-payment-card")
+    public ResponseEntity<RegisteredUser> addPaymentCard(@PathVariable("userId") Long userId, @RequestBody PaymentCardDTO paymentCardDTO){
+        return ResponseEntity.ok(registeredUserService.addPaymentCard(userId, paymentCardDTO).orElse(null));
+    }
+
+    @DeleteMapping("/{userId:[0-9]+}/delete-payment-card/{cardId:[0-9]+}")
+    public ResponseEntity<RegisteredUser> deletePaymentCard(@PathVariable("userId") Long userId, @PathVariable("cardId") Long cardId){
+        return ResponseEntity.ok(registeredUserService.deletePaymentCard(userId, cardId).orElse(null));
+    }
 }
