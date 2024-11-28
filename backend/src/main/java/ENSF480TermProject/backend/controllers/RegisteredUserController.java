@@ -60,4 +60,9 @@ public class RegisteredUserController {
     public ResponseEntity<RegisteredUser> deletePaymentCard(@PathVariable("userId") Long userId, @PathVariable("cardId") Long cardId){
         return ResponseEntity.ok(registeredUserService.deletePaymentCard(userId, cardId).orElse(null));
     }
+
+    @PutMapping("/{userId:[0-9]+}/update-payment-card")
+    public ResponseEntity<RegisteredUser> updatePaymentCard(@PathVariable("userId") Long userId, @RequestBody PaymentCardDTO paymentCardDTO){
+        return ResponseEntity.ok(registeredUserService.updatePaymentCard(userId, paymentCardDTO).orElse(null));
+    }
 }

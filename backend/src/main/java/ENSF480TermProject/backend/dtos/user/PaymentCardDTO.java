@@ -5,6 +5,7 @@ import java.time.YearMonth;
 import ENSF480TermProject.backend.enums.PaymentCardType;
 
 public class PaymentCardDTO {
+    private Long cardId;
     private String cardHolderName, cardNumber, cvv;
     private YearMonth expiryDate;
     private PaymentCardType paymentCardType;
@@ -32,6 +33,10 @@ public class PaymentCardDTO {
         return paymentCardType;
     }
 
+    public Long getCardId() {
+        return cardId;
+    }
+
     //Set
     public void setCardHolderName(String cardHolderName) {
         this.cardHolderName = cardHolderName;
@@ -51,5 +56,9 @@ public class PaymentCardDTO {
 
     public void setPaymentCardType(PaymentCardType paymentCardType) {
         this.paymentCardType = paymentCardType;
+    }
+
+    public void setCardId(Long cardId) {
+        this.cardId = cardId;
     }
 }

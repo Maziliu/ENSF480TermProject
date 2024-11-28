@@ -84,5 +84,22 @@ public class RegisteredUserService {
 
         return registeredUserRepository.findById(userId);
     }
+
+    public Optional<RegisteredUser> updatePaymentCard(Long userId, PaymentCardDTO paymentCardDTO){
+        Optional<PaymentCard> paymentCardOptional = paymentCardRepository.findById(paymentCardDTO.getCardId());
+        if(paymentCardOptional.isEmpty()){
+            return Optional.of(null);
+        }
+
+        PaymentCard paymentCard = paymentCardOptional.get();
+        paymentCard.setCardHolderName(paymentCardDTO.getCardHolderName());
+        paymentCard.setCardNumber(paymentCardDTO.getCardNumber());
+        paymentCard.setCvv(paymentCardDTO.getCvv());
+        paymentCard.setExpireDate(paymentCard.getExpireDate());
+        
+        paymentCardRepository.save(paymentCard);
+
+        return registeredUserRepository.findById(userId);
+    }
     
 }
