@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import '../styles/Notification.css';
+import '../styles/NewReleaseNotification.css';
 
 const CustomLeftArrow = ({ onClick }) => {
   return (
@@ -32,7 +33,7 @@ const CustomDot = ({ onMove, index, onClick, active }) => {
   );
 };
 
-const Notification = ({ movies }) => {
+const NewReleaseNotification = ({ movies }) => {
   const { handleSelectMovie } = useSelectionContext();
   const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
@@ -113,4 +114,4 @@ const Notification = ({ movies }) => {
   );
 };
 
-export default Notification;
+export default NewReleaseNotification;

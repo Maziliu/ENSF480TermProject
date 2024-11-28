@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext.js';
 import { useSelectionContext } from '../contexts/SelectionContext.js';
+import ReceiptNotification from '../components/ReceiptNotification.js';
 //STILL HAS SOME ISSUES TO RESOLVE
 const PaymentPage = () => {
   const { showtimeId, seatName } = useParams();
@@ -26,7 +27,8 @@ const PaymentPage = () => {
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
   const [showCardFields, setShowCardFields] = useState(false);
-  const [paymentData, setPaymentData] = useState([]);
+  const [receiptData, setReceiptData] = useState([]);
+  const [showReceiptPopup, setShowReceiptPopup] = useState(false);
 
   useEffect(() => {
     const calculatedGst = (ticketPrice - discount) * 0.05;
@@ -155,7 +157,8 @@ const PaymentPage = () => {
         return response.json();
       })
       .then(data => {
-        navigate(`/receipt/${showtimeId}/${selectedSeat.row}-${selectedSeat.column}`, { state: { paymentData: paymentData }});
+        setReceiptData(paymentData);
+        setShowReceiptPopup(true);
       })
       .catch(error => {
         console.error('Payment error:', error);
@@ -189,7 +192,9 @@ const PaymentPage = () => {
       <Header />
       <Navigation />
       <div className="payment-page">
+        {showReceiptPopup && <ReceiptNotification receiptData={receiptData}/>}
         <h1>Payment Page</h1>
+        <h2>Order Summary</h2>
         <div>Movie: {selectedMovieName}</div>
         <div>Theatre: {selectedTheatreName}</div>
         <div>Showtime: {new Date(selectedShowtimeTime).toLocaleString()}</div>
@@ -201,6 +206,7 @@ const PaymentPage = () => {
 
         {/* email and address fields */}
         <div>
+        <h2>Payment Information</h2>
         <label>Email: </label>
           <input type="text" value={email} onChange={(e)=> setEmail(e.target.value)} placeholder='Enter Email Address'/> <br/>
         <label>Address: </label>
