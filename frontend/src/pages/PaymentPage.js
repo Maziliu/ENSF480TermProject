@@ -6,6 +6,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext.js';
 import { useSelectionContext } from '../contexts/SelectionContext.js';
 import ReceiptNotification from '../components/ReceiptNotification.js';
+import '../styles/PaymentPage.css';
+
+
 //STILL HAS SOME ISSUES TO RESOLVE
 const PaymentPage = () => {
   const { showtimeId, seatName } = useParams();
@@ -191,93 +194,113 @@ const PaymentPage = () => {
     <div>
       <Header />
       <Navigation />
+      <h1 className='payment-header'>Payment Page</h1>
       <div className="payment-page">
-        {showReceiptPopup && <ReceiptNotification receiptData={receiptData}/>}
-        <h1>Payment Page</h1>
-        <h2>Order Summary</h2>
-        <div>Movie: {selectedMovieName}</div>
-        <div>Theatre: {selectedTheatreName}</div>
-        <div>Showtime: {new Date(selectedShowtimeTime).toLocaleString()}</div>
-        <div>Seat: {seatName}</div>
-        <div>Ticket Price: ${ticketPrice.toFixed(2)}</div>
-        <div>Savings: ${discount.toFixed(2)}</div>
-        <div>GST (5%): ${gst.toFixed(2)}</div>
-        <div>Total Price: ${totalPrice.toFixed(2)}</div>
+        <table>
+          <tr>
+            <td className='order-summary'>
+              {showReceiptPopup && <ReceiptNotification receiptData={receiptData}/>}
+              <h2>Order Summary</h2>
+              <div>Movie: {selectedMovieName}</div>
+              <div>Theatre: {selectedTheatreName}</div>
+              <div>Showtime: {new Date(selectedShowtimeTime).toLocaleString()}</div>
+              <div>Seat: {seatName}</div>
+              <div>Ticket Price: ${ticketPrice.toFixed(2)}</div>
+              <div>Savings: ${discount.toFixed(2)}</div>
+              <div>GST (5%): ${gst.toFixed(2)}</div>
+              <div>Total Price: ${totalPrice.toFixed(2)}</div>
+              
+              <br></br>
+              <br></br>
+              {/* email and address fields */}
+              <div className='payment-input'>
+                <label>Email</label>
+                  <input type="text" value={email} onChange={(e)=> setEmail(e.target.value)} placeholder='Enter Email Address'/> <br/>
+                <label>Address</label>
+                  <input type="text" value={address} onChange={(e)=>setAddress(e.target.value)} placeholder='Enter Address' required />
+              </div>
+            </td>
 
-        {/* email and address fields */}
-        <div>
-        <h2>Payment Information</h2>
-        <label>Email: </label>
-          <input type="text" value={email} onChange={(e)=> setEmail(e.target.value)} placeholder='Enter Email Address'/> <br/>
-        <label>Address: </label>
-          <input type="text" value={address} onChange={(e)=>setAddress(e.target.value)} placeholder='Enter Address' required />
-        </div>
+            <td className='payment-input'>
+              <h2>Payment Information</h2>
+                
+              {/* displaying different card selection options based on the role */}
+              {role === 'user' && (  // only show the Add New Payment Card option for 'user' role
+                <div>
+                  <br></br>
+                  <label>
+                    <input
+                      type="radio"
+                      name="paymentCard"
+                      value="newCard"
+                      checked={showCardFields}
+                      onChange={handleNewCardSelection}
+                    />
+                    Add New Payment Card
+                  </label>
+                </div>
+              )}
 
-        {/* displaying different card selection options based on the role */}
-        {role === 'user' && (  // only show the Add New Payment Card option for 'user' role
-          <div>
-            <label>
-              <input
-                type="radio"
-                name="paymentCard"
-                value="newCard"
-                checked={showCardFields}
-                onChange={handleNewCardSelection}
-              />
-              Add New Payment Card
-            </label>
-          </div>
-        )}
+              {/* displaying saved cards if authenticated and role is 'user' */}
+              {role === 'user' && savedCards.length > 0 && (
+                <div>
+                  <br></br>
+                  <label>Choose a Saved Payment Card</label>
+                  {savedCards.map((card) => (
+                    <div key={card.id}>
+                      <label>
+                        <input
+                          type="radio"
+                          name="paymentCard"
+                          value={card.id}
+                          checked={selectedCard === card.id}
+                          onChange={() => handleSelectedSavedCard(card)}
+                        />
+                        {card.cardholderName} - {card.cardNumber.slice(-4)}  {/* show last 4 digits */}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              )}
 
-        {/* displaying saved cards if authenticated and role is 'user' */}
-        {role === 'user' && savedCards.length > 0 && (
-          <div>
-            <label>Choose a Saved Payment Card:</label>
-            {savedCards.map((card) => (
-              <div key={card.id}>
+              {/* show the new payment card fields if "Add New Payment Card" is selected */}
+              {(role === 'guest' || showCardFields) && (
+                <div>
+                  <div className="payment-method-list"><select  onChange={(e)=>setPaymentMethod(e.target.value)}>
+                    <option value="">Select a Payment Method</option>
+                    <option value="credit">Credit</option>
+                    <option value="debit">Debit</option>
+                  </select></div>
+                  <br></br>
+                  <label>Cardholder Name</label>
+                      <input type="text" value={cardholderName} onChange={(e)=>setCardholderName(e.target.value)} placeholder='Enter Cardholder Name' required /> <br/>
+                  <br></br>
+                  <label>Card Number</label>
+                      <input type="text" value={cardNumber} onChange={(e)=>setCardNumber(e.target.value)} placeholder='Enter Card Number' required /> <br/>
+                  <br></br>
+                  <label>CVV</label>
+                      <input type="text" value={cvv} onChange={(e)=>setCvv(e.target.value)} placeholder='Enter CVV'required /> <br/>
+                  <br></br>
+                  <label>Expiry Date (MM/YY)</label>
+                      <input type="text" value={expiryDate} onChange={(e)=>setExpiryDate(e.target.value)} placeholder='Enter Expiry Date' required /> <br/>
+                </div>
+              )}
+
+              <div>
+                <br></br>
                 <label>
-                  <input
-                    type="radio"
-                    name="paymentCard"
-                    value={card.id}
-                    checked={selectedCard === card.id}
-                    onChange={() => handleSelectedSavedCard(card)}
-                  />
-                  {card.cardholderName} - {card.cardNumber.slice(-4)}  {/* show last 4 digits */}
+                  Promo Code
+                  <input type="text" value={promoCode} onChange={(e)=>setPromoCode(e.target.value)} />
+                  <button onClick={handleApplyPromoCode}>Apply</button>
                 </label>
               </div>
-            ))}
-          </div>
-        )}
 
-        {/* show the new payment card fields if "Add New Payment Card" is selected */}
-        {(role === 'guest' || showCardFields) && (
-          <div>
-            <div className="payment-method-list"><select  onChange={(e)=>setPaymentMethod(e.target.value)}>
-              <option value="">Select a Payment Method</option>
-              <option value="credit">Credit</option>
-              <option value="debit">Debit</option>
-            </select></div>
-            <label>Cardholder Name: </label>
-                <input type="text" value={cardholderName} onChange={(e)=>setCardholderName(e.target.value)} placeholder='Enter Cardholder Name' required /> <br/>
-            <label>Card Number: </label>
-                <input type="text" value={cardNumber} onChange={(e)=>setCardNumber(e.target.value)} placeholder='Enter Card Number' required /> <br/>
-            <label>cvv: </label>
-                <input type="text" value={cvv} onChange={(e)=>setCvv(e.target.value)} placeholder='Enter CVV'required /> <br/>
-            <label>Expiry Date (MM/YY): </label>
-                <input type="text" value={expiryDate} onChange={(e)=>setExpiryDate(e.target.value)} placeholder='Enter Expiry Date' required /> <br/>
-          </div>
-        )}
-
-        <div>
-          <label>
-            Promo Code:
-            <input type="text" value={promoCode} onChange={(e)=>setPromoCode(e.target.value)} />
-            <button onClick={handleApplyPromoCode}>Apply</button>
-          </label>
-        </div>
-        <button onClick={handlePayment}>Pay Now</button>
+            </td>
+          </tr>
+        </table>
       </div>
+      
+      <button className='payment-button' onClick={handlePayment}>Pay Now</button>
       <Footer />
     </div>
   );

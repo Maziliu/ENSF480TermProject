@@ -52,19 +52,25 @@ const MoviePage = () => {
     <div>
       <Header />
       <Navigation />
-      <h1 className='header'> {movie.movieName}</h1>
+      <h1 className='movie-header'> {movie.movieName}</h1>
       <div className="movie-page">
-
-        <div className="movie-poster">
-          <img src={movie.posterUrl || 'default-poster.png'} alt={movie.movieName || 'Movie Poster'} />
-        </div>
-        <div className="movie-details">
-          <p>Duration: {Math.floor(movie.durationInSeconds / 60)} minutes</p>
-          <p>{movie.description}</p>
-          <p>Genre: {movie.genre}</p>
-          <p>Rating: {movie.ratingOutOfTen}/10</p>
-        </div>
-        <div className="selection-lists">
+        <table>
+          <tr>
+            <td className='movie-poster'>
+              <img src={movie.posterUrl ? `../images/posters/${movie.posterUrl}` : '../images/posters/default-poster.png'} 
+                   alt={movie.movieName || 'Movie Poster'} />
+            </td>
+            <td className="movie-details">
+              <p>Duration: {Math.floor(movie.durationInSeconds / 60)} minutes</p>
+              <p>{movie.description}</p>
+              <p>Genre: {movie.genre}</p>
+              <p>Rating: {movie.ratingOutOfTen}/10</p>
+            </td>
+          </tr>
+        </table>
+      </div>
+      
+      <div className="selection-lists">
           <select value={selectedTheatre} onChange={handleTheatreChange}>
             <option value="">Select a Theatre</option>
             {theatres?.map((theatre) => (
@@ -88,11 +94,10 @@ const MoviePage = () => {
               ))}
           </select>
         </div>
-        <button className='select-movie-button' onClick={handleGetTicketsClick} disabled={!selectedTheatre || !selectedShowtime}>
+      <button className='select-movie-button' onClick={handleGetTicketsClick} disabled={!selectedTheatre || !selectedShowtime}>
           Get Tickets
         </button>
         <Footer />
-      </div>
     </div>
   );
 };

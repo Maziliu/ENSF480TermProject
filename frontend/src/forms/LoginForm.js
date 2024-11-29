@@ -66,7 +66,7 @@ function LoginForm() {
 
   return (
     <div>
-      <h1 className='header'>Login</h1>
+      <h1 className='login-header'>Login</h1>
       <form className='login-container' onSubmit={handleAuthentication}>
         <p className='login-error-message'>{authenticationMessage}</p>
 
