@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -42,6 +43,10 @@ public class RegisteredUser {
     @Column(name = "last_name", nullable = true)
     private String lastName;
 
+    @OneToOne(mappedBy = "registeredUser", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private Subscription subscription;
+
     @JsonIgnore
     @Column(name = "is_admin", nullable = false)
     private Boolean isAdmin;
@@ -57,6 +62,7 @@ public class RegisteredUser {
         this.email = email;
         this.password = password;
         this.isAdmin = false;
+        createAndActivateSubscription();
     }
 
     public RegisteredUser(String email, String password, int theatreCredits, String address, boolean isAdmin) {
@@ -65,6 +71,13 @@ public class RegisteredUser {
         this.theatreCredits = theatreCredits;
         this. address = address;
         this.isAdmin = isAdmin;
+        createAndActivateSubscription();
+    }
+
+    private void createAndActivateSubscription(){
+        this.subscription = new Subscription();
+        this.subscription.setRegisteredUser(this);
+        this.subscription.activateSubscription();
     }
 
     public void addPaymentCard(PaymentCard paymentCard){
@@ -112,6 +125,14 @@ public class RegisteredUser {
         return lastName;
     }
 
+    public Boolean getIsAdmin() {
+        return isAdmin;
+    }   
+
+    public Subscription getSubscription() {
+        return subscription;
+    }
+
     //Set
     public void setAddress(String address) {
         this.address = address;
@@ -147,5 +168,9 @@ public class RegisteredUser {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public void setSubscription(Subscription subscription) {
+        this.subscription = subscription;
     }
 }

@@ -42,15 +42,9 @@ public class PurchaseTransactionStrategy implements TransactionStrategy {
         if (purchase.getUserId() == null) {
             paymentDTO = new PaymentResponseDTO(purchase);
         } else {
-            Optional<RegisteredUser> userOpt = registeredUserRepository.findById(purchase.getUserId());
-            Optional<Integer> theaterCreditsOpt = registeredUserRepository.findTheatreCreditsById(purchase.getUserId());
+            RegisteredUser user = getRegisteredUser(purchase.getUserId());
 
-            if (userOpt.isEmpty() || theaterCreditsOpt.isEmpty()) {
-                throw new EntityNotFoundException("User or theater credits not found for userId: " + purchase.getUserId());
-            }
-
-            RegisteredUser user = userOpt.get();
-            int theaterCredits = theaterCreditsOpt.get();
+            int theaterCredits = user.getTheatreCredits();
             BigDecimal creditsAsBigDecimal = BigDecimal.valueOf(theaterCredits);
             BigDecimal transactionAmount = purchase.getTransactionAmount();
 
@@ -67,6 +61,15 @@ public class PurchaseTransactionStrategy implements TransactionStrategy {
         return paymentDTO;
     }
 
+    //Helper Fuctions
+    private RegisteredUser getRegisteredUser(Long userId){
+        Optional<RegisteredUser> userOpt = registeredUserRepository.findById(userId);
+        if (userOpt.isEmpty()) {
+                throw new EntityNotFoundException("User or theater credits not found for userId: " + userId);
+        }
 
+        return userOpt.get();
+    } 
+    
 }
 

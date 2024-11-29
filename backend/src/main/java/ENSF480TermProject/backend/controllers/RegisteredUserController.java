@@ -20,16 +20,20 @@ import org.springframework.web.bind.annotation.RestController;
 import ENSF480TermProject.backend.dtos.user.PaymentCardDTO;
 import ENSF480TermProject.backend.dtos.user.UserDetailsDTO;
 import ENSF480TermProject.backend.models.RegisteredUser;
+import ENSF480TermProject.backend.models.Subscription;
 import ENSF480TermProject.backend.services.user.RegisteredUserService;
+import ENSF480TermProject.backend.services.user.SubscriptionService;
 
 @RestController
 @RequestMapping("/user")
 @CrossOrigin(origins = "http://localhost:3000")
 public class RegisteredUserController {
     private final RegisteredUserService registeredUserService;
+    private final SubscriptionService subscriptionService;
 
-    public RegisteredUserController(RegisteredUserService registeredUserService) {
+    public RegisteredUserController(RegisteredUserService registeredUserService, SubscriptionService subscriptionService) {
         this.registeredUserService = registeredUserService;
+        this.subscriptionService = subscriptionService;
     }
 
     @GetMapping("/{userId:[0-9]+}/details")
@@ -64,5 +68,10 @@ public class RegisteredUserController {
     @PutMapping("/{userId:[0-9]+}/update-payment-card")
     public ResponseEntity<RegisteredUser> updatePaymentCard(@PathVariable("userId") Long userId, @RequestBody PaymentCardDTO paymentCardDTO){
         return ResponseEntity.ok(registeredUserService.updatePaymentCard(userId, paymentCardDTO).orElse(null));
+    }
+
+    @PutMapping("/{userId:[0-9]+}/renew-subscription")
+    public ResponseEntity<Subscription> renewSubscription(@PathVariable("userId") Long userId){
+        return ResponseEntity.ok(subscriptionService.renewOrExtendSubscriptionManually(userId).orElse(null));
     }
 }
