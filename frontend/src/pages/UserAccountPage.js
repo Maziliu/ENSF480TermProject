@@ -22,7 +22,6 @@ const UserAccountPage = () => {
   useEffect(() => {
     const fetchUserDetails = () => {
       fetch(`http://localhost:8080/user/${userId}/details`)
-      //fetch(`http://localhost:8080/user/1/details`)
         .then(response => response.json())
         .then(data => {
           if (data.error) {
@@ -71,7 +70,7 @@ const UserAccountPage = () => {
     fetch(`http://localhost:8080/user/${userId}/update-details`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: new URLSearchParams(updatedData).toString(),
+      body: new URLSearchParams({updatedData}).toString(),
     })
       .then(response => response.json())
       .then(data => {

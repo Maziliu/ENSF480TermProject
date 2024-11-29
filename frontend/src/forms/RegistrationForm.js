@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import LoginForm from './LoginForm';
 import '../styles/RegistrationForm.css';
+import { useNavigate } from 'react-router-dom';
 
 const RegistrationForm = () => {
   const [email, setEmail] = useState('');
@@ -16,6 +17,7 @@ const RegistrationForm = () => {
   const [expiryDate, setexpiryDate] = useState('');
   const [registrationMessage, setRegistrationMessage] = useState('');
   const [showLogin, setShowLogin] = useState(false);
+  const navigate = useNavigate();
 
   const handleRegistration = (event) => {
     event.preventDefault();
@@ -68,7 +70,7 @@ const RegistrationForm = () => {
       is_admin: false,
       last_name:lastName,
       password,
-      paymentCard,
+      paymentCards:[paymentCard],
     };
 
     console.log("registration: ", userDetails);
@@ -98,7 +100,8 @@ const RegistrationForm = () => {
             body: JSON.stringify(userDetails),
           })
           .then(response => {
-            setRegistrationMessage('Registration successful! You can now log in.');
+            alert('Registration successful! You can now log in.');
+            setShowLogin(true);
           })
           .catch(error => {
             setRegistrationMessage(error.message);
