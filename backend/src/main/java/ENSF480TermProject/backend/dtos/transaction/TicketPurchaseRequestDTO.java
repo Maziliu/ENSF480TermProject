@@ -6,12 +6,13 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import ENSF480TermProject.backend.models.Ticket;
+import ENSF480TermProject.backend.utils.SeatPosition;
 
 public class TicketPurchaseRequestDTO {
     private String address, email, movie, theatre;
     private BigDecimal discount, gst, ticketPrice, totalPrice;
     private ShowtimeDTO showtime;
-    private String seatName;
+    private SeatPosition seatPosition;
     
     @Override
     public String toString() {
@@ -58,8 +59,8 @@ public class TicketPurchaseRequestDTO {
         return totalPrice;
     }
 
-    public String getSeatName() {
-        return seatName;
+    public SeatPosition getSeatPosition() {
+        return seatPosition;
     }
 
     //Set
@@ -98,8 +99,8 @@ public class TicketPurchaseRequestDTO {
         this.totalPrice = totalPrice;
     }
 
-    public void setSeatName(String seatName) {
-        this.seatName = seatName;
+    public void setSeatPosition(SeatPosition seatPosition) {
+        this.seatPosition = seatPosition;
     }
 
     public static class ShowtimeDTO {
