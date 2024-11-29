@@ -8,7 +8,6 @@ import { useSelectionContext } from '../contexts/SelectionContext.js';
 import ReceiptNotification from '../components/ReceiptNotification.js';
 import '../styles/PaymentPage.css';
 
-
 //STILL HAS SOME ISSUES TO RESOLVE
 const PaymentPage = () => {
   const { showtimeId, seatName } = useParams();
@@ -26,7 +25,7 @@ const PaymentPage = () => {
   const [cvv, setCvv] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
   const [selectedCard, setSelectedCard] = useState('');
-  const [savedCards, setSavedCards] = useState([]); 
+  const [savedCards, setSavedCards] = useState([]);
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
   const [showCardFields, setShowCardFields] = useState(false);
@@ -42,37 +41,37 @@ const PaymentPage = () => {
   useEffect(() => {
     if (role === 'user') {
       // fetch saved cards and user details if 'user'
-      fetch(`http://localhost:8080/user/${userId}/details`)  //fetch user email and address
-        .then(response => {
+      fetch(`http://localhost:8080/user/${userId}/details`) //fetch user email and address
+        .then((response) => {
           if (!response.ok) {
             throw new Error('User details not found');
           }
           return response.json();
         })
-        .then(data => {
+        .then((data) => {
           setEmail(data.email);
           setAddress(data.address);
           setSavedCards(data.savedCards);
         })
-        .catch(error => console.error('Error fetching user details:', error));
+        .catch((error) => console.error('Error fetching user details:', error));
     }
   }, [userId, role]);
 
   const handleApplyPromoCode = () => {
     fetch(`http://127.0.0.1:8080/promoCode/${promoCode}`, {
       method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json' },
     })
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error('Invalid promo code');
         }
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         setDiscount(data.discount);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Promo code error:', error);
         alert('Invalid promo code');
       });
@@ -117,11 +116,11 @@ const PaymentPage = () => {
       return;
     }
 
-    const [row, column] = seatName.split('-').map(num => Number(num) - 1);
+    const [row, column] = seatName.split('-').map((num) => Number(num) - 1);
     const selectedSeat = {
-        row,
-        column,
-    }
+      row,
+      column,
+    };
 
     const paymentCard = {
       paymentMethod,
@@ -129,18 +128,18 @@ const PaymentPage = () => {
       cardNumber,
       cvv,
       expiryDate,
-    }
+    };
 
     const paymentData = {
-      Showtime: {theatre_id:parseInt(selectedTheatre), movie_id:selectedMovie, id:parseInt(selectedShowtime), time:convertDate(selectedShowtimeTime)},
+      showtime: { theatre_id: parseInt(selectedTheatre), movie_id: selectedMovie, id: parseInt(selectedShowtime), time: convertDate(selectedShowtimeTime) },
       seatName,
       ticketPrice,
       gst,
       totalPrice,
       email,
       address,
-      movie:selectedMovieName,
-      theatre:selectedTheatreName,
+      movie: selectedMovieName,
+      theatre: selectedTheatreName,
       discount,
       paymentCard,
       //selectedCard, // Add selected card information
@@ -151,19 +150,19 @@ const PaymentPage = () => {
     fetch('http://localhost:8080/transaction/purchase', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(paymentData)
+      body: JSON.stringify(paymentData),
     })
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error('Payment failed');
         }
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         setReceiptData(paymentData);
         setShowReceiptPopup(true);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Payment error:', error);
         alert('Payment failed');
       });
@@ -171,7 +170,7 @@ const PaymentPage = () => {
 
   const handleNewCardSelection = () => {
     setShowCardFields(true);
-    setSelectedCard(''); 
+    setSelectedCard('');
     setPaymentMethod('');
     setCardholderName('');
     setCardNumber('');
@@ -188,18 +187,18 @@ const PaymentPage = () => {
     setCardNumber(card.cardNumber);
     setCvv(card.cvv);
     setExpiryDate(card.expiryDate);
-  }
+  };
 
   return (
     <div>
       <Header />
       <Navigation />
-      <h1 className='payment-header'>Payment Page</h1>
+      <h1 className="payment-header">Payment Page</h1>
       <div className="payment-page">
         <table>
           <tr>
-            <td className='order-summary'>
-              {showReceiptPopup && <ReceiptNotification receiptData={receiptData}/>}
+            <td className="order-summary">
+              {showReceiptPopup && <ReceiptNotification receiptData={receiptData} />}
               <h2>Order Summary</h2>
               <div>Movie: {selectedMovieName}</div>
               <div>Theatre: {selectedTheatreName}</div>
@@ -209,33 +208,27 @@ const PaymentPage = () => {
               <div>Savings: ${discount.toFixed(2)}</div>
               <div>GST (5%): ${gst.toFixed(2)}</div>
               <div>Total Price: ${totalPrice.toFixed(2)}</div>
-              
+
               <br></br>
               <br></br>
               {/* email and address fields */}
-              <div className='payment-input'>
+              <div className="payment-input">
                 <label>Email</label>
-                  <input type="text" value={email} onChange={(e)=> setEmail(e.target.value)} placeholder='Enter Email Address'/> <br/>
+                <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter Email Address" /> <br />
                 <label>Address</label>
-                  <input type="text" value={address} onChange={(e)=>setAddress(e.target.value)} placeholder='Enter Address' required />
+                <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Enter Address" required />
               </div>
             </td>
 
-            <td className='payment-input'>
+            <td className="payment-input">
               <h2>Payment Information</h2>
-                
+
               {/* displaying different card selection options based on the role */}
-              {role === 'user' && (  // only show the Add New Payment Card option for 'user' role
+              {role === 'user' && ( // only show the Add New Payment Card option for 'user' role
                 <div>
                   <br></br>
                   <label>
-                    <input
-                      type="radio"
-                      name="paymentCard"
-                      value="newCard"
-                      checked={showCardFields}
-                      onChange={handleNewCardSelection}
-                    />
+                    <input type="radio" name="paymentCard" value="newCard" checked={showCardFields} onChange={handleNewCardSelection} />
                     Add New Payment Card
                   </label>
                 </div>
@@ -256,7 +249,7 @@ const PaymentPage = () => {
                           checked={selectedCard === card.id}
                           onChange={() => handleSelectedSavedCard(card)}
                         />
-                        {card.cardholderName} - {card.cardNumber.slice(-4)}  {/* show last 4 digits */}
+                        {card.cardholderName} - {card.cardNumber.slice(-4)} {/* show last 4 digits */}
                       </label>
                     </div>
                   ))}
@@ -266,23 +259,32 @@ const PaymentPage = () => {
               {/* show the new payment card fields if "Add New Payment Card" is selected */}
               {(role === 'guest' || showCardFields) && (
                 <div>
-                  <div className="payment-method-list"><select  onChange={(e)=>setPaymentMethod(e.target.value)}>
-                    <option value="">Select a Payment Method</option>
-                    <option value="credit">Credit</option>
-                    <option value="debit">Debit</option>
-                  </select></div>
+                  <div className="payment-method-list">
+                    <select onChange={(e) => setPaymentMethod(e.target.value)}>
+                      <option value="">Select a Payment Method</option>
+                      <option value="credit">Credit</option>
+                      <option value="debit">Debit</option>
+                    </select>
+                  </div>
                   <br></br>
                   <label>Cardholder Name</label>
-                      <input type="text" value={cardholderName} onChange={(e)=>setCardholderName(e.target.value)} placeholder='Enter Cardholder Name' required /> <br/>
+                  <input
+                    type="text"
+                    value={cardholderName}
+                    onChange={(e) => setCardholderName(e.target.value)}
+                    placeholder="Enter Cardholder Name"
+                    required
+                  />{' '}
+                  <br />
                   <br></br>
                   <label>Card Number</label>
-                      <input type="text" value={cardNumber} onChange={(e)=>setCardNumber(e.target.value)} placeholder='Enter Card Number' required /> <br/>
+                  <input type="text" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} placeholder="Enter Card Number" required /> <br />
                   <br></br>
                   <label>CVV</label>
-                      <input type="text" value={cvv} onChange={(e)=>setCvv(e.target.value)} placeholder='Enter CVV'required /> <br/>
+                  <input type="text" value={cvv} onChange={(e) => setCvv(e.target.value)} placeholder="Enter CVV" required /> <br />
                   <br></br>
                   <label>Expiry Date (MM/YY)</label>
-                      <input type="text" value={expiryDate} onChange={(e)=>setExpiryDate(e.target.value)} placeholder='Enter Expiry Date' required /> <br/>
+                  <input type="text" value={expiryDate} onChange={(e) => setExpiryDate(e.target.value)} placeholder="Enter Expiry Date" required /> <br />
                 </div>
               )}
 
@@ -290,17 +292,18 @@ const PaymentPage = () => {
                 <br></br>
                 <label>
                   Promo Code
-                  <input type="text" value={promoCode} onChange={(e)=>setPromoCode(e.target.value)} />
+                  <input type="text" value={promoCode} onChange={(e) => setPromoCode(e.target.value)} />
                   <button onClick={handleApplyPromoCode}>Apply</button>
                 </label>
               </div>
-
             </td>
           </tr>
         </table>
       </div>
-      
-      <button className='payment-button' onClick={handlePayment}>Pay Now</button>
+
+      <button className="payment-button" onClick={handlePayment}>
+        Pay Now
+      </button>
       <Footer />
     </div>
   );
