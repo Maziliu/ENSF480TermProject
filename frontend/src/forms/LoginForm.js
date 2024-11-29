@@ -43,14 +43,18 @@ function LoginForm() {
       }
 
       const data = await response.json();
-      console.log("userdeeets:", data);
-      setRole(data.user.admin ? 'admin' : 'user');
-      setUserId(data.user.userId);
-      setUserEmail(data.user.email);
-      sessionStorage.setItem('role', role);
-      sessionStorage.setItem('userId', userId);
-      sessionStorage.setItem('userEmail', userId);
-      navigate('/');
+      if (data){
+        console.log("userdeeets:", data);
+        setRole(data.user.admin ? 'admin' : 'user');
+        setUserId(data.user.userId);
+        setUserEmail(data.user.email);
+        sessionStorage.setItem('role', role);
+        sessionStorage.setItem('userId', userId);
+        sessionStorage.setItem('userEmail', userId);
+        navigate('/');
+      } else{
+        setAuthenticationMessage('Incorrect email or password. Please try again.')
+      }
     } catch (error) {
       setAuthenticationMessage(error.message || 'An error occurred');
     }

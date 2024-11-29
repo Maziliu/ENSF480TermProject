@@ -13,14 +13,21 @@ const HomePage = () => {
   const [movies, setMovies] = useState([]);
   const [newReleases, setNewReleases] = useState([]);
   const [queriedMovies, setQueriedMovies] = useState([]);
+  const [showNewReleases, setShowNewReleases] = useState(false);
   const [query, setQuery] = useState('');
-  const { role } = useAuthContext();
+  const { role, userId } = useAuthContext();
+
+  useEffect(()=>{
+    if (newReleases && newReleases.length > 0 && role === 'user'){
+      setShowNewReleases(true);
+    }
+  },[userId, newReleases])
 
   return (
     <div>
       <Header />
       <Navigation />
-      {role === 'user' && newReleases && <NewReleaseNotification movies={newReleases}/>}
+      {showNewReleases && <NewReleaseNotification movies={newReleases}/>}
       <SearchBar handleSetMovieList={setQueriedMovies} setQuery={setQuery} query={query}/>
       {<TheatreList />}
       <MovieGrid handleSetMovieList={setMovies} movies={movies} queriedMovies={queriedMovies} query={query} setNewReleases={setNewReleases}/>

@@ -27,8 +27,11 @@ const MovieGrid = ({ handleSetMovieList, movies , queriedMovies, query, setNewRe
       })
       .then((data) => {
         if (data) {
+          console.log("movies:", data);
           handleSetMovieList(data);
-          setNewReleases(data);
+          if(!selectedTheatreName){
+            setNewReleases(data.filter(movie => !movie.isReleased));
+          }
   }})
       .catch((error) => console.error('Error fetching movies:', error));
   }, [selectedTheatreName]);
