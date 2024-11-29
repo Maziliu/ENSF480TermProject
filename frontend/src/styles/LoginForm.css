@@ -1,5 +1,10 @@
 /* Login Form */
 
+.login-header {
+    color: white;
+    margin-left: 28.2%;
+}
+
 .login-container {
     display: flex;
     flex-direction: column;
@@ -10,7 +15,7 @@
     width: 600px;
     border-radius: 10px;
     margin: 0 auto;
-    transform: translateY(-30px);
+    transform: translateY(-18px);
 }
 
 .login-input {
@@ -74,8 +79,8 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
-    margin-left: 380px;
-    margin-top: -22px;
+    margin-left: 383px;
+    margin-top: -10px;
     margin-bottom: 25px;
 }
 

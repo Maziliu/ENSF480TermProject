@@ -14,12 +14,15 @@
   height: auto; /* Zero height */
   padding-top: calc(480 / 290 * 100%); /* Maintain aspect ratio */
   position: relative; /* For positioning child elements */
+  border: 2px solid transparent;
+
 }
 
 .movie-item:hover {
   transform: scale(1.05);
   box-shadow: 3px 3px 10px 2px #202020;
-  z-index: 0; 
+  z-index: 0;
+  border: 2px solid #4ccc;
 }
 
 .movie-poster img {
