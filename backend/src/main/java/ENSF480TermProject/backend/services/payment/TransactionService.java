@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import ENSF480TermProject.backend.dtos.transaction.PaymentResponseDTO;
 import ENSF480TermProject.backend.dtos.transaction.RefundResponseDTO;
+import ENSF480TermProject.backend.dtos.transaction.SubscriptionResponseDTO;
 import ENSF480TermProject.backend.dtos.transaction.TicketPurchaseRequestDTO;
 import ENSF480TermProject.backend.dtos.transaction.TicketRefundRequestDTO;
 import ENSF480TermProject.backend.enums.TransactionType;
@@ -17,6 +18,7 @@ import ENSF480TermProject.backend.interfaces.TransactionStrategy;
 import ENSF480TermProject.backend.models.Purchase;
 import ENSF480TermProject.backend.models.Refund;
 import ENSF480TermProject.backend.models.RegisteredUser;
+import ENSF480TermProject.backend.models.Subscription;
 import ENSF480TermProject.backend.models.Ticket;
 import ENSF480TermProject.backend.models.Transaction;
 import ENSF480TermProject.backend.repositories.RegisteredUserRepository;
@@ -57,6 +59,10 @@ public class TransactionService {
 
         RefundResponseDTO refundDTO = (RefundResponseDTO) transactionProcessor.processTransaction(transaction, TransactionType.REFUND);
         return Optional.of(refundDTO);
+    }
+
+    public Optional<SubscriptionResponseDTO> makeSubscription(Long userId){
+        
     }
 }
 
