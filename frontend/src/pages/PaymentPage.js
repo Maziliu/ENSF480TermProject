@@ -116,6 +116,12 @@ const PaymentPage = () => {
       return;
     }
 
+    const [row, column] = seatName.split('-').map((num) => Number(num) - 1);
+    const selectedSeat = {
+      row,
+      column,
+    };
+
     const paymentCard = {
       paymentMethod,
       cardholderName,
@@ -126,7 +132,7 @@ const PaymentPage = () => {
 
     const paymentData = {
       showtime: { theatre_id: parseInt(selectedTheatre), movie_id: selectedMovie, id: parseInt(selectedShowtime), time: convertDate(selectedShowtimeTime) },
-      seatName,
+      seatPosition: selectedSeat,
       ticketPrice,
       gst,
       totalPrice,
