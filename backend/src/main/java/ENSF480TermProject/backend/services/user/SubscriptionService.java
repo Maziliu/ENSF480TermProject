@@ -27,12 +27,12 @@ public class SubscriptionService {
 
     public List<Subscription> findSubscriptionsForRenewal() {
         LocalDateTime now = LocalDateTime.now();
-        return subscriptionRepository.findByStatusAndAutoRenewAndExpiryDateBefore(SubscriptionStatus.ACTIVE, true, now);
+        return subscriptionRepository.findBySubscriptionStatusAndIsAutoRenewAndExpiryDateBefore(SubscriptionStatus.ACTIVE, true, now);
     }
 
     public List<Subscription> findSubscriptionsToMarkExpired() {
         LocalDateTime now = LocalDateTime.now();
-        return subscriptionRepository.findByStatusAndAutoRenewAndExpiryDateBefore(SubscriptionStatus.ACTIVE, false, now);
+        return subscriptionRepository.findBySubscriptionStatusAndIsAutoRenewAndExpiryDateBefore(SubscriptionStatus.ACTIVE, false, now);
     }
 
     public void markAllExpiredWithNoAutoRenewSubscriptions(){
@@ -46,7 +46,7 @@ public class SubscriptionService {
 
     public void renewAllExpiredSubscriptions() {
         List<Subscription> subscriptionsToRenew = findSubscriptionsForRenewal();
-
+        
         for (Subscription subscription : subscriptionsToRenew) {
             renewSubscription(subscription);
             subscriptionRepository.save(subscription);
