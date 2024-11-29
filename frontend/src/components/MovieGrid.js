@@ -4,7 +4,7 @@ import { useSelectionContext } from '../contexts/SelectionContext';
 import MovieItem from './MovieItem';
 import '../styles/MovieGrid.css';
 
-const MovieGrid = ({ handleSetMovieList, movies , queriedMovies, query, setNewReleases }) => {
+const MovieGrid = ({ handleSetMovieList, movies , queriedMovies, query, setNewReleases, newReleases }) => {
   const { selectedTheatreName, handleSelectMovie } = useSelectionContext();
   const [filteredMovies, setFilteredMovies] = useState([]);
   const navigate = useNavigate();
@@ -29,9 +29,8 @@ const MovieGrid = ({ handleSetMovieList, movies , queriedMovies, query, setNewRe
         if (data) {
           console.log("movies:", data);
           handleSetMovieList(data);
-          if(!selectedTheatreName){
-            setNewReleases(data.filter(movie => !movie.isReleased));
-          }
+          const newMovies = data.filter(movie => !movie.isReleased);
+          setNewReleases(newMovies);
   }})
       .catch((error) => console.error('Error fetching movies:', error));
   }, [selectedTheatreName]);
