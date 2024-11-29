@@ -12,6 +12,7 @@ import ENSF480TermProject.backend.models.Subscription;
 import ENSF480TermProject.backend.repositories.RegisteredUserRepository;
 import ENSF480TermProject.backend.repositories.SubscriptionRepository;
 import ENSF480TermProject.backend.services.payment.TransactionService;
+import jakarta.transaction.Transactional;
 
 @Service
 public class SubscriptionService {
@@ -35,6 +36,7 @@ public class SubscriptionService {
         return subscriptionRepository.findBySubscriptionStatusAndIsAutoRenewAndExpiryDateBefore(SubscriptionStatus.ACTIVE, false, now);
     }
 
+    @Transactional
     public void markAllExpiredWithNoAutoRenewSubscriptions(){
         List<Subscription> unMarkedExpiredSubscriptions = findSubscriptionsToMarkExpired();
 
@@ -44,13 +46,14 @@ public class SubscriptionService {
         }
     }
 
+    @Transactional
     public void renewAllExpiredSubscriptions() {
         List<Subscription> subscriptionsToRenew = findSubscriptionsForRenewal();
         
         for (Subscription subscription : subscriptionsToRenew) {
             renewSubscription(subscription);
             subscriptionRepository.save(subscription);
-            //MAKE SURTE TO MAKE TEH TRANSACTION
+            transactionService.makeSubscription(subscription);
         }
     }
 

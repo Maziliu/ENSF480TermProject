@@ -32,23 +32,23 @@ public abstract class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "transaction_id", nullable = false, updatable = false, unique = true)
-    private UUID transactionId;
+    protected UUID transactionId;
 
     @Column(name = "transaction_amount", nullable = false, precision = 10, scale = 2)
-    private BigDecimal transactionAmount;
+    protected BigDecimal transactionAmount;
 
     @Column(name = "transaction_date_time", nullable = false)
-    private LocalDateTime transactionDateTime;
+    protected LocalDateTime transactionDateTime;
 
     @Column(name = "user_id", nullable = true)
-    private Long userId;
+    protected Long userId;
 
     @Column(name = "user_email", nullable = true)
-    private String userEmail;
+    protected String userEmail;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "transaction_status", nullable = false)
-    private TransactionStatus transactionStatus;
+    protected TransactionStatus transactionStatus;
 
     public Transaction(BigDecimal transactionAmount, LocalDateTime transactionDateTime, Long userId, String userEmail) {
         this.transactionAmount = transactionAmount.setScale(2, RoundingMode.HALF_UP);

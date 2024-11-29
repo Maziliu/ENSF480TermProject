@@ -37,7 +37,7 @@ public class Subscription {
     private SubscriptionStatus subscriptionStatus = SubscriptionStatus.INACTIVE;
 
     @Column(name = "auto_renew", nullable = false)
-    private boolean isAutoRenew = false;
+    private boolean isAutoRenew = true;
 
     @Column(name = "start_date", nullable = true)
     private LocalDateTime startDate;
@@ -50,7 +50,7 @@ public class Subscription {
     public void activateSubscription(){
         subscriptionStatus = SubscriptionStatus.ACTIVE;
         startDate = LocalDateTime.now();
-        expiryDate = startDate.plusYears(1);
+        expiryDate = startDate.plusSeconds(3);
     }
 
     public void activateAutoRenew(){

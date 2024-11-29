@@ -43,7 +43,7 @@ public class RegisteredUser {
     @Column(name = "last_name", nullable = true)
     private String lastName;
 
-    @OneToOne(mappedBy = "registeredUser", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "registeredUser", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonManagedReference
     private Subscription subscription;
 

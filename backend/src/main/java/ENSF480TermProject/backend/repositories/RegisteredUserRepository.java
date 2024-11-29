@@ -14,6 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface RegisteredUserRepository extends JpaRepository<RegisteredUser, Long> {
+    @Query("SELECT r.email FROM RegisteredUser r WHERE r.userId = :userId")
+    Optional<String> findEmail(@Param("userId") Long userId);
+
     Optional<RegisteredUser> findByEmail(String email);
 
     @Query("SELECT ru.theatreCredits FROM RegisteredUser ru WHERE ru.userId = :user_id")

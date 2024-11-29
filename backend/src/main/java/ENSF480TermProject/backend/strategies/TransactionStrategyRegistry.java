@@ -24,7 +24,7 @@ public class TransactionStrategyRegistry {
     }
 
     public TransactionStrategy getStrategy(TransactionType type) {
-        return Optional.ofNullable(strategies.get(type)).orElseThrow(() -> new IllegalArgumentException("No strategy found for type: " + type.name()));
+        return Optional.ofNullable(strategies.get(type)).orElseThrow(() -> new IllegalArgumentException("No strategy found for type: " + type.name() + " " + strategies.toString()));
     }
 }
 

@@ -19,6 +19,7 @@ import ENSF480TermProject.backend.models.Purchase;
 import ENSF480TermProject.backend.models.Refund;
 import ENSF480TermProject.backend.models.RegisteredUser;
 import ENSF480TermProject.backend.models.Subscription;
+import ENSF480TermProject.backend.models.SubscriptionTransaction;
 import ENSF480TermProject.backend.models.Ticket;
 import ENSF480TermProject.backend.models.Transaction;
 import ENSF480TermProject.backend.repositories.RegisteredUserRepository;
@@ -61,8 +62,11 @@ public class TransactionService {
         return Optional.of(refundDTO);
     }
 
-    public Optional<SubscriptionResponseDTO> makeSubscription(Long userId){
-        
+    public Optional<SubscriptionResponseDTO> makeSubscription(Subscription subscription){
+        SubscriptionTransaction transaction = new SubscriptionTransaction(subscription.getRegisteredUser().getUserId(), subscription.getRegisteredUser().getEmail());
+
+        SubscriptionResponseDTO subscriptionResponseDTO = (SubscriptionResponseDTO) transactionProcessor.processTransaction(transaction, TransactionType.SUBSCRIPTION_RENEWAL);
+        return Optional.of(subscriptionResponseDTO);
     }
 }
 

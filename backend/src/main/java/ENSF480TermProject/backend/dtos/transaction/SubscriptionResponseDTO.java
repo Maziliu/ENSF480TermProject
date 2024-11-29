@@ -1,23 +1,17 @@
 package ENSF480TermProject.backend.dtos.transaction;
 
+import java.math.BigDecimal;
+
+import ENSF480TermProject.backend.models.RegisteredUser;
 import ENSF480TermProject.backend.models.Subscription;
+import ENSF480TermProject.backend.models.SubscriptionTransaction;
 
 public class SubscriptionResponseDTO extends TransactionResponseDTO {
-    private Subscription subscription;
-
     public SubscriptionResponseDTO() {}
 
-    public SubscriptionResponseDTO(Subscription subscription) {
-        this.subscription = subscription;
-    }
-
-    //Get
-    public Subscription getSubscription() {
-        return subscription;
-    }
-
-    //Set
-    public void setSubscription(Subscription subscription) {
-        this.subscription = subscription;
+    public SubscriptionResponseDTO(SubscriptionTransaction subscriptionTransaction, RegisteredUser registeredUser) {
+        this.transaction = subscriptionTransaction;
+        this.transactionBreakdown = new TransactionBreakdown(BigDecimal.valueOf(20), BigDecimal.valueOf(0), BigDecimal.valueOf(20));
+        this.registeredUser = registeredUser;
     }
 }
