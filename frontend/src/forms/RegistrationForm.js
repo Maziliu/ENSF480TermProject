@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import LoginForm from './LoginForm';
 import '../styles/RegistrationForm.css';
-import { useNavigate } from 'react-router-dom';
 
 const RegistrationForm = () => {
   const [email, setEmail] = useState('');
@@ -10,14 +9,13 @@ const RegistrationForm = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [address, setAddress] = useState('');
-  const [paymentMethod, setPaymentMethod] = useState('credit');
-  const [cardholderName, setCardholderName] = useState('');
+  const [paymentCardType, setPaymentCardType] = useState('CREDIT');
+  const [cardHolderName, setCardHolderName] = useState('');
   const [cardNumber, setCardNumber] = useState('');
   const [cvv, setCvv] = useState('');
   const [expiryDate, setexpiryDate] = useState('');
   const [registrationMessage, setRegistrationMessage] = useState('');
   const [showLogin, setShowLogin] = useState(false);
-  const navigate = useNavigate();
 
   const handleRegistration = (event) => {
     event.preventDefault();
@@ -38,7 +36,7 @@ const RegistrationForm = () => {
     }
 
     //validate card fields if 'new' payment method is selected
-    if (!paymentMethod || !cardholderName || !cardNumber || !cvv || !expiryDate) {
+    if (!paymentCardType || !cardHolderName || !cardNumber || !cvv || !expiryDate) {
       alert('Please fill in all required payment fields.');
       return;
     }
@@ -49,18 +47,20 @@ const RegistrationForm = () => {
         return;
     }
 
-    //validate expiration date
-    if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiryDate)) {
-        alert('Please enter a valid expiration date in MM/YY format.');
-        return;
+    // validate expiration date
+    if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(expiryDate)) {
+      alert('Please enter a valid expiration date in YYYY-MM format.');
+      return;
     }
 
+
     const paymentCard = {
-      paymentMethod,
-      cardholderName,
+      paymentCardType,
+      cardHolderName,
       cardNumber,
       cvv,
       expiryDate,
+      cardId:1,
     }
 
     const userDetails = {
@@ -100,8 +100,12 @@ const RegistrationForm = () => {
             body: JSON.stringify(userDetails),
           })
           .then(response => {
-            alert('Registration successful! You can now log in.');
-            setShowLogin(true);
+            if (response.ok){
+              alert('Registration successful! You can now log in.');
+              setShowLogin(true);
+            } else{
+              setRegistrationMessage(data.message || 'Registration failed.');
+            }
           })
           .catch(error => {
             setRegistrationMessage(error.message);
@@ -155,16 +159,16 @@ const RegistrationForm = () => {
             
             <td className="registration-table-right">               
               <div className="payment-method-list">
-                <select  onChange={(e)=>setPaymentMethod(e.target.value)}>
+                <select  onChange={(e)=>setPaymentCardType(e.target.value)}>
                   <option value="">Select a Payment Method</option>
-                  <option value="credit">Credit</option>
-                  <option value="debit">Debit</option>
+                  <option value="CREDIT">CREDIT</option>
+                  <option value="DEBIT">DEBIT</option>
                 </select>
               </div>
               
               <div className='registration-input'>
                 <label>Cardholder Name </label>
-                <input type="text" value={cardholderName} onChange={(e)=>setCardholderName(e.target.value)} placeholder='Enter Cardholder Name' required /> <br/>
+                <input type="text" value={cardHolderName} onChange={(e)=>setCardHolderName(e.target.value)} placeholder='Enter Cardholder Name' required /> <br/>
               
                 <label>Card Number </label>
                 <input type="text" value={cardNumber} onChange={(e)=>setCardNumber(e.target.value)} placeholder='Enter Card Number' required /> <br/>
@@ -172,7 +176,7 @@ const RegistrationForm = () => {
                 <label>CVV</label>
                 <input type="text" value={cvv} onChange={(e)=>setCvv(e.target.value)} placeholder='Enter CVV' required /> <br/>
                   
-                <label>Expiration Date (MM/YY) </label>
+                <label>Expiration Date (YYYY-MM) </label>
                 <input type="text" value={expiryDate} onChange={(e)=>setexpiryDate(e.target.value)} placeholder='Enter Expiration Date' required /> <br/>
               </div>
             </td>
