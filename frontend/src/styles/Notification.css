@@ -61,5 +61,8 @@ h4 {
 }
   
 .close-btn:hover .close-icon {
-    color: #007bff;
+    color: #4ccc;
+    outline: none;
+    box-shadow: none;
+    background-color: black;
 }

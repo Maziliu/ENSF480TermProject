@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const AuthContext = createContext();
 
@@ -12,6 +12,12 @@ export const AuthProvider = ({ children }) => {
   const [role, setRole] = useState(savedRole ? savedRole : 'guest');
   const [userId, setUserId] = useState(savedUserId ? savedUserId : '');
   const [userEmail, setUserEmail] = useState(savedUserEmail ? savedUserEmail : '');
+  
+  useEffect(() => {
+    sessionStorage.setItem('role', role);
+    sessionStorage.setItem('userId', userId);
+    sessionStorage.setItem('userEmail', userEmail);
+  }, [role, userId, userEmail]); 
 
   const logout = () => {
     sessionStorage.removeItem('role');
@@ -22,5 +28,5 @@ export const AuthProvider = ({ children }) => {
     setUserEmail('');
   };
 
-  return <AuthContext.Provider value={{ role, setRole, userId, setUserId, logout }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ role, setRole, userId, setUserId, setUserEmail, userEmail, logout }}>{children}</AuthContext.Provider>;
 };

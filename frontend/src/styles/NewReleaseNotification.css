@@ -52,6 +52,10 @@
     right: -10px;
     transform: translateY(-50%) rotate(-90deg);
 }
+
+.custom-arrow:hover{
+    background-color: rgba(0, 0, 0, 0);
+}
   
   /* adjust arrows' position on smaller screens */
 @media (max-width: 768px) {
