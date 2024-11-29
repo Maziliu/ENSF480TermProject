@@ -95,7 +95,7 @@ public class RegisteredUserService {
         paymentCard.setCardHolderName(paymentCardDTO.getCardHolderName());
         paymentCard.setCardNumber(paymentCardDTO.getCardNumber());
         paymentCard.setCvv(paymentCardDTO.getCvv());
-        paymentCard.setExpireDate(paymentCard.getExpireDate());
+        paymentCard.setExpireDate(paymentCardDTO.getExpiryDate());
         
         paymentCardRepository.save(paymentCard);
 
