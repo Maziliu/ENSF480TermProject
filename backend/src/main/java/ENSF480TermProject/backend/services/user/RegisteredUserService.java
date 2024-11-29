@@ -13,6 +13,7 @@ import ENSF480TermProject.backend.models.PaymentCard;
 import ENSF480TermProject.backend.models.RegisteredUser;
 import ENSF480TermProject.backend.repositories.PaymentCardRepository;
 import ENSF480TermProject.backend.repositories.RegisteredUserRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class RegisteredUserService {
@@ -29,7 +30,8 @@ public class RegisteredUserService {
         return user;
     }
 
-    public Optional<String> updateUserDetails(Long userId, UserDetailsDTO userDetailsDTO) {
+
+    public Optional<RegisteredUser> updateUserDetails(Long userId, UserDetailsDTO userDetailsDTO) {
         Optional<RegisteredUser> optionalUser = registeredUserRepository.findById(userId);
     
         if (optionalUser.isEmpty()) {
@@ -41,10 +43,12 @@ public class RegisteredUserService {
         user.setLastName(userDetailsDTO.getLast_name());
         user.setEmail(userDetailsDTO.getEmail());
         user.setAddress(userDetailsDTO.getAddress());
-    
-        registeredUserRepository.save(user); 
-    
-        return Optional.of("User details updated successfully.");
+        
+        for(PaymentCardDTO paymentCardDTO : userDetailsDTO.getPaymentCards()){
+            updatePaymentCard(userId, paymentCardDTO);
+        }
+
+        return Optional.of(registeredUserRepository.save(user));
     }
 
     public Optional<String> deleteUser(Long userId){
@@ -85,10 +89,10 @@ public class RegisteredUserService {
         return registeredUserRepository.findById(userId);
     }
 
-    public Optional<RegisteredUser> updatePaymentCard(Long userId, PaymentCardDTO paymentCardDTO){
+    private void updatePaymentCard(Long userId, PaymentCardDTO paymentCardDTO){
         Optional<PaymentCard> paymentCardOptional = paymentCardRepository.findById(paymentCardDTO.getCardId());
         if(paymentCardOptional.isEmpty()){
-            return Optional.of(null);
+            return;
         }
 
         PaymentCard paymentCard = paymentCardOptional.get();
@@ -98,8 +102,6 @@ public class RegisteredUserService {
         paymentCard.setExpireDate(paymentCardDTO.getExpiryDate());
         
         paymentCardRepository.save(paymentCard);
-
-        return registeredUserRepository.findById(userId);
     }
     
 }

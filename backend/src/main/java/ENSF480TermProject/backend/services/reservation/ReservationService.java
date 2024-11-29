@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 
 import ENSF480TermProject.backend.dtos.reservation.ReservationResponseDTO;
 import ENSF480TermProject.backend.dtos.transaction.PaymentResponseDTO;
+import ENSF480TermProject.backend.dtos.transaction.RefundResponseDTO;
 import ENSF480TermProject.backend.dtos.transaction.TicketPurchaseRequestDTO;
+import ENSF480TermProject.backend.dtos.transaction.TicketRefundRequestDTO;
 import ENSF480TermProject.backend.models.Purchase;
 import ENSF480TermProject.backend.models.Showtime;
 import ENSF480TermProject.backend.services.payment.TransactionService;
@@ -28,4 +30,8 @@ public class ReservationService {
 
         return Optional.of(paymentResponseDTO);
     }
+
+    // public Optional<RefundResponseDTO> processCancellation(TicketRefundRequestDTO ticketRefundRequestDTO){
+
+    // }
 }

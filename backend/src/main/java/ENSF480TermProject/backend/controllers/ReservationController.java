@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ENSF480TermProject.backend.dtos.reservation.ReservationResponseDTO;
 import ENSF480TermProject.backend.dtos.transaction.PaymentResponseDTO;
 import ENSF480TermProject.backend.dtos.transaction.RefundResponseDTO;
 import ENSF480TermProject.backend.dtos.transaction.TicketPurchaseRequestDTO;
