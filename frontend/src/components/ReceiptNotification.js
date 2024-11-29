@@ -4,31 +4,31 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/Notification.css';
 import '../styles/ReceiptNotification.css';
 
-const ReceiptNotification = ({  }) => {
+const ReceiptNotification = ({ receiptData }) => {
   const { handleSelectMovie } = useSelectionContext();
   const [showPopup, setShowPopup] = useState(true);
   const navigate = useNavigate();
 
   //to see notif with example data if payment page is not fully implemented, rename to receiptData and get rid of prop and set showreceiptpopup state to true in payment page
-  const receiptData = {
-    movie: "The Avengers: Endgame",
-    theatre: "Downtown Cinema",
-    seatName: "A12",
-    showtime: {
-      time: "2024-11-28T19:30:00Z" // ISO format time string
-    },
-    ticketPrice: 15.00,
-    discount: 2.00,
-    gst: 0.65, // 5% GST on the ticket price
-    totalPrice: 13.65, // ticketPrice - discount + gst
-    bookingId: 342934873486,
-    paymentCard: {
-      paymentMethod: "Credit Card",
-      cardholderName: "John Doe",
-      cardNumber: "1234567812345678",
-      expiryDate: "12/25"
-    }
-  };
+//   const receiptData = {
+//     movie: "The Avengers: Endgame",
+//     theatre: "Downtown Cinema",
+//     seatName: "A12",
+//     showtime: {
+//       time: "2024-11-28T19:30:00Z" // ISO format time string
+//     },
+//     ticketPrice: 15.00,
+//     discount: 2.00,
+//     gst: 0.65, // 5% GST on the ticket price
+//     totalPrice: 13.65, // ticketPrice - discount + gst
+//     bookingId: 342934873486,
+//     paymentCard: {
+//       paymentMethod: "Credit Card",
+//       cardholderName: "John Doe",
+//       cardNumber: "1234567812345678",
+//       expiryDate: "12/25"
+//     }
+//   };
 
   useEffect(() => {
     if (receiptData && receiptData.movie) {
@@ -38,6 +38,7 @@ const ReceiptNotification = ({  }) => {
 
   const handleClose = () => {
     setShowPopup(false);
+    navigate('/');
   };
 
   const handlePrint = () => {

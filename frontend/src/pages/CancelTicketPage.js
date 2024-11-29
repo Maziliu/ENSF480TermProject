@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import Header from '../components/Header';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
+import CancellationNotification from '../components/CancellationNotification';
 //not sure completely how we want to implement this either
 const CancelTicketPage = () => {
   const [transactionId, setTransactionId] = useState('');
   const [message, setMessage] = useState('');
-  const [refundAmount, setRefundAmount] = useState(null);
-  const [discountCode, setDiscountCode] = useState('');
+  const [refundData, setRefundData] = useState([]);
   const [userEmail, setUserEmail] = useState('');
+  const [showRefundPopup, setShowRefundPopup] = useState(false);
 
   const handleCancelTicket = () => {
     if (!userEmail || !transactionId){
@@ -30,8 +31,12 @@ const CancelTicketPage = () => {
         if (data.success) {
           setMessage('Ticket cancelled successfully.');
           if (data.refundAmount) {
-            setRefundAmount(data.refundAmount);
-            setDiscountCode(data.discountCode);
+            const data = {
+              refundAmount:data.refundAmount,
+              discountCode:data.discountCode,
+            }
+            setRefundData(data);
+            setShowRefundPopup(true);
           }
         } else {
           setMessage('Failed to cancel ticket: ' + data.error);
@@ -47,6 +52,7 @@ const CancelTicketPage = () => {
     <div className="cancel-ticket-page">
     <Header />
     <Navigation />
+    {showRefundPopup && <CancellationNotification refundData={refundData}/>}
       <h1>Cancel Ticket</h1>
       <div>
         <label>
@@ -68,12 +74,6 @@ const CancelTicketPage = () => {
       </div>
       <button onClick={handleCancelTicket}>Cancel Ticket</button>
       {message && <div>{message}</div>}
-      {refundAmount !== null && (
-        <div>
-          <p>Refund Amount: ${refundAmount}</p>
-          {discountCode && <p>Discount Code for Future Purchase: {discountCode}</p>}
-        </div>
-      )}
     <Footer />
     </div>
   );
