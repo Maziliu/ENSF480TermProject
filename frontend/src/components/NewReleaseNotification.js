@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import '../styles/Notification.css';
+import '../styles/NewReleaseNotification.css';
 
 const CustomLeftArrow = ({ onClick }) => {
   return (
@@ -32,7 +33,7 @@ const CustomDot = ({ onMove, index, onClick, active }) => {
   );
 };
 
-const Notification = ({ movies }) => {
+const NewReleaseNotification = ({ movies }) => {
   const { handleSelectMovie } = useSelectionContext();
   const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
@@ -92,15 +93,15 @@ const Notification = ({ movies }) => {
               className="movie-carousel"
             >
                 {movies.map((movie) => (
-                <div className="movie-item" key={movie.id}>
-                    <div className="movie-poster-placeholder" 
+                <div className="movie-item2" key={movie.id}>
+                    <div className="movie-poster-placeholder2" 
                     onClick={() => handleMovieClick(movie.movieId, movie.movieName)} />
                         <img
                         src={movie.posterUrl}
                         alt={movie.movieName}
-                        className="movie-poster"
+                        className="movie-poster2"
                         />
-                        <div className="movie-details">
+                        <div className="movie-details2">
                         <h3>{movie.movieName}</h3>
                     </div>
                 </div>
@@ -113,4 +114,4 @@ const Notification = ({ movies }) => {
   );
 };
 
-export default Notification;
+export default NewReleaseNotification;

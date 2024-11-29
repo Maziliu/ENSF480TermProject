@@ -57,6 +57,7 @@ const SeatMap = () => {
       <Navigation />
       <div className="seat-map">
         <h1>Select Your Seat</h1>
+        <div className='screen'>Screen</div>
         <div className="seat-grid">
           {seatData.map((row, rowIndex) => (
             <div key={rowIndex} className="seat-row">
@@ -73,8 +74,8 @@ const SeatMap = () => {
           ))}
         </div>
         {selectedSeat && (
-          <div>
-            Selected Seat: Row {selectedSeat.row + 1}, Column {selectedSeat.column + 1}
+          <div className='selected-seat-name'>
+            <b>Selected Seat:</b> {selectedSeat.row + 1}-{selectedSeat.column + 1}
           </div>
         )}
         <button onClick={handleProceedToPayment} disabled={!selectedSeat}>

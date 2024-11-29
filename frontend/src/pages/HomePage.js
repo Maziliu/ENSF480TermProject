@@ -4,7 +4,7 @@ import MovieGrid from '../components/MovieGrid';
 import SearchBar from '../components/SearchBar';
 import TheatreList from '../components/TheatreList';
 import Navigation from '../components/Navigation';
-import Notification from '../components/Notification';
+import NewReleaseNotification from '../components/NewReleaseNotification';
 import { useAuthContext } from '../contexts/AuthContext';
 import { useState, useEffect } from 'react';
 import { useSelectionContext } from '../contexts/SelectionContext';
@@ -20,7 +20,7 @@ const HomePage = () => {
     <div>
       <Header />
       <Navigation />
-      {role === 'user' && newReleases && <Notification movies={newReleases}/>}
+      {role === 'user' && newReleases && <NewReleaseNotification movies={newReleases}/>}
       <SearchBar handleSetMovieList={setQueriedMovies} setQuery={setQuery} query={query}/>
       {<TheatreList />}
       <MovieGrid handleSetMovieList={setMovies} movies={movies} queriedMovies={queriedMovies} query={query} setNewReleases={setNewReleases}/>

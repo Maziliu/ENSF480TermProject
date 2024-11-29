@@ -1,0 +1,85 @@
+.refund-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.refund-line b {
+    flex: 1;
+    text-align: left;
+}
+
+.refund-line span {
+    text-align: right;
+    flex: 1;
+    margin-left: 10px;
+}
+  
+.refund{
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    padding: 10px 10px 0px 0px;
+}
+
+.ticket{
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    padding: 10px 10px 10px 0px;
+}
+
+.refund-header{
+    color: #F2B705;
+    padding-bottom: 7px;
+}
+
+.name {
+    float: left;
+}
+ 
+.value {
+    float: right;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+  
+    .refund, .refund * {
+      visibility: visible;
+    }
+  
+    .refund {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 100%;
+    }
+  
+    .ticket, .ticket * {
+      visibility: visible;
+    }
+  
+    .ticket {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      margin-top: 20px;
+    }
+    
+    .unregistered-refund{
+        position: absolute;
+        left: 0;
+        top: 60%;
+        width: 100%;
+    }
+
+    .unregistered-refund, .unregistered-refund * {
+        visibility: visible;
+      }
+}
+  

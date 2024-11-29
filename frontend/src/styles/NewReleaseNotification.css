@@ -1,0 +1,103 @@
+/* carousel item styling */
+.movie-carousel .movie-item2 {
+    margin-top: 20px;
+    padding: 5px 5px 5px 5px;
+    text-align: center;
+    background-color: black;
+}
+  
+.movie-poster-placeholder2 {
+    width: 290px;
+    height: 400px;
+    background-color: #808080;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin: auto;
+}
+  
+.movie-poster2 {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 5px;
+    display: none;
+}
+  
+.movie-details2 {
+    margin-top: 10px;
+}
+  
+  /* custom arrows styles */
+.custom-arrow {
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 87%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    transition: opacity 0.3s ease;
+    display: inline-block;
+    font-size: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+  
+.custom-arrow.left {
+    left: -10px;
+    transform: translateY(-50%) rotate(90deg);
+}
+  
+.custom-arrow.right {
+    right: -10px;
+    transform: translateY(-50%) rotate(-90deg);
+}
+  
+  /* adjust arrows' position on smaller screens */
+@media (max-width: 768px) {
+    .custom-arrow.left,
+    .custom-arrow.right {
+      top: unset;
+      bottom: 10px;
+      transform: unset;
+    }
+}
+  
+
+/* custom dot styling */
+.custom-dot {
+    display: inline-block;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+  
+.custom-dot .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: transparent; /* Make inactive dots transparent */
+    border: 1px solid #ccc; /* Inactive dot outline color */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+  
+  /* Active dot styling */
+.custom-dot.active .dot {
+    background-color: #fff; /* Active dot fills with white */
+    border-color: #fff; /* Optional: Change the border to match the active color */
+    transform: scale(1);  /* Make the active dot slightly larger */
+}
+  
+  /* inactive dots appear smaller */
+.custom-dot.inactive .dot {
+    background-color: transparent;
+    border-color: #ccc; /* Keep the inactive dots as outlined */
+    transform: scale(1); /* Normal size for inactive dots */
+}
+  
+  /* adjust dot positioning and responsiveness */
+.movie-carousel .react-multi-carousel-dot-list {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Add spacing between carousel and dots */
+}
