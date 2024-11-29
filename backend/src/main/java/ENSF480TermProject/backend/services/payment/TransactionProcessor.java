@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import ENSF480TermProject.backend.dtos.transaction.PaymentResponseDTO;
 import ENSF480TermProject.backend.dtos.transaction.TransactionResponseDTO;
-import ENSF480TermProject.backend.enums.PaymentType;
+import ENSF480TermProject.backend.enums.TransactionType;
 import ENSF480TermProject.backend.enums.TransactionType;
 import ENSF480TermProject.backend.interfaces.TransactionStrategy;
 import ENSF480TermProject.backend.models.Transaction;

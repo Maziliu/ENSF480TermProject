@@ -16,11 +16,8 @@ public class TicketService {
         this.ticketRepository = ticketRepository;
     }
 
-    public void saveTicket(Ticket ticket){
-        ticketRepository.save(ticket);
-    }
-
-    public Optional<Ticket> findTicketByCreationDate(LocalDateTime creationDate){
-        return ticketRepository.findByCreationDate(creationDate);
+    // Save a ticket to the database
+    public Ticket save(Ticket ticket) {
+        return ticketRepository.save(ticket);
     }
 }
