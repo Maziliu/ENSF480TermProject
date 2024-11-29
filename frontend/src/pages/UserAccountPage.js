@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useAuthContext } from '../contexts/AuthContext.js';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
+import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
+import '../styles/UserAccountPage.css';
+
 //IDK IF WE SHOULD ACTUALLY ADD THIS PAGE SO OPTIONAL
 //NOT ADJUSTED TO THIS FRONTEND FORMAT AT ALL
 const UserAccountPage = () => {
@@ -141,136 +144,164 @@ const UserAccountPage = () => {
 
   return (
     <div>
-        <Header />
-      <h1>User Account</h1>
-      <div>
-        <h3>Personal Information</h3>
-        <input
-          type="text"
-          value={userDetails.firstName}
-          onChange={(e) => setUserDetails({ ...userDetails, first_name: e.target.value })}
-        />
-        <input
-          type="text"
-          value={userDetails.lastName}
-          onChange={(e) => setUserDetails({ ...userDetails, last_name: e.target.value })}
-        />
-        <input
-          type="email"
-          value={userDetails.email}
-          onChange={(e) => setUserDetails({ ...userDetails, email: e.target.value })}
-        />
-        <input
-          type="text"
-          value={userDetails.address}
-          onChange={(e) => setUserDetails({ ...userDetails, address: e.target.value })}
-        />
-        <button onClick={handleUpdateDetails}>Update Details</button>
+      <Header />
+      <Navigation />
+      <h1 className='user-account-header'>User Account</h1>
+      <div className='user-account-page'>
+        <table>
+          <tr>
+            <td className='user-account-input'>
+              <h2>Personal Information</h2>
+              <br></br>
+              <label>First Name</label>
+              <input
+                type="text"
+                value={userDetails.firstName}
+                onChange={(e) => setUserDetails({ ...userDetails, firstName: e.target.value })}
+              />
+              <br></br>
+              <label>Last Name</label>
+              <input
+                type="text"
+                value={userDetails.lastName}
+                onChange={(e) => setUserDetails({ ...userDetails, lastName: e.target.value })}
+              />
+              <br></br>
+              <label>Email</label>
+              <input
+                type="email"
+                value={userDetails.email}
+                onChange={(e) => setUserDetails({ ...userDetails, email: e.target.value })}
+              />
+              <br></br>
+              <label>Address</label>
+              <input
+                type="text"
+                value={userDetails.address}
+                onChange={(e) => setUserDetails({ ...userDetails, address: e.target.value })}
+              />
+              <button className='user-buttons' onClick={handleUpdateDetails}>Update Details</button>
+            </td>
+
+            <td>
+              <h2>Saved Payment Cards</h2>
+                {/* Radio select for existing cards */}
+                {savedCards && savedCards.map((card, index) => (
+                  <div key={index}>
+                    <br></br>
+                    <input 
+                      type="radio" 
+                      name="cardSelect" 
+                      checked={selectedCard?.cardNumber === card.cardNumber} 
+                      onChange={() => setSelectedCard(card)} 
+                    />
+                    {card.cardholderName} - {card.cardNumber} - {card.expiryDate}
+                  </div>
+                ))}
+
+                {/* option to add new card */}
+                <div>
+                  <br></br>
+                  <input 
+                    type="radio" 
+                    name="cardSelect" 
+                    checked={selectedCard === null} 
+                    onChange={() => setSelectedCard(null)} 
+                  />
+                  Add New Card
+                </div>
+
+                {/*show the selected card's details for editing */}
+                {selectedCard && selectedCard !== null && (
+                  <div className='user-account-input'>
+                    <h4>Update Card</h4>
+                    <br></br>
+                    <label>Cardholder Name</label>
+                    <input
+                      type="text"
+                      placeholder="Cardholder Name"
+                      value={selectedCard.cardholderName}
+                      onChange={(e) => setSelectedCard({ ...selectedCard, cardholderName: e.target.value })}
+                    />
+                    <br></br>
+                    <label>Card Number</label>
+                    <input
+                      type="text"
+                      placeholder="Card Number"
+                      value={selectedCard.cardNumber}
+                      onChange={(e) => setSelectedCard({ ...selectedCard, cardNumber: e.target.value })}
+                    />
+                    <br></br>
+                    <label>Expiration Date (MM/YY)</label>
+                    <input
+                      type="text"
+                      placeholder="Expiry Date"
+                      value={selectedCard.expiryDate}
+                      onChange={(e) => setSelectedCard({ ...selectedCard, expiryDate: e.target.value })}
+                    />
+                    <br></br>
+                    <label>CVV</label>
+                    <input
+                      type="text"
+                      placeholder="CVV"
+                      value={selectedCard.cvv}
+                      onChange={(e) => setSelectedCard({ ...selectedCard, cvv: e.target.value })}
+                    />
+                    <button onClick={handleUpdateDetails}>Update Card</button>
+                  </div>
+                )}
+
+                {/* form to add new card */}
+                {selectedCard === null && (
+                  <div className='user-account-input'>
+                    <br></br>
+                    <label>Cardholder Name</label>
+                    <input
+                      type="text"
+                      placeholder="Cardholder Name"
+                      value={newCard.cardholderName}
+                      onChange={(e) => setNewCard({ ...newCard, cardholderName: e.target.value })}
+                    />
+                    <br></br>
+                    <label>Card Number</label>
+                    <input
+                      type="text"
+                      placeholder="Card Number"
+                      value={newCard.cardNumber}
+                      onChange={(e) => setNewCard({ ...newCard, cardNumber: e.target.value })}
+                    />
+                    <br></br>
+                    <label>Expiration Date (MM/YY)</label>
+                    <input
+                      type="text"
+                      placeholder="Expiry Date"
+                      value={newCard.expiryDate}
+                      onChange={(e) => setNewCard({ ...newCard, expiryDate: e.target.value })}
+                    />
+                    <br></br>
+                    <label>CVV</label>
+                    <input
+                      type="text"
+                      placeholder="CVV"
+                      value={newCard.cvv}
+                      onChange={(e) => setNewCard({ ...newCard, cvv: e.target.value })}
+                    />
+                    <button onClick={handleUpdateDetails}>Add New Card</button>
+                  </div>
+                )}
+            </td>
+          </tr>
+        </table>
       </div>
 
-      <div>
-        <h3>Saved Payment Cards</h3>
-        <div>
-          {/* Radio select for existing cards */}
-          {savedCards && savedCards.map((card, index) => (
-            <div key={index}>
-              <input 
-                type="radio" 
-                name="cardSelect" 
-                checked={selectedCard?.cardNumber === card.cardNumber} 
-                onChange={() => setSelectedCard(card)} 
-              />
-              {card.cardholderName} - {card.cardNumber} - {card.expiryDate}
-            </div>
-          ))}
 
-          {/* option to add new card */}
-          <div>
-            <input 
-              type="radio" 
-              name="cardSelect" 
-              checked={selectedCard === null} 
-              onChange={() => setSelectedCard(null)} 
-            />
-            Add New Card
-          </div>
-
-          {/*show the selected card's details for editing */}
-          {selectedCard && selectedCard !== null && (
-            <div>
-              <h4>Update Card</h4>
-              <input
-                type="text"
-                placeholder="Cardholder Name"
-                value={selectedCard.cardholderName}
-                onChange={(e) => setSelectedCard({ ...selectedCard, cardholderName: e.target.value })}
-              />
-              <input
-                type="text"
-                placeholder="Card Number"
-                value={selectedCard.cardNumber}
-                onChange={(e) => setSelectedCard({ ...selectedCard, cardNumber: e.target.value })}
-              />
-              <input
-                type="text"
-                placeholder="Expiry Date"
-                value={selectedCard.expiryDate}
-                onChange={(e) => setSelectedCard({ ...selectedCard, expiryDate: e.target.value })}
-              />
-              <input
-                type="text"
-                placeholder="CVV"
-                value={selectedCard.cvv}
-                onChange={(e) => setSelectedCard({ ...selectedCard, cvv: e.target.value })}
-              />
-              <button onClick={handleUpdateDetails}>Update Card</button>
-            </div>
-          )}
-
-          {/* form to add new card */}
-          {selectedCard === null && (
-            <div>
-              <input
-                type="text"
-                placeholder="Cardholder Name"
-                value={newCard.cardholderName}
-                onChange={(e) => setNewCard({ ...newCard, cardholderName: e.target.value })}
-              />
-              <input
-                type="text"
-                placeholder="Card Number"
-                value={newCard.cardNumber}
-                onChange={(e) => setNewCard({ ...newCard, cardNumber: e.target.value })}
-              />
-              <input
-                type="text"
-                placeholder="Expiry Date"
-                value={newCard.expiryDate}
-                onChange={(e) => setNewCard({ ...newCard, expiryDate: e.target.value })}
-              />
-              <input
-                type="text"
-                placeholder="CVV"
-                value={newCard.cvv}
-                onChange={(e) => setNewCard({ ...newCard, cvv: e.target.value })}
-              />
-              <button onClick={handleUpdateDetails}>Add New Card</button>
-            </div>
-          )}
-        </div>
-      </div>
       {/* ALSO IDK IF WE WANNA DO SOMETHING LIKE THIS OR JUST DO
       ANNUAL FEE STUFF COMPLETLEY BACKEND OR JUST HAVE "AUTOMATIC BILLING: JAN 12, 2025" ON ACCOUNT PAGE OR SMTHING */}
       {!userDetails.has_paid && (
-        <div>                    
-          <h3>Pay Annual Fee</h3>
-          <button onClick={handlePayFee}>Pay $20.00</button>
-        </div>
+         <button className='user-account-button' onClick={handlePayFee}>Pay Annual Fee</button>
       )}
 
-      <div>
-        <button onClick={handleUnregister}>Unregister Account</button>
-      </div>
+        <button className='user-account-button' onClick={handleUnregister}>Unregister Account</button>
 
       {message && <div>{message}</div>}
       <Footer />

@@ -116,12 +116,6 @@ const PaymentPage = () => {
       return;
     }
 
-    const [row, column] = seatName.split('-').map((num) => Number(num) - 1);
-    const selectedSeat = {
-      row,
-      column,
-    };
-
     const paymentCard = {
       paymentMethod,
       cardholderName,
@@ -235,7 +229,7 @@ const PaymentPage = () => {
               )}
 
               {/* displaying saved cards if authenticated and role is 'user' */}
-              {role === 'user' && savedCards.length > 0 && (
+             {role === 'user' && savedCards.length > 0 && (  
                 <div>
                   <br></br>
                   <label>Choose a Saved Payment Card</label>

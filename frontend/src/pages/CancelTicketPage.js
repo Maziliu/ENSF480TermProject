@@ -50,31 +50,31 @@ const CancelTicketPage = () => {
 
   return (
     <div className="cancel-ticket-page">
-    <Header />
-    <Navigation />
-    {showRefundPopup && <CancellationNotification refundData={refundData}/>}
-      <h1>Cancel Ticket</h1>
-      <div>
-        <label>
-          Email:
-          <input
-            type="text"
-            value={userEmail}
-            onChange={(e)=>setUserEmail(e.target.value)}
-          />
-        </label> <br/>
-        <label>
-          Booking ID:
-          <input
-            type="text"
-            value={transactionId}
-            onChange={(e)=>setTransactionId(e.target.value)}
-          />
-        </label>
-      </div>
-      <button onClick={handleCancelTicket}>Cancel Ticket</button>
-      {message && <div>{message}</div>}
-    <Footer />
+      <Header />
+      <Navigation />
+      {showRefundPopup && <CancellationNotification refundData={refundData}/>}
+        <h1>Cancel Ticket</h1>
+        <div>
+          <label>
+            Email:
+            <input
+              type="text"
+              value={userEmail}
+              onChange={(e)=>setUserEmail(e.target.value)}
+            />
+          </label> <br/>
+          <label>
+            Booking ID:
+            <input
+              type="text"
+              value={transactionId}
+              onChange={(e)=>setTransactionId(e.target.value)}
+            />
+          </label>
+        </div>
+        <button onClick={handleCancelTicket}>Cancel Ticket</button>
+        {message && <div>{message}</div>}
+      <Footer />
     </div>
   );
 };

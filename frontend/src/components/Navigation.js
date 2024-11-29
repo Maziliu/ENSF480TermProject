@@ -10,7 +10,7 @@ const Header = () => {
   return (
       <nav className='navbar'>
         {(role === "user") && (
-            <Link to='/account' className='nav-link'>User Account</Link>
+            <Link to='/account' className='nav-link-user'>User Account</Link>
         )}
         {(role === "admin") && (
             <Link to='/admin' className='nav-link'>Admin Dashboard</Link>
