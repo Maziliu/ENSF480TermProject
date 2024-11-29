@@ -19,6 +19,24 @@
     margin-top: -180px;
 }
 
+.nav-link-user {
+    text-decoration: none;
+    color: #333;
+    background-color: white;
+    font-size: 15px;
+    font-weight: normal;
+    padding: 10px 20px;
+    border-radius: 50px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    display: inline-block;
+    margin-top: -180px;
+    margin-right: -125px;
+}
+
 .nav-link:hover {
+    background-color: #4ccc;
+}
+
+.nav-link-user:hover {
     background-color: #4ccc;
 }
