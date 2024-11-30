@@ -34,8 +34,9 @@ const PaymentPage = () => {
 
   useEffect(() => {
     const calculatedGst = (ticketPrice - discount) * 0.05;
+    console.log(discount);
     setGst(calculatedGst);
-    setTotalPrice(ticketPrice + calculatedGst);
+    setTotalPrice(ticketPrice - discount + calculatedGst);
   }, [ticketPrice, discount]);
 
   useEffect(() => {
@@ -59,7 +60,7 @@ const PaymentPage = () => {
   }, [userId, role]);
 
   const handleApplyPromoCode = () => {
-    fetch(`http://127.0.0.1:8080/promoCode/${promoCode}`, {
+    fetch(`http://localhost:8080/transaction/redeem?creditDiscountCode=${promoCode}`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
@@ -70,13 +71,15 @@ const PaymentPage = () => {
         return response.json();
       })
       .then((data) => {
-        setDiscount(data.discount);
+        console.log("dis:", data);
+        setDiscount(data.creditAmount * 0.175);
       })
       .catch((error) => {
         console.error('Promo code error:', error);
         alert('Invalid promo code');
       });
   };
+  
 
   function convertDate(dateString) {
     const date = new Date(dateString);
@@ -294,7 +297,7 @@ const PaymentPage = () => {
               <div>
                 <br></br>
                 <label>
-                  Promo Code
+                  Discount Code
                   <input type="text" value={promoCode} onChange={(e) => setPromoCode(e.target.value)} />
                   <button onClick={handleApplyPromoCode}>Apply</button>
                 </label>

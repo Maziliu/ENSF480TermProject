@@ -30,18 +30,13 @@ const CancelTicketPage = () => {
     })
       .then(response => response.json())
       .then(data => {
-        if (data.success) {
+        console.log("refund: ", data);
+        if (data.refundStatus === "SUCCESS") {
           setMessage('Ticket cancelled successfully.');
-          if (data.refundAmount) {
-            const data = {
-              refundAmount:data.refundAmount,
-              discountCode:data.discountCode,
-            }
-            setRefundData(data);
-            setShowRefundPopup(true);
-          }
+          setRefundData(data);
+          setShowRefundPopup(true);
         } else {
-          setMessage('Failed to cancel ticket: ' + data.error);
+          setMessage('Failed to cancel ticket. ', data.refundStatus);
         }
       })
       .catch(error => {
