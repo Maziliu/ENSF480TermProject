@@ -74,7 +74,7 @@ INSERT IGNORE INTO Theatre_Rooms (theatre_id) VALUES
 
 -- Insert sample data into Showtimes table
 INSERT IGNORE INTO Showtimes (room_id, movie_id, air_time, seat_map) VALUES
-(1, 1, '2024-11-23 18:30:00', '[[false, false, false, false, false, false, false, false, false, false, false, false], 
+(1, 1, '2026-11-23 18:30:00', '[[false, false, false, false, false, false, false, false, false, false, false, false], 
                                 [false, false, false, false, false, false, false, false, false, false, false, false],
                                 [true, true, false, false, false, false, false, false, true, false, false, false],
                                 [false, false, false, false, false, true, true, false, false, false, false, false],

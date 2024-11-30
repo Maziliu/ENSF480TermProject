@@ -38,16 +38,24 @@ public class Ticket {
 
     @Column(name = "creation_date", nullable = false)
     private LocalDateTime creationDate;
+    
+    @Column(name = "showtime_date", nullable = false)
+    private LocalDateTime showtimeDate;
+
+    @Column(name = "showtimeId", nullable = false)
+    private Long showtimeId;
 
     public Ticket() {}
 
-    public Ticket(String buyerEmail, BigDecimal ticketAmount, Long movieId, Long theaterId, String seatNumber) {
+    public Ticket(String buyerEmail, BigDecimal ticketAmount, Long movieId, Long theaterId, String seatNumber, LocalDateTime showtimeDate, Long showtimeId) {
         this.buyerEmail = buyerEmail;
         this.ticketAmount = ticketAmount;
         this.movieId = movieId;
         this.seatNumber = seatNumber;
         this.theatreId = theaterId;
         this.creationDate = LocalDateTime.now();
+        this.showtimeDate = showtimeDate;
+        this.showtimeId = showtimeId;
     }
 
     //Get
@@ -79,6 +87,14 @@ public class Ticket {
         return creationDate;
     }
 
+    public LocalDateTime getShowtimeDate() {
+        return showtimeDate;
+    }
+
+    public Long getShowtimeId() {
+        return showtimeId;
+    }
+
     //Set
     public void setTicketId(Long ticketId) {
         this.ticketId = ticketId;
@@ -106,5 +122,13 @@ public class Ticket {
 
     public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public void setShowtimeDate(LocalDateTime showtimeDate) {
+        this.showtimeDate = showtimeDate;
+    }
+
+    public void setShowtimeId(Long showtimeId) {
+        this.showtimeId = showtimeId;
     }
 }

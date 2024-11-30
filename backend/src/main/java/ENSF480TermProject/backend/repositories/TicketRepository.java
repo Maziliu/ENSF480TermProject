@@ -12,7 +12,4 @@ import ENSF480TermProject.backend.models.Ticket;
 
 public interface TicketRepository extends JpaRepository<Ticket, Long>{  
     Optional<Ticket> findByCreationDate(LocalDateTime creationDate);
-
-    @Query("SELECT s FROM Showtime s WHERE s.movie.movieId = :movieId AND s.theatreRoom.roomId = :theatreRoomId")
-    Optional<Showtime> findByMovieIdAndTheatreRoomId(@Param("movieId") Long movieId, @Param("theatreRoomId") Long theatreRoomId);
 } 

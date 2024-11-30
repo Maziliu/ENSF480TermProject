@@ -1,5 +1,6 @@
 package ENSF480TermProject.backend.strategies;
 
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -22,6 +23,7 @@ import ENSF480TermProject.backend.models.Ticket;
 import ENSF480TermProject.backend.models.Transaction;
 import ENSF480TermProject.backend.repositories.CreditDiscountCodeRepository;
 import ENSF480TermProject.backend.repositories.RegisteredUserRepository;
+import ENSF480TermProject.backend.repositories.ShowtimeRepository;
 import ENSF480TermProject.backend.repositories.TicketRepository;
 import ENSF480TermProject.backend.repositories.TransactionRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -33,13 +35,15 @@ public class RefundTransactionStrategy implements TransactionStrategy{
     private final RegisteredUserRepository registeredUserRepository;
     private final TicketRepository ticketRepository;
     private final CreditDiscountCodeRepository creditDiscountCodeRepository;
+    private final ShowtimeRepository showtimeRepository;
 
     @Autowired
-    public RefundTransactionStrategy(TransactionRepository transactionRepository, RegisteredUserRepository registeredUserRepository, TicketRepository ticketRepository, CreditDiscountCodeRepository creditDiscountCodeRepository) {
+    public RefundTransactionStrategy(TransactionRepository transactionRepository, RegisteredUserRepository registeredUserRepository, TicketRepository ticketRepository, CreditDiscountCodeRepository creditDiscountCodeRepository, ShowtimeRepository showtimeRepository) {
         this.transactionRepository = transactionRepository;
         this.registeredUserRepository = registeredUserRepository;
         this.ticketRepository = ticketRepository;
         this.creditDiscountCodeRepository = creditDiscountCodeRepository;
+        this.showtimeRepository = showtimeRepository;
     }
 
     @Override
@@ -70,7 +74,7 @@ public class RefundTransactionStrategy implements TransactionStrategy{
             refundResponse.setRefundStatus(RefundStatus.INTERNAL_ERROR_TICKET_NOT_FOUND);
         }
 
-        Optional<Showtime> showtime = ticketRepository.findByMovieIdAndTheatreRoomId(ticket.get().getMovieId(), ticket.get().getTheatreId());
+        Optional<Showtime> showtime = showtimeRepository.findById(ticket.get().getShowtimeId());
 
         //Finds the showtime associated with ticket and checks existance
         if(!showtime.isPresent()){
@@ -89,7 +93,7 @@ public class RefundTransactionStrategy implements TransactionStrategy{
         //Create the refund transaction in db
         transactionRepository.save(refund);
         
-        int roundedRefundAmount = refund.getTransactionAmount().setScale(0, RoundingMode.HALF_UP).intValue();
+        int roundedRefundAmount = refund.getTransactionAmount().multiply(BigDecimal.valueOf(0.85)).setScale(0, RoundingMode.HALF_UP).intValue();
         if(userId == null){ //Guest User
             CreditDiscountCode creditDiscountCode = creditDiscountCodeRepository.save(new CreditDiscountCode(roundedRefundAmount));
             refundResponse.setCreditDiscountCode(creditDiscountCode);

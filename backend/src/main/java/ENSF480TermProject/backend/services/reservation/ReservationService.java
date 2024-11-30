@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import ENSF480TermProject.backend.dtos.reservation.ReservationResponseDTO;
 import ENSF480TermProject.backend.dtos.transaction.PaymentResponseDTO;
 import ENSF480TermProject.backend.dtos.transaction.RefundResponseDTO;
 import ENSF480TermProject.backend.dtos.transaction.TicketPurchaseRequestDTO;
