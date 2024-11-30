@@ -41,7 +41,7 @@ public class RegisteredUserController {
         return ResponseEntity.ok(registeredUserService.getUserDetails(userId).orElse(null));
     }
     
-    @PutMapping(value = "/{userId:[0-9]+}/update-details", consumes = "application/json")
+    @PutMapping(value = "/{userId:[0-9]+}/update-details")
     public ResponseEntity<RegisteredUser> updateUserDetails(@PathVariable("userId") Long userId, @RequestBody UserDetailsDTO userDetailsDTO) {
         Optional<RegisteredUser> result = registeredUserService.updateUserDetails(userId, userDetailsDTO);
 

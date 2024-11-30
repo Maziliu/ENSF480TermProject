@@ -1,5 +1,6 @@
 package ENSF480TermProject.backend.dtos.user;
 
+import java.util.List;
 import java.util.Set;
 
 import ENSF480TermProject.backend.models.PaymentCard;
@@ -7,8 +8,9 @@ import ENSF480TermProject.backend.models.RegisteredUser;
 
 public class UserDetailsDTO {
     private String first_name, last_name, email, address;
-    private Set<PaymentCardDTO> paymentCards;
+    private List<PaymentCardDTO> paymentCards;
 
+    public UserDetailsDTO() {}
 
     //Get
     public String getAddress() {
@@ -27,7 +29,7 @@ public class UserDetailsDTO {
         return last_name;
     }
 
-    public Set<PaymentCardDTO> getPaymentCards() {
+    public List<PaymentCardDTO> getPaymentCards() {
         return paymentCards;
     }
 
@@ -48,7 +50,7 @@ public class UserDetailsDTO {
         this.last_name = last_name;
     }
 
-    public void setPaymentCards(Set<PaymentCardDTO> paymentCards) {
+    public void setPaymentCards(List<PaymentCardDTO> paymentCards) {
         this.paymentCards = paymentCards;
     }
 
