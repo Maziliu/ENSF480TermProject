@@ -93,12 +93,13 @@ public class RefundTransactionStrategy implements TransactionStrategy{
         //Create the refund transaction in db
         transactionRepository.save(refund);
         
-        int roundedRefundAmount = refund.getTransactionAmount().multiply(BigDecimal.valueOf(0.85)).setScale(0, RoundingMode.HALF_UP).intValue();
+        BigDecimal roundedRefundAmount = refund.getTransactionAmount();
         if(userId == null){ //Guest User
-            CreditDiscountCode creditDiscountCode = creditDiscountCodeRepository.save(new CreditDiscountCode(roundedRefundAmount));
+            int refundAmount = roundedRefundAmount.multiply(BigDecimal.valueOf(0.85)).setScale(0, RoundingMode.HALF_UP).intValue();
+            CreditDiscountCode creditDiscountCode = creditDiscountCodeRepository.save(new CreditDiscountCode(refundAmount));
             refundResponse.setCreditDiscountCode(creditDiscountCode);
         } else { //RegisteredUser
-            registeredUserRepository.addTheatreCredits(userId, roundedRefundAmount);
+            registeredUserRepository.addTheatreCredits(userId, roundedRefundAmount.setScale(0, RoundingMode.HALF_UP).intValue());
         }
         
         //Update the existing transaction to REFUDED
