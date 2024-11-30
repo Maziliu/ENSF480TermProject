@@ -1,8 +1,5 @@
 package ENSF480TermProject.backend.dtos.transaction;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
 import ENSF480TermProject.backend.enums.RefundStatus;
 import ENSF480TermProject.backend.models.CreditDiscountCode;
 import ENSF480TermProject.backend.models.Refund;

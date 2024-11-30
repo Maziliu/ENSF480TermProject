@@ -1,7 +1,5 @@
 package ENSF480TermProject.backend.factories;
 
-import java.util.List;
-
 import ENSF480TermProject.backend.enums.PaymentCardType;
 import ENSF480TermProject.backend.models.PaymentCard;
 

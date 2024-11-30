@@ -10,7 +10,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ENSF480TermProject.backend.models.Showtime;
 import ENSF480TermProject.backend.repositories.ShowtimeRepository;
-import ENSF480TermProject.backend.services.payment.TransactionService;
 import ENSF480TermProject.backend.utils.SeatPosition;
 
 @Service

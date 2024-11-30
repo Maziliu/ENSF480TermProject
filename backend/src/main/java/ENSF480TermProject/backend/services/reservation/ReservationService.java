@@ -5,13 +5,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import ENSF480TermProject.backend.dtos.transaction.PaymentResponseDTO;
-import ENSF480TermProject.backend.dtos.transaction.RefundResponseDTO;
 import ENSF480TermProject.backend.dtos.transaction.TicketPurchaseRequestDTO;
-import ENSF480TermProject.backend.dtos.transaction.TicketRefundRequestDTO;
-import ENSF480TermProject.backend.models.Purchase;
-import ENSF480TermProject.backend.models.Showtime;
 import ENSF480TermProject.backend.services.payment.TransactionService;
-import ENSF480TermProject.backend.utils.SeatPosition;
 
 @Service
 public class ReservationService {
@@ -24,7 +19,7 @@ public class ReservationService {
     }
 
     public Optional<PaymentResponseDTO> processReservation(TicketPurchaseRequestDTO ticketPurchaseRequestDTO){
-        SeatPosition seatPosition = seatService.reserveSeat(ticketPurchaseRequestDTO.getShowtime().getId(), ticketPurchaseRequestDTO.getSeatPosition());
+        seatService.reserveSeat(ticketPurchaseRequestDTO.getShowtime().getId(), ticketPurchaseRequestDTO.getSeatPosition());
         PaymentResponseDTO paymentResponseDTO = transactionService.makePurchase(ticketPurchaseRequestDTO).get();
 
         return Optional.of(paymentResponseDTO);

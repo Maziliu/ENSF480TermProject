@@ -1,9 +1,7 @@
 package ENSF480TermProject.backend.models;
 
-import java.math.BigDecimal;
 import java.time.YearMonth;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
 @Entity

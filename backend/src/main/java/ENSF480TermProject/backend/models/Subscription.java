@@ -1,10 +1,8 @@
 package ENSF480TermProject.backend.models;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import ENSF480TermProject.backend.enums.SubscriptionStatus;
 import jakarta.persistence.Column;

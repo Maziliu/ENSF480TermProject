@@ -3,8 +3,6 @@ package ENSF480TermProject.backend.models;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.databind.util.ClassUtil.Ctor;
-
 import jakarta.persistence.Entity;
 
 @Entity

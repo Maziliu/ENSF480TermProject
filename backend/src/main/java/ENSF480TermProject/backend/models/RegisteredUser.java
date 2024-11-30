@@ -1,9 +1,7 @@
 package ENSF480TermProject.backend.models;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -81,6 +79,10 @@ public class RegisteredUser {
         this.subscription = new Subscription();
         this.subscription.setRegisteredUser(this);
         this.subscription.activateSubscription();
+    }
+
+    public void setAutoRenewForSubscription(boolean isAutoRenew){
+        this.subscription.setAutoRenew(isAutoRenew);
     }
 
     public void addPaymentCard(PaymentCard paymentCard){

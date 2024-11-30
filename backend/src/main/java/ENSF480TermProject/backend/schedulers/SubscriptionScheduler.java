@@ -13,7 +13,7 @@ public class SubscriptionScheduler {
         this.subscriptionService = subscriptionService; 
     }
 
-    @Scheduled(cron = "*/5 * * * * ?")
+    @Scheduled(cron = "* * * * * ?")
     public void scheduleSubcriptionUpdates(){
         subscriptionService.renewAllExpiredSubscriptions();
         subscriptionService.markAllExpiredWithNoAutoRenewSubscriptions();

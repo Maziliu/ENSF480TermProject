@@ -1,7 +1,6 @@
 package ENSF480TermProject.backend.services.search;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 

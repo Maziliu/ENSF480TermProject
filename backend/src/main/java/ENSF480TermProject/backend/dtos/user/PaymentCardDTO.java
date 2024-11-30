@@ -2,8 +2,6 @@ package ENSF480TermProject.backend.dtos.user;
 
 import java.time.YearMonth;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import ENSF480TermProject.backend.enums.PaymentCardType;
 
 public class PaymentCardDTO {

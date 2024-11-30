@@ -1,19 +1,16 @@
 package ENSF480TermProject.backend.services.user;
 
-import java.lang.StackWalker.Option;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import ENSF480TermProject.backend.dtos.user.PaymentCardDTO;
 import ENSF480TermProject.backend.dtos.user.UserDetailsDTO;
-import ENSF480TermProject.backend.enums.PaymentCardType;
 import ENSF480TermProject.backend.factories.PaymentCardFactory;
 import ENSF480TermProject.backend.models.PaymentCard;
 import ENSF480TermProject.backend.models.RegisteredUser;
 import ENSF480TermProject.backend.repositories.PaymentCardRepository;
 import ENSF480TermProject.backend.repositories.RegisteredUserRepository;
-import jakarta.transaction.Transactional;
 
 @Service
 public class RegisteredUserService {

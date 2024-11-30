@@ -5,14 +5,11 @@ import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import javax.swing.text.html.parser.Entity;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import ENSF480TermProject.backend.dtos.transaction.RefundResponseDTO;
 import ENSF480TermProject.backend.enums.RefundStatus;
-import ENSF480TermProject.backend.enums.TransactionStatus;
 import ENSF480TermProject.backend.enums.TransactionType;
 import ENSF480TermProject.backend.interfaces.TransactionStrategy;
 import ENSF480TermProject.backend.models.CreditDiscountCode;
@@ -28,7 +25,6 @@ import ENSF480TermProject.backend.repositories.TicketRepository;
 import ENSF480TermProject.backend.repositories.TransactionRepository;
 import ENSF480TermProject.backend.services.reservation.SeatService;
 import ENSF480TermProject.backend.utils.SeatPosition;
-import jakarta.persistence.EntityNotFoundException;
 
 @Component
 public class RefundTransactionStrategy implements TransactionStrategy{

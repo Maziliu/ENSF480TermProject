@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import ENSF480TermProject.backend.models.Movie;
-import ENSF480TermProject.backend.models.Showtime;
 import ENSF480TermProject.backend.models.Theatre;
 
 @Repository

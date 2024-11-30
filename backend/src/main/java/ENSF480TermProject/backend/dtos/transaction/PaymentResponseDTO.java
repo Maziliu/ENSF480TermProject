@@ -1,15 +1,9 @@
 package ENSF480TermProject.backend.dtos.transaction;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.UUID;
 
-import ENSF480TermProject.backend.dtos.transaction.TransactionResponseDTO.TransactionBreakdown;
-import ENSF480TermProject.backend.enums.TransactionType;
 import ENSF480TermProject.backend.models.Purchase;
 import ENSF480TermProject.backend.models.RegisteredUser;
-import ENSF480TermProject.backend.models.Ticket;
-import ENSF480TermProject.backend.models.Transaction;
 
 public class PaymentResponseDTO extends TransactionResponseDTO{
     public PaymentResponseDTO(Purchase transaction) {

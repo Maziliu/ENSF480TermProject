@@ -33,9 +33,12 @@ function LoginForm() {
       const response = await fetch('http://localhost:8080/auth/login', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'application/json',
         },
-        body: new URLSearchParams({ email, password }).toString(),
+        body: JSON.stringify({
+          email: email.toString(),
+          password: password.toString(),
+        }),
       });
 
       if (!response.ok) {
@@ -43,17 +46,17 @@ function LoginForm() {
       }
 
       const data = await response.json();
-      if (data){
-        console.log("userdeeets:", data);
-        setRole(data.user.admin ? 'admin' : 'user');
-        setUserId(data.user.userId);
-        setUserEmail(data.user.email);
+      if (data) {
+        console.log('userdeeets:', data);
+        setRole(data.admin ? 'admin' : 'user');
+        setUserId(data.userId);
+        setUserEmail(data.email);
         sessionStorage.setItem('role', role);
         sessionStorage.setItem('userId', userId);
         sessionStorage.setItem('userEmail', userId);
         navigate('/');
-      } else{
-        setAuthenticationMessage('Incorrect email or password. Please try again.')
+      } else {
+        setAuthenticationMessage('Incorrect email or password. Please try again.');
       }
     } catch (error) {
       setAuthenticationMessage(error.message || 'An error occurred');
@@ -70,24 +73,28 @@ function LoginForm() {
 
   return (
     <div>
-      <h1 className='login-header'>Login</h1>
-      <form className='login-container' onSubmit={handleAuthentication}>
-        <p className='login-error-message'>{authenticationMessage}</p>
+      <h1 className="login-header">Login</h1>
+      <form className="login-container" onSubmit={handleAuthentication}>
+        <p className="login-error-message">{authenticationMessage}</p>
 
-        <div className='login-input'>
+        <div className="login-input">
           <label>Email</label>
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" required />
         </div>
 
-        <div className='login-input'>
+        <div className="login-input">
           <label>Password</label>
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" required />
         </div>
 
-        <button className='login-button' type="submit">Login</button>
+        <button className="login-button" type="submit">
+          Login
+        </button>
       </form>
 
-      <button className='login-switch' onClick={gotoSignupForm}>Switch to Signup</button>
+      <button className="login-switch" onClick={gotoSignupForm}>
+        Switch to Signup
+      </button>
     </div>
   );
 }

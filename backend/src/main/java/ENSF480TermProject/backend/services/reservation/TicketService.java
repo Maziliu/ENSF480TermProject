@@ -1,9 +1,6 @@
 package ENSF480TermProject.backend.services.reservation;
 
 
-import java.time.LocalDateTime;
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
 import ENSF480TermProject.backend.models.Ticket;

@@ -1,10 +1,6 @@
 package ENSF480TermProject.backend.dtos.user;
 
 import java.util.List;
-import java.util.Set;
-
-import ENSF480TermProject.backend.models.PaymentCard;
-import ENSF480TermProject.backend.models.RegisteredUser;
 
 public class UserDetailsDTO {
     private String first_name, last_name, email, address;

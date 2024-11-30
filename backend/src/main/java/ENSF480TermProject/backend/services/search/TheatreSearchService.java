@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import ENSF480TermProject.backend.models.Movie;
 import ENSF480TermProject.backend.models.Theatre;
 import ENSF480TermProject.backend.repositories.TheatreRepository;
-import jakarta.transaction.Transactional;
 
 @Service
 public class TheatreSearchService {

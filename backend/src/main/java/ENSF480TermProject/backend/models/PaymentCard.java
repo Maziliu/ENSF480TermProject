@@ -1,25 +1,21 @@
 package ENSF480TermProject.backend.models;
 
-import java.time.Year;
 import java.time.YearMonth;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import ENSF480TermProject.backend.enums.PaymentCardType;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.DiscriminatorType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

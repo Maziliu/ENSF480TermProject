@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import ENSF480TermProject.backend.interfaces.TransactionStrategy;
-import ENSF480TermProject.backend.strategies.RefundTransactionStrategy;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 

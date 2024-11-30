@@ -1,24 +1,19 @@
 package ENSF480TermProject.backend.services.payment;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import ENSF480TermProject.backend.dtos.transaction.PaymentResponseDTO;
-import ENSF480TermProject.backend.dtos.transaction.RedeemResponseDTO;
 import ENSF480TermProject.backend.dtos.transaction.RefundResponseDTO;
 import ENSF480TermProject.backend.dtos.transaction.SubscriptionResponseDTO;
 import ENSF480TermProject.backend.dtos.transaction.TicketPurchaseRequestDTO;
 import ENSF480TermProject.backend.dtos.transaction.TicketRefundRequestDTO;
 import ENSF480TermProject.backend.enums.CreditDiscountCodeStatus;
 import ENSF480TermProject.backend.enums.TransactionType;
-import ENSF480TermProject.backend.interfaces.TransactionStrategy;
 import ENSF480TermProject.backend.models.CreditDiscountCode;
 import ENSF480TermProject.backend.models.Purchase;
 import ENSF480TermProject.backend.models.Refund;
@@ -26,10 +21,8 @@ import ENSF480TermProject.backend.models.RegisteredUser;
 import ENSF480TermProject.backend.models.Subscription;
 import ENSF480TermProject.backend.models.SubscriptionRenewal;
 import ENSF480TermProject.backend.models.Ticket;
-import ENSF480TermProject.backend.models.Transaction;
 import ENSF480TermProject.backend.repositories.CreditDiscountCodeRepository;
 import ENSF480TermProject.backend.repositories.RegisteredUserRepository;
-import ENSF480TermProject.backend.repositories.TransactionRepository;
 
 @Service
 public class TransactionService {

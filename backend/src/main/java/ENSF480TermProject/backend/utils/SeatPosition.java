@@ -1,7 +1,5 @@
 package ENSF480TermProject.backend.utils;
 
-import java.util.List;
-
 public class SeatPosition {
     private int row;
     private int column;
