@@ -27,6 +27,7 @@ const SeatMap = () => {
             alert('More than 10% of seats are already reserved. Returning to Homepage...'); 
           }
         }
+        setSeatData(data);
       } catch (error) { 
         console.error('Fetch error:', error); 
         setError(error.message); 
