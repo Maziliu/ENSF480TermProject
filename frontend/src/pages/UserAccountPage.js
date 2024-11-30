@@ -171,19 +171,35 @@ const UserAccountPage = () => {
     })
       .then(response => response.json())
       .then(data => {
-        alert('User details updated successfully.');
+        alert('New Card Added successfully.');
         fetchUserDetails();
       })
       .catch(error => {
-        console.error('Error updating user details:', error);
-        alert('Failed to update user details.');
+        console.error('Error adding new card:', error);
+        alert('Failed to add new card.');
       });
   }
 
-  const handleBillingChange =()=>{
-    userDetails.subscription.autoRenew = userDetails.subscription.autoRenew ? false : true;
-    handleUpdateDetails();
+  const handleDeleteCard =()=>{
+    fetch(`http://localhost:8080/user/${userId}/delete-payment-card/${selectedCard.cardId}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' }, 
+    })
+      .then(response => response.json())
+      .then(data => {
+        alert('Card deleted successfully.');
+        fetchUserDetails();
+      })
+      .catch(error => {
+        console.error('Error deleting card:', error);
+        alert('Failed to delete card.');
+      });
   }
+
+  // const handleBillingChange =()=>{
+  //   userDetails.subscription.autoRenew = userDetails.subscription.autoRenew ? false : true;
+  //   handleUpdateDetails();
+  // }
 
   if (isLoading) {
     return <div>Loading...</div>;  //display a loading message while data is being fetched
@@ -306,6 +322,7 @@ const UserAccountPage = () => {
                       onChange={(e) => setSelectedCard({ ...selectedCard, cvv: e.target.value })}
                     />
                     <button onClick={handleUpdateDetails}>Update Card</button>
+                    <button onClick={handleDeleteCard}>Delete Card</button>
                   </div>
                 )}
 

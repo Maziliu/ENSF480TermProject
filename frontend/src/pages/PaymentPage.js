@@ -19,7 +19,7 @@ const PaymentPage = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [promoCode, setPromoCode] = useState('');
   const [discount, setDiscount] = useState(0);
-  const [paymentMethod, setPaymentMethod] = useState('CREDIT');
+  const [paymentCardType, setPaymentCardType] = useState('CREDIT');
   const [cardHolderName, setCardHolderName] = useState('');
   const [cardNumber, setCardNumber] = useState('');
   const [cvv, setCvv] = useState('');
@@ -100,7 +100,7 @@ const PaymentPage = () => {
     }
 
     //validate card fields if 'new' payment method is selected
-    if (!selectedCard && (!paymentMethod || !cardHolderName || !cardNumber || !cvv || !expiryDate)) {
+    if (!selectedCard && (!paymentCardType || !cardHolderName || !cardNumber || !cvv || !expiryDate)) {
       alert('Please fill in all required payment fields.');
       return;
     }
@@ -124,7 +124,7 @@ const PaymentPage = () => {
     };
 
     const paymentCard = {
-      paymentMethod,
+      paymentCardType,
       cardHolderName,
       cardNumber,
       cvv,
@@ -174,7 +174,7 @@ const PaymentPage = () => {
   const handleNewCardSelection = () => {
     setShowCardFields(true);
     setSelectedCard('');
-    setPaymentMethod('');
+    setPaymentCardType('');
     setCardHolderName('');
     setCardNumber('');
     setCvv('');
@@ -185,7 +185,7 @@ const PaymentPage = () => {
     console.log(card);
     setSelectedCard(card.cardId);
     setShowCardFields(false);
-    setPaymentMethod(card.paymentMethod);
+    setPaymentCardType(card.paymentCardType);
     setCardHolderName(card.cardHolderName);
     setCardNumber(card.cardNumber);
     setCvv(card.cvv);
@@ -243,16 +243,16 @@ const PaymentPage = () => {
                   <br></br>
                   <label>Choose a Saved Payment Card</label>
                   {savedCards.map((card) => (
-                    <div key={card.id}>
+                    <div key={card.cardId}>
                       <label>
                         <input
                           type="radio"
                           name="paymentCard"
                           value={card.id}
-                          checked={selectedCard === card.id}
+                          checked={selectedCard === card.cardId}
                           onChange={() => handleSelectedSavedCard(card)}
                         />
-                        {card.cardholderName} - {card.cardNumber.slice(-4)} {/* show last 4 digits */}
+                        {card.cardHolderName} - {card.cardNumber.slice(-4)} {/* show last 4 digits */}
                       </label>
                     </div>
                   ))}
@@ -263,7 +263,7 @@ const PaymentPage = () => {
               {(role === 'guest' || showCardFields) && (
                 <div>
                   <div className="payment-method-list">
-                    <select onChange={(e) => setPaymentMethod(e.target.value)}>
+                    <select onChange={(e) => setPaymentCardType(e.target.value)}>
                       <option value="">Select a Payment Method</option>
                       <option value="CREDIT">CREDIT</option>
                       <option value="DEBIT">DEBIT</option>
