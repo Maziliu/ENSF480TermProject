@@ -49,9 +49,10 @@ const PaymentPage = () => {
           return response.json();
         })
         .then((data) => {
+          console.log("paymentpage:", data);
           setEmail(data.email);
           setAddress(data.address);
-          setSavedCards(data.savedCards);
+          setSavedCards(data.paymentCards);
         })
         .catch((error) => console.error('Error fetching user details:', error));
     }
