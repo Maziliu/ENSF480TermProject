@@ -18,7 +18,7 @@ public class SeatService {
     private final ShowtimeRepository showtimeRepository;
     private final ObjectMapper objectMapper;
 
-    public SeatService(ShowtimeRepository showtimeRepository, TransactionService transactionService) {
+    public SeatService(ShowtimeRepository showtimeRepository) {
         this.showtimeRepository = showtimeRepository;
         this.objectMapper = new ObjectMapper();
     }
@@ -37,6 +37,17 @@ public class SeatService {
         }
 
         seatMap.get(position.getRow()).set(position.getColumn(), true); 
+        showtime.setSeatMap(serializeSeatMap(seatMap)); 
+        showtimeRepository.save(showtime); 
+
+        return position;
+    }
+
+    public SeatPosition unReserveSeat(Long showtimeId, SeatPosition position) {
+        Showtime showtime = showtimeRepository.findById(showtimeId).orElseThrow(() -> new RuntimeException("Showtime not found"));
+
+        List<List<Boolean>> seatMap = parseSeatMap(showtime.getSeatMap());
+        seatMap.get(position.getRow()).set(position.getColumn(), false); 
         showtime.setSeatMap(serializeSeatMap(seatMap)); 
         showtimeRepository.save(showtime); 
 

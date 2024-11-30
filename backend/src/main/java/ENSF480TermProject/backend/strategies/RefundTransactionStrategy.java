@@ -26,6 +26,8 @@ import ENSF480TermProject.backend.repositories.RegisteredUserRepository;
 import ENSF480TermProject.backend.repositories.ShowtimeRepository;
 import ENSF480TermProject.backend.repositories.TicketRepository;
 import ENSF480TermProject.backend.repositories.TransactionRepository;
+import ENSF480TermProject.backend.services.reservation.SeatService;
+import ENSF480TermProject.backend.utils.SeatPosition;
 import jakarta.persistence.EntityNotFoundException;
 
 @Component
@@ -36,14 +38,16 @@ public class RefundTransactionStrategy implements TransactionStrategy{
     private final TicketRepository ticketRepository;
     private final CreditDiscountCodeRepository creditDiscountCodeRepository;
     private final ShowtimeRepository showtimeRepository;
+    private final SeatService seatService;
 
     @Autowired
-    public RefundTransactionStrategy(TransactionRepository transactionRepository, RegisteredUserRepository registeredUserRepository, TicketRepository ticketRepository, CreditDiscountCodeRepository creditDiscountCodeRepository, ShowtimeRepository showtimeRepository) {
+    public RefundTransactionStrategy(TransactionRepository transactionRepository, RegisteredUserRepository registeredUserRepository, TicketRepository ticketRepository, CreditDiscountCodeRepository creditDiscountCodeRepository, ShowtimeRepository showtimeRepository, SeatService seatService) {
         this.transactionRepository = transactionRepository;
         this.registeredUserRepository = registeredUserRepository;
         this.ticketRepository = ticketRepository;
         this.creditDiscountCodeRepository = creditDiscountCodeRepository;
         this.showtimeRepository = showtimeRepository;
+        this.seatService = seatService;
     }
 
     @Override
@@ -103,6 +107,9 @@ public class RefundTransactionStrategy implements TransactionStrategy{
         
         //Update the existing transaction to REFUDED
         transactionRepository.updateTransactionStatusToRefunded(purchaseToRefund.getTransactionId());
+
+        //Update the showtime to unbook the seat
+        seatService.unReserveSeat(ticket.get().getShowtimeId(), new SeatPosition(ticket.get().getSeatNumber()));
 
         //Complete the response
         refundResponse.setTransaction(refund);
