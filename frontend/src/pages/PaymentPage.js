@@ -159,6 +159,8 @@ const PaymentPage = () => {
         return response.json();
       })
       .then((data) => {
+        console.log("purchase:",data);
+        paymentData.bookingId = data.transaction.transactionId;
         setReceiptData(paymentData);
         setShowReceiptPopup(true);
       })
