@@ -82,6 +82,22 @@ const RegistrationForm = () => {
         }
       })
       .then((data) => {
+        const updatedData = data;
+        updatedData.first_name = firstName.toString();
+        updatedData.last_name = lastName.toString();
+        updatedData.address = address.toString();
+        updatedData.paymentCards[0].expiryDate = expiryDate.toString();
+
+        fetch(`http://localhost:8080/user/${updatedData.userId}/update-details`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' }, 
+          body: JSON.stringify(updatedData),
+        })
+          .then(response => response.json())
+          .catch(error => {
+            console.error('Error registering:', error);
+            alert('Failed to register.');
+          });
         console.log('Registration successful:', data);
         alert('Registration successful! You can now log in.');
         setShowLogin(true);
