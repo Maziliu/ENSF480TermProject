@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useSelectionContext } from '../contexts/SelectionContext';
+import { useSelectionContext } from '../../contexts/SelectionContext';
 import { useNavigate } from 'react-router-dom';
-import '../styles/Notification.css';
-import '../styles/ReceiptNotification.css';
+import '../../styles/Notification.css';
+import '../../styles/ReceiptNotification.css';
 
 const ReceiptNotification = ({ receiptData }) => {
   const { handleSelectMovie } = useSelectionContext();

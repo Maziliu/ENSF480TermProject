@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import ManageUsers from '../components/ManageUsers'
-import ManageMovies from '../components/ManageMovies';
-import ManageTheatres from '../components/ManageTheatres';
-import ManageShowtimes from '../components/ManageShowtimes';
+import ManageUsers from '../components/admincontrol/ManageUsers'
+import ManageMovies from '../components/admincontrol/ManageMovies';
+import ManageTheatres from '../components/admincontrol/ManageTheatres';
+import ManageShowtimes from '../components/admincontrol/ManageShowtimes';
 import '../styles/AdminPage.css';
 
 // NOT ADJUSTED TO THIS FRONTEND FORMAT AT ALL

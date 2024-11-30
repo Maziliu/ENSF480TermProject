@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/ManageUsers.css';
+import '../../styles/ManageUsers.css';
 
 //NOT ADJUSTED TO THIS FRONTEND ROUTING
 const ManageUsers = () => {

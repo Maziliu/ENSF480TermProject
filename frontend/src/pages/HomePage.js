@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import MovieGrid from '../components/MovieGrid';
 import SearchBar from '../components/SearchBar';
 import TheatreList from '../components/TheatreList';
-import NewReleaseNotification from '../components/NewReleaseNotification';
+import NewReleaseNotification from '../components/notifications/NewReleaseNotification';
 import { useAuthContext } from '../contexts/AuthContext';
 import { useState, useEffect } from 'react';
 import { fetchMovies } from '../services/api';

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import CancellationNotification from '../components/CancellationNotification';
+import CancellationNotification from '../components/notifications/CancellationNotification';
 import '../styles/CancelTicketPage.css';
 
 //not sure completely how we want to implement this either

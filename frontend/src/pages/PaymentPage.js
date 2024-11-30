@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext.js';
 import { useSelectionContext } from '../contexts/SelectionContext.js';
-import ReceiptNotification from '../components/ReceiptNotification.js';
+import ReceiptNotification from '../components/notifications/ReceiptNotification.js';
 import '../styles/PaymentPage.css';
 
 //STILL HAS SOME ISSUES TO RESOLVE

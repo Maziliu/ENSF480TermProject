@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/Notification.css';
-import '../styles/CancellationNotification.css';
+import '../../styles/Notification.css';
+import '../../styles/CancellationNotification.css';
 
 const CancellationNotification = ({ refundData }) => {
   const [showPopup, setShowPopup] = useState(true);

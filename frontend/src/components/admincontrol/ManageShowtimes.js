@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import '../styles/ManageShowtimes.css';
+import '../../styles/ManageShowtimes.css';
 
 //NOT ADJUSTED TO THIS FRONTEND FORMAT AT ALL
 //ALSO NEED TO FIX SHOWTIME ADD/UPDATE/DELETE and add delete option for all thingies

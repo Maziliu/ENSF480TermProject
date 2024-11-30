@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/ManageMovies.css';
+import '../../styles/ManageMovies.css';
 
 //NOT ADJUSTED TO THIS FRONTEND ROUTING
 //ALSO NEED TO FIX SHOWTIME ADD/UPDATE/DELETE and add delete option for all thingies
