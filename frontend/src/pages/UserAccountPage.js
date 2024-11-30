@@ -60,8 +60,9 @@ const UserAccountPage = () => {
       }
 
       //validate expiry date
-      if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(newCard.expiryDate)) {
-        alert('Please enter a valid expiry date in MM/YY format.');
+    // validate expiration date
+      if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(newCard.expiryDate)) {
+        alert('Please enter a valid expiration date in YYYY-MM format.');
         return;
       }
       updatedData.savedCards.push(newCard);

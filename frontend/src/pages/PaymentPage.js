@@ -19,8 +19,8 @@ const PaymentPage = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [promoCode, setPromoCode] = useState('');
   const [discount, setDiscount] = useState(0);
-  const [paymentMethod, setPaymentMethod] = useState('credit');
-  const [cardholderName, setCardholderName] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState('CREDIT');
+  const [cardHolderName, setCardHolderName] = useState('');
   const [cardNumber, setCardNumber] = useState('');
   const [cvv, setCvv] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
@@ -99,7 +99,7 @@ const PaymentPage = () => {
     }
 
     //validate card fields if 'new' payment method is selected
-    if (!selectedCard && (!paymentMethod || !cardholderName || !cardNumber || !cvv || !expiryDate)) {
+    if (!selectedCard && (!paymentMethod || !cardHolderName || !cardNumber || !cvv || !expiryDate)) {
       alert('Please fill in all required payment fields.');
       return;
     }
@@ -110,9 +110,9 @@ const PaymentPage = () => {
       return;
     }
 
-    //validate expiry date
-    if (!selectedCard && !/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiryDate)) {
-      alert('Please enter a valid expiry date in MM/YY format.');
+    // validate expiration date
+    if (!selectedCard && !/^\d{4}-(0[1-9]|1[0-2])$/.test(expiryDate)) {
+      alert('Please enter a valid expiration date in YYYY-MM format.');
       return;
     }
 
@@ -124,7 +124,7 @@ const PaymentPage = () => {
 
     const paymentCard = {
       paymentMethod,
-      cardholderName,
+      cardHolderName,
       cardNumber,
       cvv,
       expiryDate,
@@ -172,7 +172,7 @@ const PaymentPage = () => {
     setShowCardFields(true);
     setSelectedCard('');
     setPaymentMethod('');
-    setCardholderName('');
+    setCardHolderName('');
     setCardNumber('');
     setCvv('');
     setExpiryDate('');
@@ -180,10 +180,10 @@ const PaymentPage = () => {
 
   const handleSelectedSavedCard = (card) => {
     console.log(card);
-    setSelectedCard(card.id);
+    setSelectedCard(card.cardId);
     setShowCardFields(false);
     setPaymentMethod(card.paymentMethod);
-    setCardholderName(card.cardholderName);
+    setCardHolderName(card.cardHolderName);
     setCardNumber(card.cardNumber);
     setCvv(card.cvv);
     setExpiryDate(card.expiryDate);
@@ -262,16 +262,16 @@ const PaymentPage = () => {
                   <div className="payment-method-list">
                     <select onChange={(e) => setPaymentMethod(e.target.value)}>
                       <option value="">Select a Payment Method</option>
-                      <option value="credit">Credit</option>
-                      <option value="debit">Debit</option>
+                      <option value="CREDIT">CREDIT</option>
+                      <option value="DEBIT">DEBIT</option>
                     </select>
                   </div>
                   <br></br>
                   <label>Cardholder Name</label>
                   <input
                     type="text"
-                    value={cardholderName}
-                    onChange={(e) => setCardholderName(e.target.value)}
+                    value={cardHolderName}
+                    onChange={(e) => setCardHolderName(e.target.value)}
                     placeholder="Enter Cardholder Name"
                     required
                   />{' '}
@@ -283,7 +283,7 @@ const PaymentPage = () => {
                   <label>CVV</label>
                   <input type="text" value={cvv} onChange={(e) => setCvv(e.target.value)} placeholder="Enter CVV" required /> <br />
                   <br></br>
-                  <label>Expiry Date (MM/YY)</label>
+                  <label>Expiry Date (YYYY-MM)</label>
                   <input type="text" value={expiryDate} onChange={(e) => setExpiryDate(e.target.value)} placeholder="Enter Expiry Date" required /> <br />
                 </div>
               )}

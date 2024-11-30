@@ -66,7 +66,7 @@ const ReceiptNotification = ({ receiptData }) => {
               </div>
               <div className="receipt-line">
                 <b>Seat:</b>
-                <span>{receiptData.seatName || 'N/A'}</span>
+                <span>{`${receiptData.seatPosition.row+1}-${receiptData.seatPosition.column+1}` || 'N/A'}</span>
               </div>
               <div className="receipt-line">
                 <b>Showtime:</b>
@@ -98,7 +98,7 @@ const ReceiptNotification = ({ receiptData }) => {
               </div>
               <div className="receipt-line">
                 <b>Cardholder Name:</b>
-                <span>{receiptData.paymentCard.cardholderName || 'N/A'}</span>
+                <span>{receiptData.paymentCard.cardHolderName || 'N/A'}</span>
               </div>
               <div className="receipt-line">
                 <b>Card Number:</b>
