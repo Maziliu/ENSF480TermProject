@@ -11,7 +11,7 @@ import '../styles/UserAccountPage.css';
 const UserAccountPage = () => {
   const [userDetails, setUserDetails] = useState(null);
   const [savedCards, setSavedCards] = useState([]);
-  const [newCard, setNewCard] = useState({ cardHolderName: '', cardNumber: '', expireDate: '', cvv: '' });
+  const [newCard, setNewCard] = useState({ cardHolderName: '', cardNumber: '', expireDate: '', cvv: '', paymentCardType: '', });
   const [selectedCard, setSelectedCard] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState('');
@@ -29,6 +29,7 @@ const UserAccountPage = () => {
           console.log("userdeets:", data);
           setUserDetails(data);
           setSavedCards(data.paymentCards);
+          setNewCard({ cardHolderName: '', cardNumber: '', expireDate: '', cvv: '', paymentCardType: '', });
           setIsLoading(false);
         }
       })
@@ -76,17 +77,6 @@ const UserAccountPage = () => {
     }
 
     console.log("updated details: ", updatedData);
-  
-    if (newCard.cardHolderName && newCard.cardNumber && newCard.expireDate && newCard.cvv) {
-      updatedData.paymentCards.push({ 
-        cardId: null,
-        cardNumber:newCard.cardNumber.toString(), 
-        cardHolderName:newCard.cardHolderName.toString(), 
-        cvv:newCard.cvv.toString(), 
-        expiryDate: newCard.expireDate.toString(), 
-        paymentCardType: newCard.paymentCardType.toString(),  });
-      console.log("u",updatedData);
-    }
 
     fetch(`http://localhost:8080/user/${userId}/update-details`, {
       method: 'PUT',
@@ -191,7 +181,7 @@ const UserAccountPage = () => {
   }
 
   const handleBillingChange =()=>{
-    userDetails.subscription.autoRenew ^= true;
+    userDetails.subscription.autoRenew = userDetails.subscription.autoRenew ? false : true;
     handleUpdateDetails();
   }
 
@@ -372,7 +362,7 @@ const UserAccountPage = () => {
       {!userDetails.subscription.autoRenew ? (
          <button className='user-account-button' onClick={handlePayFee}>Pay Annual Fee</button>
       ) : (<div>Billing date: {new Date(userDetails.subscription.expiryDate).toString()}</div>)}
-      <button className='user-account-button' onClick={handleBillingChange}>Switch to {userDetails.subscription.autoRenew ? 'manual':'auto'} payments</button>
+      {/* <button className='user-account-button' onClick={handleBillingChange}>Switch to {userDetails.subscription.autoRenew ? 'manual':'auto'} payments</button> */}
         <button className='user-account-button' onClick={handleUnregister}>Unregister Account</button>
 
       {message && <div>{message}</div>}
