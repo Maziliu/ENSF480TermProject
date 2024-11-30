@@ -1,5 +1,8 @@
 package ENSF480TermProject.backend.models;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -53,7 +56,7 @@ public class RegisteredUser {
 
     @OneToMany(mappedBy = "registeredUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonManagedReference
-    private Set<PaymentCard> paymentCards;
+    private List<PaymentCard> paymentCards;
 
     //CTORS
     public RegisteredUser() {}
@@ -81,6 +84,10 @@ public class RegisteredUser {
     }
 
     public void addPaymentCard(PaymentCard paymentCard){
+        if(paymentCards == null){
+            paymentCards = new ArrayList<>();
+        }
+
         this.paymentCards.add(paymentCard);
     }
 
@@ -113,8 +120,8 @@ public class RegisteredUser {
         return isAdmin;
     }
 
-    public Set<PaymentCard> getPaymentCards() {
-        return paymentCards;
+    public void setPaymentCards(ArrayList<PaymentCard> paymentCards){
+        this.paymentCards = paymentCards;
     }
 
     public String getFirstName() {
@@ -150,8 +157,8 @@ public class RegisteredUser {
         this.password = password;
     }
 
-    public void setPaymentCards(Set<PaymentCard> paymentCards) {
-        this.paymentCards = paymentCards;
+    public List<PaymentCard> getPaymentCards() {
+        return paymentCards;
     }
 
     public void setTheatreCredits(int theatreCredits) {
