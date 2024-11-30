@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import ENSF480TermProject.backend.strategies.PurchaseTransactionStrategy;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,7 +20,7 @@ public class Purchase extends Transaction {
     private Long ticketId;
 
     @Transient
-    Ticket ticket;
+    private Ticket ticket;
 
     
     public Purchase(Ticket ticket, RegisteredUser registeredUser, BigDecimal transactionAmount) {

@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ENSF480TermProject.backend.models.Showtime;
 import ENSF480TermProject.backend.repositories.ShowtimeRepository;
+import ENSF480TermProject.backend.services.payment.TransactionService;
 import ENSF480TermProject.backend.utils.SeatPosition;
 
 @Service
@@ -17,7 +18,7 @@ public class SeatService {
     private final ShowtimeRepository showtimeRepository;
     private final ObjectMapper objectMapper;
 
-    public SeatService(ShowtimeRepository showtimeRepository) {
+    public SeatService(ShowtimeRepository showtimeRepository, TransactionService transactionService) {
         this.showtimeRepository = showtimeRepository;
         this.objectMapper = new ObjectMapper();
     }
@@ -27,7 +28,7 @@ public class SeatService {
         return parseSeatMap(showtime.getSeatMap());
     }
 
-    public void reserveSeat(Long showtimeId, SeatPosition position) {
+    public SeatPosition reserveSeat(Long showtimeId, SeatPosition position) {
         Showtime showtime = showtimeRepository.findById(showtimeId).orElseThrow(() -> new RuntimeException("Showtime not found"));
 
         List<List<Boolean>> seatMap = parseSeatMap(showtime.getSeatMap());
@@ -38,6 +39,8 @@ public class SeatService {
         seatMap.get(position.getRow()).set(position.getColumn(), true); 
         showtime.setSeatMap(serializeSeatMap(seatMap)); 
         showtimeRepository.save(showtime); 
+
+        return position;
     }
 
     private List<List<Boolean>> parseSeatMap(String seatMapJson) {

@@ -46,7 +46,7 @@ public class TransactionService {
         Optional<RegisteredUser> user = registeredUserRepository.findByEmail(ticketPurchaseDTO.getEmail());
         Long userId = user.isPresent() ? user.get().getUserId() : null;
 
-        Ticket ticket = new Ticket(ticketPurchaseDTO.getEmail(), ticketPurchaseDTO.getTicketPrice(),ticketPurchaseDTO.getShowtime().getMovie_id(), ticketPurchaseDTO.getShowtime().getTheatre_id(), ticketPurchaseDTO.getSeatName());
+        Ticket ticket = new Ticket(ticketPurchaseDTO.getEmail(), ticketPurchaseDTO.getTicketPrice(),ticketPurchaseDTO.getShowtime().getMovie_id(), ticketPurchaseDTO.getShowtime().getTheatre_id(), ticketPurchaseDTO.getSeatPosition().toString());
         Purchase purchase = (userId == null) ? new Purchase(ticket, ticketPurchaseDTO.getEmail(), ticketPurchaseDTO.getTotalPrice()) : new Purchase(ticket, user.get(), ticketPurchaseDTO.getTotalPrice());
 
         PaymentResponseDTO paymentDTO = (PaymentResponseDTO) transactionProcessor.processTransaction(purchase, TransactionType.PURCHASE);

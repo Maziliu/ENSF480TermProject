@@ -1,6 +1,8 @@
 import { useAuthContext } from '../../contexts/AuthContext';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import'../../styles/LogoutButton.css';
+
 
 const LogoutButton = () => {
   const { logout } = useAuthContext();
@@ -12,17 +14,9 @@ const LogoutButton = () => {
   };
 
   return (
-    <span
-      onClick={handleLogout}
-      style={{
-        cursor: 'pointer',
-        textDecoration: 'underline',
-        color: 'blue',
-        margin: '10px',
-      }}
-    >
+    <button className='logout-button' onClick={handleLogout}>
       Logout
-    </span>
+    </button>
   );
 };
 

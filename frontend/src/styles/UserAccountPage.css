@@ -1,35 +1,28 @@
-/* Payment Page */
+/* User Account Page */
 
-.payment-header {
+.user-account-header {
     color: white;
-    margin-left: 24.3%;
+    margin-left: 24%;
     margin-bottom: 3px;
 }
 
-.payment-page {
+.user-account-page {
     color: white;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    height: 625px;
+    height: 500px;
     background-color: #282828;
     width: 700px;
     border-radius: 10px;
     margin: 20px auto;
     padding-left: 10px;
     position: relative;
+    padding: 10px;
 }
 
-.order-summary {
-    width: 50%;
-}
-
-.order-summary div {
-    padding: 5px;
-}
-
-.payment-input {
+.user-account-input {
     margin-bottom: -20px;
     padding-top: 12px;
     display: flex;
@@ -37,12 +30,12 @@
     background-color: #282828;
 }
 
-.payment-input label {
+.user-account-input label {
     color: white;
     font-size: 14px;
 }
 
-.payment-input input {
+.user-account-input input {
     width: 90%;
     padding: 8px;
     padding-top: 10px;
@@ -54,20 +47,31 @@
     margin-right: 170px;
 }
 
-.payment-input input:hover {
+.user-account-input input:hover {
     border-color: #4ccc;
     outline: none;
     cursor: pointer;
 }
 
-.payment-input input:focus {
+.user-account-input input:focus {
     border-color: #4ccc;
     outline: none;
 }
 
-
 /* Buttons */
-.payment-button {
+.user-buttons {
+    width: 96%;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.user-account-button {
     width: 20%;
     margin-left: 545px;
     font-size: 14px;
@@ -77,9 +81,9 @@
     color: #333;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: -10px;
+    margin-top: 20px;
 }
 
-.payment-button:hover {
+.user-account-button:hover {
     background-color: #4ccc;
 }

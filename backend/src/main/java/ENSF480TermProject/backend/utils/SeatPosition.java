@@ -4,6 +4,8 @@ public class SeatPosition {
     private int row;
     private int column;
 
+    public SeatPosition() {}
+
     public SeatPosition(int row, int column) {
         this.row = row;
         this.column = column;
@@ -27,10 +29,7 @@ public class SeatPosition {
 
     @Override
     public String toString() {
-        return "SeatPosition{" +
-                "row=" + row +
-                ", column=" + column +
-                '}';
+        return "Row " + String.valueOf(row) + ", Column " + String.valueOf(column);
     }
 }
 

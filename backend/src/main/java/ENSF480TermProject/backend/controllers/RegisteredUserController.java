@@ -42,10 +42,10 @@ public class RegisteredUserController {
     }
     
     @PutMapping(value = "/{userId:[0-9]+}/update-details", consumes = "application/json")
-    public ResponseEntity<String> updateUserDetails(@PathVariable("userId") Long userId, @RequestBody UserDetailsDTO userDetailsDTO) {
-        Optional<String> result = registeredUserService.updateUserDetails(userId, userDetailsDTO);
+    public ResponseEntity<RegisteredUser> updateUserDetails(@PathVariable("userId") Long userId, @RequestBody UserDetailsDTO userDetailsDTO) {
+        Optional<RegisteredUser> result = registeredUserService.updateUserDetails(userId, userDetailsDTO);
 
-        return result.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with ID " + userId + " not found."));
+        return ResponseEntity.ok(result.get());
     }
 
     @DeleteMapping("/{userId:[0-9]+}/delete-user")
@@ -63,11 +63,6 @@ public class RegisteredUserController {
     @DeleteMapping("/{userId:[0-9]+}/delete-payment-card/{cardId:[0-9]+}")
     public ResponseEntity<RegisteredUser> deletePaymentCard(@PathVariable("userId") Long userId, @PathVariable("cardId") Long cardId){
         return ResponseEntity.ok(registeredUserService.deletePaymentCard(userId, cardId).orElse(null));
-    }
-
-    @PutMapping("/{userId:[0-9]+}/update-payment-card")
-    public ResponseEntity<RegisteredUser> updatePaymentCard(@PathVariable("userId") Long userId, @RequestBody PaymentCardDTO paymentCardDTO){
-        return ResponseEntity.ok(registeredUserService.updatePaymentCard(userId, paymentCardDTO).orElse(null));
     }
 
     @PutMapping("/{userId:[0-9]+}/renew-subscription")

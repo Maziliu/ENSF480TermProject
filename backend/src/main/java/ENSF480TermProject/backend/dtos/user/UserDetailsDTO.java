@@ -7,24 +7,8 @@ import ENSF480TermProject.backend.models.RegisteredUser;
 
 public class UserDetailsDTO {
     private String first_name, last_name, email, address;
-    private Set<PaymentCard> paymentCards;
+    private Set<PaymentCardDTO> paymentCards;
 
-    public UserDetailsDTO() {}
-    public UserDetailsDTO(String firstName, String lastName, String address, String email, Set<PaymentCard> paymentCards) {
-        this.first_name = firstName;
-        this.last_name = lastName;
-        this.address = address;
-        this.email = email;
-        this.paymentCards = paymentCards;
-    }
-
-    public UserDetailsDTO(RegisteredUser registeredUser) {
-        this.first_name = registeredUser.getFirstName();
-        this.last_name = registeredUser.getLastName();
-        this.email = registeredUser.getEmail();
-        this.address = registeredUser.getAddress();
-        this.paymentCards = registeredUser.getPaymentCards();
-    }
 
     //Get
     public String getAddress() {
@@ -43,7 +27,7 @@ public class UserDetailsDTO {
         return last_name;
     }
 
-    public Set<PaymentCard> getPaymentCards() {
+    public Set<PaymentCardDTO> getPaymentCards() {
         return paymentCards;
     }
 
@@ -64,7 +48,7 @@ public class UserDetailsDTO {
         this.last_name = last_name;
     }
 
-    public void setPaymentCards(Set<PaymentCard> paymentCards) {
+    public void setPaymentCards(Set<PaymentCardDTO> paymentCards) {
         this.paymentCards = paymentCards;
     }
 
