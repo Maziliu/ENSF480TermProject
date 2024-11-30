@@ -6,6 +6,7 @@ import java.time.YearMonth;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import ENSF480TermProject.backend.enums.PaymentCardType;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
@@ -18,6 +19,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -29,7 +31,7 @@ public class PaymentCard {
     @Column(name = "card_id")
     private Long cardId;
 
-    @Column(name = "card_number", unique = true, nullable = false)
+    @Column(name = "card_number", nullable = false)
     private String cardNumber;
 
     @Column(name = "card_holder_name", nullable = false)

@@ -91,17 +91,19 @@ public class RegisteredUserService {
 
     private void updatePaymentCard(Long userId, PaymentCardDTO paymentCardDTO){
         Optional<PaymentCard> paymentCardOptional = paymentCardRepository.findById(paymentCardDTO.getCardId());
-        if(paymentCardOptional.isEmpty()){
-            return;
+        if(!paymentCardOptional.isPresent()) {
+            addPaymentCard(userId, paymentCardDTO);
         }
-
-        PaymentCard paymentCard = paymentCardOptional.get();
-        paymentCard.setCardHolderName(paymentCardDTO.getCardHolderName());
-        paymentCard.setCardNumber(paymentCardDTO.getCardNumber());
-        paymentCard.setCvv(paymentCardDTO.getCvv());
-        paymentCard.setExpireDate(paymentCardDTO.getExpiryDate());
+        else {
+            PaymentCard paymentCard = paymentCardOptional.get();
+            paymentCard.setCardHolderName(paymentCardDTO.getCardHolderName());
+            paymentCard.setCardNumber(paymentCardDTO.getCardNumber());
+            paymentCard.setCvv(paymentCardDTO.getCvv());
+            paymentCard.setExpireDate(paymentCardDTO.getExpiryDate());
+            
+            paymentCardRepository.save(paymentCard);
+        }
         
-        paymentCardRepository.save(paymentCard);
     }
     
 }
