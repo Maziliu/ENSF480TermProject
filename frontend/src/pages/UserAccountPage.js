@@ -11,79 +11,96 @@ import '../styles/UserAccountPage.css';
 const UserAccountPage = () => {
   const [userDetails, setUserDetails] = useState(null);
   const [savedCards, setSavedCards] = useState([]);
-  const [newCard, setNewCard] = useState({ cardholderName: '', cardNumber: '', expiryDate: '', cvv: '' });
+  const [newCard, setNewCard] = useState({ cardHolderName: '', cardNumber: '', expireDate: '', cvv: '' });
   const [selectedCard, setSelectedCard] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState('');
-  const { userId, setUserId, setRole } = useAuthContext();
+  const { userId, setUserId, setRole, logout } = useAuthContext();
 
   const navigate = useNavigate();
   //fetch user details and saved cards
+  const fetchUserDetails = () => {
+    fetch(`http://localhost:8080/user/${userId}/details`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          setMessage(data.error);
+        } else {
+          console.log("userdeets:", data);
+          setUserDetails(data);
+          setSavedCards(data.paymentCards);
+          setIsLoading(false);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching user details:', error);
+        setMessage('Failed to load user details.');
+      });
+  };
+  
   useEffect(() => {
-    const fetchUserDetails = () => {
-      fetch(`http://localhost:8080/user/${userId}/details`)
-        .then(response => response.json())
-        .then(data => {
-          if (data.error) {
-            setMessage(data.error);
-          } else {
-            console.log("userdeets:", data);
-            setUserDetails(data);
-            setSavedCards(data.savedCards);
-            setIsLoading(false);
-          }
-        })
-        .catch(error => {
-          console.error('Error fetching user details:', error);
-          setMessage('Failed to load user details.');
-        });
-    };
-
     fetchUserDetails();
   }, [userId]);
 
   //handle updating user details
   const handleUpdateDetails = () => {
     const updatedData = { 
-      ...userDetails,
-      savedCards: [...savedCards]
+      first_name: userDetails.firstName,
+      last_name: userDetails.lastName,
+      email: userDetails.email,
+      address: userDetails.address,
+      paymentCards: userDetails.paymentCards,
+      subscription: userDetails.subscription,
+      theatreCredits: userDetails.theatreCredits,
+      userId: userDetails.userId,
       };
+  //  updatedData.paymentCards = [...savedCards];
+
+    if(selectedCard){
+      console.log("selected:", selectedCard);
+      const updatedSavedCards = savedCards.map(card => 
+        card.cardId === selectedCard.cardId ? { ...selectedCard } : card
+      );
+    };
+
+    updatedData.paymentCards = savedCards.map(card => { 
+      const { expireDate, ...rest } = card; 
+      return { ...rest, expiryDate: expireDate }; }); 
+      if (selectedCard) { 
+        const updatedSavedCards = savedCards.map(card => card.cardId === selectedCard.cardId ? { ...selectedCard } : card ); 
+        updatedData.paymentCards = updatedSavedCards.map(card => { 
+          const { expireDate, ...rest } = card; 
+          return { ...rest, expiryDate: expireDate }; 
+        }
+      );
+    }
 
     console.log("updated details: ", updatedData);
   
-    if (newCard.cardholderName && newCard.cardNumber && newCard.expiryDate && newCard.cvv) {
-          //validate card fields if 'new' payment method is selected
-      //validate cvv
-      if (!/^\d{3}$/.test(newCard.cvv)) {
-        alert('Please enter a valid 3-digit cvv.');
-        return;
-      }
-
-      //validate expiry date
-    // validate expiration date
-      if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(newCard.expiryDate)) {
-        alert('Please enter a valid expiration date in YYYY-MM format.');
-        return;
-      }
-      updatedData.savedCards.push(newCard);
+    if (newCard.cardHolderName && newCard.cardNumber && newCard.expireDate && newCard.cvv) {
+      updatedData.paymentCards.push({ 
+        cardId: null,
+        cardNumber:newCard.cardNumber.toString(), 
+        cardHolderName:newCard.cardHolderName.toString(), 
+        cvv:newCard.cvv.toString(), 
+        expiryDate: newCard.expireDate.toString(), 
+        paymentCardType: newCard.paymentCardType.toString(),  });
+      console.log("u",updatedData);
     }
 
     fetch(`http://localhost:8080/user/${userId}/update-details`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: new URLSearchParams({updatedData}).toString(),
+      headers: { 'Content-Type': 'application/json' }, 
+      body: JSON.stringify(updatedData),
     })
       .then(response => response.json())
       .then(data => {
-        if (data.message) {
-          setMessage('User details updated successfully.');
-        } else {
-          setMessage('Failed to update user details.');
-        }
+        alert('User details updated successfully.');
+        fetchUserDetails();
       })
       .catch(error => {
         console.error('Error updating user details:', error);
-        setMessage('Failed to update user details.');
+        alert('Failed to update user details.');
       });
   };
 
@@ -121,11 +138,8 @@ const UserAccountPage = () => {
           return response.text(); // Assuming the server returns a plain text response
         })
         .then(data => {
-          setMessage('Account successfully unregistered');
-          localStorage.removeItem('role');
-          localStorage.removeItem('userId');
-          setRole('guest');
-          setUserId('');
+          alert('Account successfully unregistered');
+          logout();
           navigate('/');
         })
         .catch(error => {
@@ -135,6 +149,46 @@ const UserAccountPage = () => {
     }
   };
   
+  const handleAddNewCard =()=>{
+    if (!newCard.paymentCardType || !newCard.cardHolderName || !newCard.cardNumber || !newCard.cvv || !newCard.expireDate) {
+      alert('Please fill in all required payment fields.');
+      return;
+    }
+
+    if (!/^\d{3}$/.test(newCard.cvv)) {
+      alert('Please enter a valid 3-digit CVV.');
+      return;
+    }
+
+    if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(newCard.expireDate)) {
+      alert('Please enter a valid expiration date in YYYY-MM format.');
+      return;
+    }
+
+    const newCardDetails ={
+      cardId: null,
+      cardNumber:newCard.cardNumber.toString(), 
+      cardHolderName:newCard.cardHolderName.toString(), 
+      cvv:newCard.cvv.toString(), 
+      expiryDate: newCard.expireDate.toString(), 
+      paymentCardType: newCard.paymentCardType.toString(),
+  }
+
+    fetch(`http://localhost:8080/user/${userId}/add-payment-card`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }, 
+      body: JSON.stringify(newCardDetails),
+    })
+      .then(response => response.json())
+      .then(data => {
+        alert('User details updated successfully.');
+        fetchUserDetails();
+      })
+      .catch(error => {
+        console.error('Error updating user details:', error);
+        alert('Failed to update user details.');
+      });
+  }
 
   const handleBillingChange =()=>{
     userDetails.subscription.autoRenew ^= true;
@@ -202,7 +256,7 @@ const UserAccountPage = () => {
                       checked={selectedCard?.cardNumber === card.cardNumber} 
                       onChange={() => setSelectedCard(card)} 
                     />
-                    {card.cardholderName} - {card.cardNumber} - {card.expiryDate}
+                    {card.cardHolderName} ( {card.cardNumber}, {card.expireDate} )
                   </div>
                 ))}
 
@@ -223,12 +277,19 @@ const UserAccountPage = () => {
                   <div className='user-account-input'>
                     <h4>Update Card</h4>
                     <br></br>
+                    <div className="payment-method-list">
+                    <select value={selectedCard ? selectedCard.paymentCardType : ""}
+                    onChange={(e) => setSelectedCard({ ...selectedCard, paymentCardType: e.target.value })}>
+                      <option value="">Select a Payment Method</option>
+                      <option value="CREDIT">CREDIT</option>
+                      <option value="DEBIT">DEBIT</option>
+                    </select></div>
                     <label>Cardholder Name</label>
                     <input
                       type="text"
                       placeholder="Cardholder Name"
-                      value={selectedCard.cardholderName}
-                      onChange={(e) => setSelectedCard({ ...selectedCard, cardholderName: e.target.value })}
+                      value={selectedCard.cardHolderName}
+                      onChange={(e) => setSelectedCard({ ...selectedCard, cardHolderName: e.target.value })}
                     />
                     <br></br>
                     <label>Card Number</label>
@@ -239,12 +300,12 @@ const UserAccountPage = () => {
                       onChange={(e) => setSelectedCard({ ...selectedCard, cardNumber: e.target.value })}
                     />
                     <br></br>
-                    <label>Expiration Date (MM/YY)</label>
+                    <label>Expiration Date (YYYY-MM)</label>
                     <input
                       type="text"
                       placeholder="Expiry Date"
-                      value={selectedCard.expiryDate}
-                      onChange={(e) => setSelectedCard({ ...selectedCard, expiryDate: e.target.value })}
+                      value={selectedCard.expireDate}
+                      onChange={(e) => setSelectedCard({ ...selectedCard, expireDate: e.target.value })}
                     />
                     <br></br>
                     <label>CVV</label>
@@ -261,15 +322,21 @@ const UserAccountPage = () => {
                 {/* form to add new card */}
                 {selectedCard === null && (
                   <div className='user-account-input'>
-                    <br></br>
+                    <br/>
+                  <div className="payment-method-list">
+                  <select onChange={(e) => setNewCard({ ...newCard, paymentCardType: e.target.value })}>
+                    <option value="">Select a Payment Method</option>
+                    <option value="CREDIT">CREDIT</option>
+                    <option value="DEBIT">DEBIT</option>
+                  </select></div>
                     <label>Cardholder Name</label>
                     <input
                       type="text"
                       placeholder="Cardholder Name"
-                      value={newCard.cardholderName}
-                      onChange={(e) => setNewCard({ ...newCard, cardholderName: e.target.value })}
+                      value={newCard.cardHolderName}
+                      onChange={(e) => setNewCard({ ...newCard, cardHolderName: e.target.value })}
                     />
-                    <br></br>
+                    <br/>
                     <label>Card Number</label>
                     <input
                       type="text"
@@ -277,15 +344,15 @@ const UserAccountPage = () => {
                       value={newCard.cardNumber}
                       onChange={(e) => setNewCard({ ...newCard, cardNumber: e.target.value })}
                     />
-                    <br></br>
-                    <label>Expiration Date (MM/YY)</label>
+                    <br/>
+                    <label>Expiration Date (YYYY-MM)</label>
                     <input
                       type="text"
                       placeholder="Expiry Date"
-                      value={newCard.expiryDate}
-                      onChange={(e) => setNewCard({ ...newCard, expiryDate: e.target.value })}
+                      value={newCard.expireDate}
+                      onChange={(e) => setNewCard({ ...newCard, expireDate: e.target.value })}
                     />
-                    <br></br>
+                    <br/>
                     <label>CVV</label>
                     <input
                       type="text"
@@ -293,7 +360,7 @@ const UserAccountPage = () => {
                       value={newCard.cvv}
                       onChange={(e) => setNewCard({ ...newCard, cvv: e.target.value })}
                     />
-                    <button onClick={handleUpdateDetails}>Add New Card</button>
+                    <button onClick={handleAddNewCard}>Add New Card</button>
                   </div>
                 )}
             </td>
@@ -301,13 +368,10 @@ const UserAccountPage = () => {
         </table>
       </div>
 
-
-      {/* ALSO IDK IF WE WANNA DO SOMETHING LIKE THIS OR JUST DO
-      ANNUAL FEE STUFF COMPLETLEY BACKEND OR JUST HAVE "AUTOMATIC BILLING: JAN 12, 2025" ON ACCOUNT PAGE OR SMTHING */}
       <div><h1>Annual Fees</h1>Renewal: {userDetails.subscription.autoRenew ? 'auto':'manual'}</div>
       {!userDetails.subscription.autoRenew ? (
          <button className='user-account-button' onClick={handlePayFee}>Pay Annual Fee</button>
-      ) : (<div>Billing date: {new Date(userDetails.subscription.expiryDate).toString()}</div>)}
+      ) : (<div>Billing date: {new Date(userDetails.subscription.expireDate).toString()}</div>)}
       <button className='user-account-button' onClick={handleBillingChange}>Switch to {userDetails.subscription.autoRenew ? 'manual':'auto'} payments</button>
         <button className='user-account-button' onClick={handleUnregister}>Unregister Account</button>
 
