@@ -1,4 +1,4 @@
-import Footer from '../components/Footer';
+import Footer from '../components/Footer'; 
 import Header from '../components/Header';
 import MovieGrid from '../components/MovieGrid';
 import SearchBar from '../components/SearchBar';
@@ -7,7 +7,7 @@ import Navigation from '../components/Navigation';
 import NewReleaseNotification from '../components/NewReleaseNotification';
 import { useAuthContext } from '../contexts/AuthContext';
 import { useState, useEffect } from 'react';
-import { useSelectionContext } from '../contexts/SelectionContext';
+import { fetchMovies } from '../services/api';
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
@@ -17,20 +17,49 @@ const HomePage = () => {
   const [query, setQuery] = useState('');
   const { role, userId } = useAuthContext();
 
-  useEffect(()=>{
-    console.log("newre:", newReleases);
-    if (newReleases && newReleases.length > 0 && role === 'user'){
-      setShowNewReleases(true);
+  useEffect(() => {
+    fetch('http://localhost:8080/browse/movies', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('API call failed');
+        }
+      })
+      .then((data) => {
+        const newMovies = data.filter(movie => !movie.isReleased);
+        setNewReleases(newMovies);
+        if (newMovies.length.toString() !== localStorage.getItem('newReleases').toString()) {
+        }
+      })
+      .catch((error) => console.error('Error fetching new releases:', error));
+  }, []);
+
+  useEffect(() => {
+    if (newReleases.length > 0 && newReleases.length.toString() !== localStorage.getItem('newReleases').toString()) {
+      console.log("reset notif");
+      localStorage.setItem('seenNotification', 'false');
     }
-  },[userId])
+  }, [newReleases.length, userId]);
+
+  useEffect(() => {
+    const seenNotification = localStorage.getItem('seenNotification');
+    if (seenNotification === 'false' && role === 'user' && newReleases.length > 0) {
+      setShowNewReleases(true);
+      localStorage.setItem('seenNotification', 'true');
+    }
+  }, [newReleases.length, userId, role]);
 
   return (
     <div>
       <Header />
       <Navigation />
-      {showNewReleases && <NewReleaseNotification movies={newReleases}/>}
-      <SearchBar handleSetMovieList={setQueriedMovies} setQuery={setQuery} query={query}/>
-      {<TheatreList />}
+      {showNewReleases && <NewReleaseNotification movies={newReleases} />}
+      <SearchBar handleSetMovieList={setQueriedMovies} setQuery={setQuery} query={query} />
+      <TheatreList />
       <MovieGrid handleSetMovieList={setMovies} movies={movies} queriedMovies={queriedMovies} query={query} setNewReleases={setNewReleases} />
       <Footer />
     </div>

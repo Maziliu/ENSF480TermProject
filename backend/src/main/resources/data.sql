@@ -495,3 +495,11 @@ INSERT IGNORE INTO Showtimes (room_id, movie_id, air_time, seat_map) VALUES
                                 ]');
 
 
+-- Set all but the selected 3 movies (Inception, Titanic, The Dark Knight) to `is_released = true`
+UPDATE Movies 
+SET is_released = true;
+
+-- Set the exceptions to `is_released = false`
+UPDATE Movies
+SET is_released = false
+WHERE movie_name IN ('Inception', 'Titanic', 'The Dark Knight');

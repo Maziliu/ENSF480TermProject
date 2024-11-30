@@ -26,6 +26,8 @@ export const AuthProvider = ({ children }) => {
     setRole('guest');
     setUserId('');
     setUserEmail('');
+
+    localStorage.setItem('seenNotification', 'false');
   };
 
   return <AuthContext.Provider value={{ role, setRole, userId, setUserId, setUserEmail, userEmail, logout }}>{children}</AuthContext.Provider>;

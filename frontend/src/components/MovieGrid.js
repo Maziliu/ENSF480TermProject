@@ -5,7 +5,7 @@ import MovieItem from './MovieItem';
 import '../styles/MovieGrid.css';
 import TheatreList from './TheatreList';
 
-const MovieGrid = ({ handleSetMovieList, movies , queriedMovies, query, setNewReleases, newReleases }) => {
+const MovieGrid = ({ handleSetMovieList, movies , queriedMovies, query }) => {
   const { selectedTheatreName, handleSelectMovie } = useSelectionContext();
   const [filteredMovies, setFilteredMovies] = useState([]);
   const navigate = useNavigate();
@@ -29,15 +29,11 @@ const MovieGrid = ({ handleSetMovieList, movies , queriedMovies, query, setNewRe
       .then((data) => {
         if (data) {
           console.log("movies:", data);
-          handleSetMovieList(data);
-          if (!selectedTheatreName){
-            const newMovies = data.filter(movie => !movie.isReleased);
-            setNewReleases(newMovies);
-          }
+          const newMovies = data.filter(movie => movie.isReleased);
+          handleSetMovieList(newMovies);
   }})
       .catch((error) => console.error('Error fetching movies:', error));
   }, [selectedTheatreName]);
-
 
   useEffect(() =>{
     setFilteredMovies(movies.filter(movie => queriedMovies.some(qMovie => qMovie.movieId === movie.movieId)));

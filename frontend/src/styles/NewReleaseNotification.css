@@ -34,7 +34,7 @@
     border: none;
     cursor: pointer;
     position: absolute;
-    top: 87%;
+    top: 89%;
     transform: translateY(-50%);
     z-index: 1000;
     transition: opacity 0.3s ease;

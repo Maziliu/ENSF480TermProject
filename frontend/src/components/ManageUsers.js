@@ -10,7 +10,7 @@ const ManageUsers = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const usersResponse = await fetch('http://localhost:5000/Users');
+        const usersResponse = await fetch('http://localhost:5000/users');
         const usersData = await usersResponse.json();
         setUsers(usersData);
 

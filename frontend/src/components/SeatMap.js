@@ -50,10 +50,6 @@ const SeatMap = () => {
     }
   };
 
-  const handleUnreleasedMovie = () =>{
-    //fill in
-  }
-
   if (error) {
     return <div>Error: {error}</div>;
   }
