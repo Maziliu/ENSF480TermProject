@@ -74,7 +74,7 @@ const ReceiptNotification = ({ receiptData }) => {
               </div>
               <div className="receipt-line">
                 <b>Booking ID:</b>
-                <span>{receiptData.bookingId ? receiptData.bookingId : 'N/A'}</span>
+                <span className="booking-id" onClick={() => {navigator.clipboard.writeText(receiptData.bookingId)}}>{receiptData.bookingId ? receiptData.bookingId : 'N/A'}</span>
               </div>
               <div className='barcode'>{receiptData.bookingId}</div>
             </div>

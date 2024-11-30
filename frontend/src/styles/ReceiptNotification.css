@@ -51,6 +51,11 @@
     float: right;
 }
 
+.booking-id:hover{
+    font-weight: bold;
+    transform: scale(1.05);
+}
+
 @media print {
     body * {
         visibility: hidden;
