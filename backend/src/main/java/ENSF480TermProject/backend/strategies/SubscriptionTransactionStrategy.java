@@ -10,7 +10,7 @@ import ENSF480TermProject.backend.dtos.transaction.TransactionResponseDTO;
 import ENSF480TermProject.backend.enums.TransactionType;
 import ENSF480TermProject.backend.interfaces.TransactionStrategy;
 import ENSF480TermProject.backend.models.RegisteredUser;
-import ENSF480TermProject.backend.models.SubscriptionTransaction;
+import ENSF480TermProject.backend.models.SubscriptionRenewal;
 import ENSF480TermProject.backend.models.Transaction;
 import ENSF480TermProject.backend.repositories.RegisteredUserRepository;
 import ENSF480TermProject.backend.repositories.TransactionRepository;
@@ -32,7 +32,7 @@ public class SubscriptionTransactionStrategy implements TransactionStrategy{
 
     @Override
     public TransactionResponseDTO processTransaction(Transaction transaction) {
-        SubscriptionTransaction subscriptionTransaction = (SubscriptionTransaction) transaction;
+        SubscriptionRenewal subscriptionTransaction = (SubscriptionRenewal) transaction;
 
         Optional<RegisteredUser> userOpt = registeredUserRepository.findById(subscriptionTransaction.getUserId());
         if(userOpt.isEmpty()){

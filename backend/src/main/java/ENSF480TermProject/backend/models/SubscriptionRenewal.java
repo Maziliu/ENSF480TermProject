@@ -8,10 +8,10 @@ import com.fasterxml.jackson.databind.util.ClassUtil.Ctor;
 import jakarta.persistence.Entity;
 
 @Entity
-public class SubscriptionTransaction extends Transaction {
-    public SubscriptionTransaction() {}
+public class SubscriptionRenewal extends Transaction {
+    public SubscriptionRenewal() {}
     
-    public SubscriptionTransaction(Long userId, String userEmail) {
+    public SubscriptionRenewal(Long userId, String userEmail) {
         super(BigDecimal.valueOf(20), LocalDateTime.now(), userId, userEmail);
     }
 

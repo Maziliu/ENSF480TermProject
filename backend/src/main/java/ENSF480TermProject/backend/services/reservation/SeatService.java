@@ -23,14 +23,12 @@ public class SeatService {
     }
 
     public List<List<Boolean>> getSeatsByShowtime(Long showtimeId) {
-        Showtime showtime = showtimeRepository.findById(showtimeId)
-            .orElseThrow(() -> new RuntimeException("Showtime not found"));
+        Showtime showtime = showtimeRepository.findById(showtimeId).orElseThrow(() -> new RuntimeException("Showtime not found"));
         return parseSeatMap(showtime.getSeatMap());
     }
 
     public void reserveSeat(Long showtimeId, SeatPosition position) {
-        Showtime showtime = showtimeRepository.findById(showtimeId)
-            .orElseThrow(() -> new RuntimeException("Showtime not found"));
+        Showtime showtime = showtimeRepository.findById(showtimeId).orElseThrow(() -> new RuntimeException("Showtime not found"));
 
         List<List<Boolean>> seatMap = parseSeatMap(showtime.getSeatMap());
         if (seatMap.get(position.getRow()).get(position.getColumn())) {

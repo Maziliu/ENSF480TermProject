@@ -15,6 +15,7 @@ import ENSF480TermProject.backend.models.Theatre;
 import ENSF480TermProject.backend.services.search.MovieSearchService;
 import ENSF480TermProject.backend.services.search.TheatreSearchService;
 
+
 @RestController
 @RequestMapping("/browse")
 @CrossOrigin(origins = "http://localhost:3000")
