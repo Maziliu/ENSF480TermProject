@@ -39,7 +39,7 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
-    if (newReleases.length > 0 && newReleases.length.toString() !== localStorage.getItem('newReleases').toString()) {
+    if (newReleases.length > 0 && newReleases.length.toString() !== localStorage.getItem('newReleases')) {
       console.log("reset notif");
       localStorage.setItem('seenNotification', 'false');
     }

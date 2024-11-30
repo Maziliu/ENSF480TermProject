@@ -375,14 +375,23 @@ const UserAccountPage = () => {
         </table>
       </div>
 
-      <div><h1>Annual Fees</h1>Renewal: {userDetails.subscription.autoRenew ? 'auto':'manual'}</div>
-      {!userDetails.subscription.autoRenew ? (
-         <button className='user-account-button' onClick={handlePayFee}>Pay Annual Fee</button>
-      ) : (<div>Billing date: {new Date(userDetails.subscription.expiryDate).toString()}</div>)}
-      {/* <button className='user-account-button' onClick={handleBillingChange}>Switch to {userDetails.subscription.autoRenew ? 'manual':'auto'} payments</button> */}
-        <button className='user-account-button' onClick={handleUnregister}>Unregister Account</button>
+      <div className='annual-payment'>
+        <h2>Annual Fees</h2>
+        {userDetails.subscription ? (
+          <div>
+            Renewal: {userDetails.subscription.autoRenew ? 'auto' : 'manual'}
+            {!userDetails.subscription.autoRenew ? (
+              <button className='user-account-button' onClick={handlePayFee}>Pay Annual Fee</button>
+            ) : (
+              <div>Billing date: {new Date(userDetails.subscription.expiryDate).toString()}</div>
+            )}
+          </div>
+        ) : (
+          <div>Loading subscription data...</div>
+        )}
 
-      {message && <div>{message}</div>}
+        <button className='user-account-button' onClick={handleUnregister}>Unregister Account</button>
+      </div>
       <Footer />
     </div>
   );

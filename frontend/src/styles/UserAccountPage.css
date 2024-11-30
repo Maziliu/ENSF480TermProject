@@ -58,6 +58,21 @@
     outline: none;
 }
 
+.annual-payment {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 500px;
+    width: 700px;
+    border-radius: 10px;
+    margin: 20px auto;
+    padding-left: 10px;
+    position: relative;
+    padding: 10px;
+}
+
 /* Buttons */
 .user-buttons {
     width: 96%;
@@ -72,8 +87,7 @@
 }
 
 .user-account-button {
-    width: 20%;
-    margin-left: 545px;
+    width: 45%;
     font-size: 14px;
     border: none;
     border-radius: 5px;
