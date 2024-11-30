@@ -88,7 +88,7 @@ const UserAccountPage = () => {
 
   //handle paying the annual fee
   const handlePayFee = () => {
-    fetch(`http://localhost:8080/User/${userId}/PayFee`, {
+    fetch(`http://localhost:8080/user/${userId}/renew-subscription`, {
       method: 'POST',
     })
       .then(response => response.json())
@@ -110,21 +110,22 @@ const UserAccountPage = () => {
   const handleUnregister = () => {
     const confirmUnregister = window.confirm('Are you sure you want to unregister?');
     if (confirmUnregister) {
-      fetch(`http://localhost:8080/User/${userId}/Unregister`, {
+      fetch(`http://localhost:8080/user/${userId}/delete-user`, {
         method: 'DELETE',
       })
-        .then(response => response.json())
-        .then(data => {
-          if (data.message) {
-            setMessage('Account successfully unregistered');
-            localStorage.removeItem('role');
-            localStorage.removeItem('userId');
-            setRole('guest');
-            setUserId('');
-            navigate('/')
-          } else {
-            setMessage('Failed to unregister account.');
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to unregister account.');
           }
+          return response.text(); // Assuming the server returns a plain text response
+        })
+        .then(data => {
+          setMessage('Account successfully unregistered');
+          localStorage.removeItem('role');
+          localStorage.removeItem('userId');
+          setRole('guest');
+          setUserId('');
+          navigate('/');
         })
         .catch(error => {
           console.error('Error unregistering:', error);
@@ -132,6 +133,12 @@ const UserAccountPage = () => {
         });
     }
   };
+  
+
+  const handleBillingChange =()=>{
+    userDetails.subscription.autoRenew ^= true;
+    handleUpdateDetails();
+  }
 
   if (isLoading) {
     return <div>Loading...</div>;  //display a loading message while data is being fetched
@@ -296,10 +303,11 @@ const UserAccountPage = () => {
 
       {/* ALSO IDK IF WE WANNA DO SOMETHING LIKE THIS OR JUST DO
       ANNUAL FEE STUFF COMPLETLEY BACKEND OR JUST HAVE "AUTOMATIC BILLING: JAN 12, 2025" ON ACCOUNT PAGE OR SMTHING */}
-      {!userDetails.has_paid && (
+      <div><h1>Annual Fees</h1>Renewal: {userDetails.subscription.autoRenew ? 'auto':'manual'}</div>
+      {!userDetails.subscription.autoRenew ? (
          <button className='user-account-button' onClick={handlePayFee}>Pay Annual Fee</button>
-      )}
-
+      ) : (<div>Billing date: {new Date(userDetails.subscription.expiryDate).toString()}</div>)}
+      <button className='user-account-button' onClick={handleBillingChange}>Switch to {userDetails.subscription.autoRenew ? 'manual':'auto'} payments</button>
         <button className='user-account-button' onClick={handleUnregister}>Unregister Account</button>
 
       {message && <div>{message}</div>}
