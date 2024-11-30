@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/ManageUsers.css';
+
 //NOT ADJUSTED TO THIS FRONTEND ROUTING
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
@@ -68,18 +70,18 @@ const ManageUsers = () => {
   }
 
   return (
-    <div>
-        <div>{message}</div>
-          <h2>Manage Users</h2>
-          <ul>
-            {users.map(user => (
-              <li key={user.username}>
-                {user.username} ({user.admin ? 'admin' : 'user'})
-                <button onClick={() => handleUpdateUserRole(user.username, user.admin === true ? false : true)}>Toggle Role</button>
-                <button onClick={() => handleRemoveUser(user.username)}>Remove</button>
-              </li>
-            ))}
-          </ul>
+    <div className='manage-users'>
+      <h2>Manage Users</h2>
+      <div>{message}</div><br/>
+      <ul>
+        {users.map(user => (
+          <li key={user.username}>
+            {user.username} ({user.admin ? 'admin' : 'user'})
+            <button className='manage-users-buttons' onClick={() => handleUpdateUserRole(user.username, user.admin === true ? false : true)}>Toggle Role</button>
+            <button onClick={() => handleRemoveUser(user.username)}>Remove</button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

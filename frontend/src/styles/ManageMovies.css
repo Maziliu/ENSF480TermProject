@@ -1,0 +1,101 @@
+/* Manage movies */
+
+.manage-movies {
+    padding: 10px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: auto;
+    background-color: #282828;
+    width: 490px;
+    border-radius: 10px;
+    margin: auto;
+    position: relative; 
+}
+
+/* select */
+.manage-movies select {
+    width: 75%;
+    padding: 8px;
+    font-size: 14px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.manage-movies select:hover {
+    border-color: #4ccc;
+    outline: none;
+}
+
+.manage-movies  select:focus {
+    border-color: #4ccc;
+    outline: none;
+}
+
+/* input */
+.manage-movies input {
+    width: 75%;
+    padding: 8px;
+    font-size: 14px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.manage-movies input:hover {
+    border-color: #4ccc;
+    outline: none;
+}
+
+.manage-movies input:focus {
+    border-color: #4ccc;
+    outline: none;
+}
+
+/* text area */
+.manage-movies textarea {
+    width: 75%;
+    padding: 8px;
+    font-size: 14px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.manage-movies textarea:hover {
+    border-color: #4ccc;
+    outline: none;
+}
+
+.manage-movies textarea:focus {
+    border-color: #4ccc;
+    outline: none;
+}
+
+/* buttons */
+.manage-movies-buttons {
+    width: 50%;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.manage-movies-buttons:hover {
+    background-color: #4ccc;
+}

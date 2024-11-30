@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/ManageMovies.css';
+
 //NOT ADJUSTED TO THIS FRONTEND ROUTING
 //ALSO NEED TO FIX SHOWTIME ADD/UPDATE/DELETE and add delete option for all thingies
 const ManageMovies = () => {
@@ -104,9 +106,9 @@ const ManageMovies = () => {
   }
 
   return (
-    <div>
-        <div>{message}</div>
+    <div className='manage-movies'>
         <h2>Manage Movies</h2>
+        <div>{message}</div><br/>
         <input
         type="text"
         placeholder="Movie Title"
@@ -136,13 +138,13 @@ const ManageMovies = () => {
         value={newMovie.rating}
         onChange={(e) => setNewMovie({ ...newMovie, rating: e.target.value })}
         />
-        <button onClick={handleAddOrUpdateMovie} disabled={!newMovie.title || !newMovie.genre || !newMovie.duration || !newMovie.description || !newMovie.rating}>{selectedMovie ? 'Update Movie' : 'Add Movie'}</button>
+        <button className='manage-movies-buttons' onClick={handleAddOrUpdateMovie} disabled={!newMovie.title || !newMovie.genre || !newMovie.duration || !newMovie.description || !newMovie.rating}>{selectedMovie ? 'Update Movie' : 'Add Movie'}</button>
         <ul>
         {movies.map((movie) => (
             <li key={movie.id}>
             {movie.title} - {movie.genre}
-            <button onClick={() => setSelectedMovie(movie)}>Edit</button>
-            <button onClick={() => handleRemoveMovie(movie.id)}>Remove</button>
+            <button className='manage-movies-buttons' onClick={() => setSelectedMovie(movie)}>Edit</button>
+            <button className='manage-movies-buttons' onClick={() => handleRemoveMovie(movie.id)}>Remove</button>
             </li>
         ))}
         </ul>

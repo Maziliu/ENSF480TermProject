@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import '../styles/ManageShowtimes.css';
+
 //NOT ADJUSTED TO THIS FRONTEND FORMAT AT ALL
 //ALSO NEED TO FIX SHOWTIME ADD/UPDATE/DELETE and add delete option for all thingies
 const ManageShowtimes = () => {
@@ -125,9 +127,9 @@ const ManageShowtimes = () => {
   }
 
   return (
-    <div>
-        <div>{message}</div>
+    <div className='manage-showtimes'>
         <h2>Manage Showtimes</h2>
+        <div>{message}</div><br/>
         <select
         value={newShowtime.theatreId}
         onChange={(e) => setNewShowtime({ ...newShowtime, theatreId: e.target.value })}
@@ -139,6 +141,7 @@ const ManageShowtimes = () => {
             </option>
         ))}
         </select>
+
         <select value={newShowtime.movieId} onChange={(e) => setNewShowtime({ ...newShowtime, movieId: e.target.value })}>
         <option value="">Select Movie</option>
         {movies.map((movie) => (
@@ -147,17 +150,20 @@ const ManageShowtimes = () => {
             </option>
         ))}
         </select>
+
         <input type="date" value={newShowtime.date} onChange={(e) => setNewShowtime({ ...newShowtime, date: e.target.value })} />
         <input type="time" value={newShowtime.time} onChange={(e) => setNewShowtime({ ...newShowtime, time: e.target.value })} />
-        <button onClick={handleAddOrUpdateShowtime} disabled={!newShowtime.theatreId || !newShowtime.movieId || !newShowtime.date || !newShowtime.time}>
+        
+        <button className='manage-showtimes-buttons' onClick={handleAddOrUpdateShowtime} disabled={!newShowtime.theatreId || !newShowtime.movieId || !newShowtime.date || !newShowtime.time}>
             {selectedShowtime ? 'Update Showtime' : 'Add Showtime'}
         </button>
+        
         <ul>
         {showtimes.map((showtime) => (
             <li key={showtime.id}>
             {theatres.find(theatre => theatre.id === showtime.theatreId).name} - {movies.find(movie => movie.id === showtime.movieId).title} - {new Date(showtime.time).toLocaleString()}
-            <button onClick={() => setSelectedShowtime(showtime)}>Edit</button>
-            <button onClick={() => handleRemoveShowtime(showtime.id)}>Remove</button>
+            <button className='manage-showtimes-buttons' onClick={() => setSelectedShowtime(showtime)}>Edit</button>
+            <button className='manage-showtimes-buttons' onClick={() => handleRemoveShowtime(showtime.id)}>Remove</button>
             </li>
         ))}
         </ul>

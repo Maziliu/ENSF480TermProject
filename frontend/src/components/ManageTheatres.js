@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import '../styles/ManageTheatres.css';
+
 //NOT ADJUSTED TO THIS FRONTEND FORMAT AT ALL
 //ALSO NEED TO FIX SHOWTIME ADD/UPDATE/DELETE and add delete option for all thingies
 const ManageTheatres = () => {
@@ -94,9 +96,9 @@ const ManageTheatres = () => {
   }
 
   return (
-    <div>
-        <div>{message}</div>
+    <div className='manage-theatres'>
         <h2>Manage Theatres</h2>
+        <div>{message}</div><br/>
         <input
         type="text"
         placeholder="Theatre Name"
@@ -109,13 +111,13 @@ const ManageTheatres = () => {
         value={newTheatre.location}
         onChange={(e) => setNewTheatre({ ...newTheatre, location: e.target.value })}
         />
-        <button onClick={handleAddOrUpdateTheatre} disabled={!newTheatre.name || !newTheatre.location}>{selectedTheatre ? 'Update Theatre' : 'Add Theatre'}</button>
+        <button className='manage-theatres-buttons' onClick={handleAddOrUpdateTheatre} disabled={!newTheatre.name || !newTheatre.location}>{selectedTheatre ? 'Update Theatre' : 'Add Theatre'}</button>
         <ul>
         {theatres.map((theatre) => (
             <li key={theatre.id}>
             {theatre.name} - {theatre.location}
-            <button onClick={() => setSelectedTheatre(theatre)}>Edit</button>
-            <button onClick={() => handleRemoveTheatre(theatre.id)}>Remove</button>
+            <button className='manage-theatres-buttons' onClick={() => setSelectedTheatre(theatre)}>Edit</button>
+            <button className='manage-theatres-buttons' onClick={() => handleRemoveTheatre(theatre.id)}>Remove</button>
             </li>
         ))}
         </ul>

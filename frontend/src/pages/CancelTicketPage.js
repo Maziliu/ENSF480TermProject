@@ -3,6 +3,8 @@ import Header from '../components/Header';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import CancellationNotification from '../components/CancellationNotification';
+import '../styles/CancelTicketPage.css';
+
 //not sure completely how we want to implement this either
 const CancelTicketPage = () => {
   const [transactionId, setTransactionId] = useState('');
@@ -49,31 +51,27 @@ const CancelTicketPage = () => {
   };
 
   return (
-    <div className="cancel-ticket-page">
+    <div>
       <Header />
       <Navigation />
       {showRefundPopup && <CancellationNotification refundData={refundData}/>}
-        <h1>Cancel Ticket</h1>
-        <div>
-          <label>
-            Email:
-            <input
-              type="text"
-              value={userEmail}
-              onChange={(e)=>setUserEmail(e.target.value)}
-            />
-          </label> <br/>
-          <label>
-            Booking ID:
-            <input
-              type="text"
-              value={transactionId}
-              onChange={(e)=>setTransactionId(e.target.value)}
-            />
-          </label>
+        <h1 className='cancel-ticket-page-header'>Cancel Ticket</h1>
+        {message && <div className='cancel-ticket-page-error'>{message}</div>}
+        <div className="cancel-ticket-page">
+          <label>Email</label>
+          <input
+            type="text"
+            value={userEmail}
+            onChange={(e)=>setUserEmail(e.target.value)}
+          /><br/>
+          <label>Booking ID</label>
+          <input
+            type="text"
+            value={transactionId}
+            onChange={(e)=>setTransactionId(e.target.value)}
+          /><br/>
         </div>
-        <button onClick={handleCancelTicket}>Cancel Ticket</button>
-        {message && <div>{message}</div>}
+        <button className='cancel-ticket-page-buttons' onClick={handleCancelTicket}>Cancel Ticket</button>
       <Footer />
     </div>
   );

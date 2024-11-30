@@ -18,12 +18,14 @@ const AdminPage = () => {
     <div>
       <Header />
       <Navigation />
-      <h1>Admin Dashboard</h1>
-      <button onClick={() => setSelectedTab('manageUsers')}>Manage Users</button>
-      <button onClick={() => setSelectedTab('theatres')}>Manage Theatres</button>
-      <button onClick={() => setSelectedTab('movies')}>Manage Movies</button>
-      <button onClick={() => setSelectedTab('showtimes')}>Manage Showtimes</button>
-
+      <h1 className='admin-header'>Admin Dashboard</h1>
+      <div className='admin-page'>
+        <button className='admin-button' onClick={() => setSelectedTab('manageUsers')}>Manage Users</button>
+        <button className='admin-button' onClick={() => setSelectedTab('theatres')}>Manage Theatres</button>
+        <button className='admin-button' onClick={() => setSelectedTab('movies')}>Manage Movies</button>
+        <button className='admin-button' onClick={() => setSelectedTab('showtimes')}>Manage Showtimes</button>
+      </div>
+      
       {selectedTab === 'manageUsers' && (
         <ManageUsers />
       )}
