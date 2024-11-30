@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from './Header';
-import Navigation from '../components/Navigation';
 import Footer from './Footer';
 import { fetchSeatData } from '../services/api';
 import '../styles/SeatMap.css';
@@ -62,7 +61,6 @@ const SeatMap = () => {
   return (
     <div>
       <Header />
-      <Navigation />
       <div className="seat-map">
         <h1>Select Your Seat</h1>
         <div className='screen'>Screen</div>

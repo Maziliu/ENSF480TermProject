@@ -1,19 +1,16 @@
-/* Navigation */
-.navbar {
+/* CTA */
+.ctabar {
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
     width: 40%;
   }
   
-  .nav-link-admin,
-  .nav-link-user,
-  .nav-link-cancel {
+ .ctabar {
     text-decoration: none;
     font-weight: bold;
     color:#F2B705;
     font-size: 16px;
     transition: color 0.3s ease, background-color 0.3s ease;
-    padding-right: 60px;
   }
   
   .nav-link-admin:hover,

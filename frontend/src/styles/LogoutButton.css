@@ -1,22 +1,23 @@
 /* logout button */
 
 .logout-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 40px;
-    background-color: white;
-    color: #333;
-    font-size: 15px;
-    font-weight: normal;
-    border-radius: 50px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: center;
-    margin-top: -75px;
-  }
-  
-  .logout-button:hover {
-    background-color: #4ccc;
-  }
+  display: flex;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+  background-color: #F2B705;
+  color: #333;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  width: 80px;
+  height: 40px;
+}
+
+.logout-button:hover {
+  background-color: #4ccc;
+}

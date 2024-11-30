@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
-import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import CancellationNotification from '../components/CancellationNotification';
 import '../styles/CancelTicketPage.css';
@@ -48,7 +47,6 @@ const CancelTicketPage = () => {
   return (
     <div>
       <Header />
-      <Navigation />
       {showRefundPopup && <CancellationNotification refundData={refundData}/>}
         <h1 className='cancel-ticket-page-header'>Cancel Ticket</h1>
         {message && <div className='cancel-ticket-page-error'>{message}</div>}

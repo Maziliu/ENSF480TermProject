@@ -4,7 +4,6 @@ import { useFetchData } from '../hooks/useFetchData';
 import { fetchMovieById, fetchShowtimes, fetchTheatres } from '../services/api';
 import { useSelectionContext } from '../contexts/SelectionContext';
 import Header from '../components/Header';
-import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import '../styles/MoviePage.css';
 
@@ -66,7 +65,6 @@ const MoviePage = () => {
   return (
     <div>
       <Header />
-      <Navigation />
       <h1 className='movie-header'> {movie.movieName}</h1>
       <div className="movie-page">
         <table>

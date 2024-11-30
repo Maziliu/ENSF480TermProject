@@ -2,12 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useAuthContext } from '../contexts/AuthContext.js';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import '../styles/UserAccountPage.css';
 
-//IDK IF WE SHOULD ACTUALLY ADD THIS PAGE SO OPTIONAL
-//NOT ADJUSTED TO THIS FRONTEND FORMAT AT ALL
 const UserAccountPage = () => {
   const [userDetails, setUserDetails] = useState(null);
   const [savedCards, setSavedCards] = useState([]);
@@ -212,7 +209,6 @@ const UserAccountPage = () => {
   return (
     <div>
       <Header />
-      <Navigation />
       <h1 className='user-account-header'>User Account</h1>
       <div className='user-account-page'>
         <table>

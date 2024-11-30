@@ -3,7 +3,6 @@ import Header from '../components/Header';
 import MovieGrid from '../components/MovieGrid';
 import SearchBar from '../components/SearchBar';
 import TheatreList from '../components/TheatreList';
-import Navigation from '../components/Navigation';
 import NewReleaseNotification from '../components/NewReleaseNotification';
 import { useAuthContext } from '../contexts/AuthContext';
 import { useState, useEffect } from 'react';
@@ -56,7 +55,6 @@ const HomePage = () => {
   return (
     <div>
       <Header />
-      <Navigation />
       {showNewReleases && <NewReleaseNotification movies={newReleases} />}
       <SearchBar handleSetMovieList={setQueriedMovies} setQuery={setQuery} query={query} />
       <TheatreList />

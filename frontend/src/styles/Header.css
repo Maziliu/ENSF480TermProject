@@ -11,40 +11,12 @@ h1, h2, h3 {
     color: #f4f4f4;
 }
 
-/* Header */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 10px 60px;
     background-color: #333;
     color: white;
 }
-
-.title-container {
-    flex-grow: 1;
-    justify-content: center;
-    margin-left: 34.5%;
-}
-
-/* Logo */
-.logoimage {
-    height: 100px;
-    width: 100px;
-}
-
-.logo-link {
-    text-decoration: none;
-    color: white;
-    font-size: 15px;
-    font-weight: normal;
-    padding: 10px 15px;
-    transition: color 0.3s ease, background-color 0.3s;
-    cursor: pointer;
-}
-
-.logo-link:hover {
-    color: rgb(82, 82, 235);
-}
-
   
