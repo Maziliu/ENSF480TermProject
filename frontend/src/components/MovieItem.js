@@ -13,8 +13,9 @@ const MovieItem = ({ movie }) => {
           onError={(e) => e.target.src = defaultPoster}
         />
       </div>
+      <div className='movie-text'>
       <h3 className="movie-title"><b>{movie.movieName}</b></h3>
-      <p>{movie.genre}</p>
+      <p>{movie.genre}</p></div>
     </div>
   );
 };
