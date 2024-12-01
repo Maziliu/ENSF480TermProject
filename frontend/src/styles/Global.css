@@ -1,5 +1,12 @@
 /*Global.css*/
 
-div{
+h6{
     background-color: rgb(0, 0, 26);
+}
+
+.page-body {
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    flex-direction: column;
 }

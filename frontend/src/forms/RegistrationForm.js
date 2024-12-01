@@ -117,19 +117,45 @@ const RegistrationForm = () => {
   }
 
   return (
-    <div>
+    <div className='page-body'>
+    <div className='registration-form'>
       <h1 className="registration-header">Register</h1>
       <p className="registration-error-message">{registrationMessage}</p>
 
       <form className="registration-container" onSubmit={handleRegistration}>
         <table className="registration-table">
           <tr>
-            <td className="registration-table-left">
-              <div className="registration-input">
-                <label>Email</label>
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" required /> <br />
+            <td className="registration-input">
+              <label>Email</label>
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" required />
+            </td>
+            <td className="payment-method-list">
+            <label>Payment Method </label>
+                <select onChange={(e) => setPaymentCardType(e.target.value)}>
+                  <option value="">Select a Payment Method</option>
+                  <option value="CREDIT">CREDIT</option>
+                  <option value="DEBIT">DEBIT</option>
+                </select>
+            </td>
+            </tr>
+            <tr>
+            <td className="registration-input">
                 <label>Password</label>
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" required /> <br />
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" required />
+            </td> 
+            <td className="registration-input">
+            <label>Cardholder Name </label>
+                <input
+                  type="text"
+                  value={cardHolderName}
+                  onChange={(e) => setCardHolderName(e.target.value)}
+                  placeholder="Enter Cardholder Name"
+                  required
+                />
+            </td> 
+            </tr>
+            <tr>
+            <td className="registration-input">
                 <label>Confirm Password</label>
                 <input
                   type="password"
@@ -138,54 +164,49 @@ const RegistrationForm = () => {
                   placeholder="Confirm your password"
                   required
                 />
-                <br />
+              </td>
+              <td className="registration-input">
+                <label>Card Number </label>
+                <input type="text" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} placeholder="Enter Card Number" required />
+              </td>
+              </tr>
+              <tr>
+              <td className="registration-input">
                 <label>First Name </label>
-                <input type="text" onChange={(e) => setFirstName(e.target.value)} placeholder="Enter First Name" /> <br />
+                <input type="text" onChange={(e) => setFirstName(e.target.value)} placeholder="Enter First Name" />
+              </td>
+              <td className="registration-input">
+              <label>CVV</label>
+              <input type="text" value={cvv} onChange={(e) => setCvv(e.target.value)} placeholder="Enter CVV" required />
+              </td>
+              </tr>
+              <tr>
+              <td className="registration-input">
                 <label>Last Name</label>
-                <input type="text" onChange={(e) => setLastName(e.target.value)} placeholder="Enter Last Name" /> <br />
+                <input type="text" onChange={(e) => setLastName(e.target.value)} placeholder="Enter Last Name" />
+              </td>
+              <td className="registration-input">
+                <label>Expiration Date (YYYY-MM) </label>
+                <input type="text" value={expiryDate} onChange={(e) => setexpiryDate(e.target.value)} placeholder="Enter Expiration Date" required />
+              </td>
+              </tr>
+              <tr>
+              <td className="registration-input">
                 <label>Address</label>
                 <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Enter Address" required />
-              </div>
-            </td>
-
-            <td className="registration-table-right">
-              <div className="payment-method-list">
-                <select onChange={(e) => setPaymentCardType(e.target.value)}>
-                  <option value="">Select a Payment Method</option>
-                  <option value="CREDIT">CREDIT</option>
-                  <option value="DEBIT">DEBIT</option>
-                </select>
-              </div>
-
-              <div className="registration-input">
-                <label>Cardholder Name </label>
-                <input
-                  type="text"
-                  value={cardHolderName}
-                  onChange={(e) => setCardHolderName(e.target.value)}
-                  placeholder="Enter Cardholder Name"
-                  required
-                />{' '}
-                <br />
-                <label>Card Number </label>
-                <input type="text" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} placeholder="Enter Card Number" required /> <br />
-                <label>CVV</label>
-                <input type="text" value={cvv} onChange={(e) => setCvv(e.target.value)} placeholder="Enter CVV" required /> <br />
-                <label>Expiration Date (YYYY-MM) </label>
-                <input type="text" value={expiryDate} onChange={(e) => setexpiryDate(e.target.value)} placeholder="Enter Expiration Date" required /> <br />
-              </div>
-            </td>
-          </tr>
+              </td>
+              <td className="registration-button-container">
+                <button className="registration-button" type="submit">
+                Register
+                </button>
+                <button className="registration-switch" onClick={gotoLoginForm}>
+                  Switch to Login
+                </button>
+              </td>
+              </tr>
         </table>
-
-        <button className="registration-button" type="submit">
-          Register
-        </button>
       </form>
-
-      <button className="registration-switch" onClick={gotoLoginForm}>
-        Switch to Login
-      </button>
+    </div>
     </div>
   );
 };

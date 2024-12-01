@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/UserAccountPage.css';
+import '../styles/Global.css';
 
 const UserAccountPage = () => {
   const [userDetails, setUserDetails] = useState(null);
@@ -178,6 +179,10 @@ const UserAccountPage = () => {
   }
 
   const handleDeleteCard =()=>{
+    if (savedCards.length <= 1){
+      alert("Cannot Delete Last Saved Payment Card.")
+      return;
+    }
     fetch(`http://localhost:8080/user/${userId}/delete-payment-card/${selectedCard.cardId}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' }, 
@@ -209,8 +214,9 @@ const UserAccountPage = () => {
   return (
     <div>
       <Header />
-      <h1 className='user-account-header'>User Account</h1>
+      <div className='page-body'>
       <div className='user-account-page'>
+      <h1 className='user-account-header'>User Account</h1>
         <table>
           <tr>
             <td className='user-account-input'>
@@ -251,27 +257,30 @@ const UserAccountPage = () => {
                 {/* Radio select for existing cards */}
                 {savedCards && savedCards.map((card, index) => (
                   <div key={index}>
-                    <br></br>
+                    <br/>
                     <input 
                       type="radio" 
+                      id={`card-${index}`}
                       name="cardSelect" 
                       checked={selectedCard?.cardNumber === card.cardNumber} 
                       onChange={() => setSelectedCard(card)} 
                     />
-                    {card.cardHolderName} ( {card.cardNumber}, {card.expireDate} )
+                    <label htmlFor={`card-${index}`} style={{ color: 'white' }}>
+                      {card.cardHolderName} ( {card.cardNumber}, {card.expireDate} )</label>
                   </div>
                 ))}
 
                 {/* option to add new card */}
                 <div>
-                  <br></br>
+                  <br/>
                   <input 
                     type="radio" 
+                    id="addNewCard"
                     name="cardSelect" 
                     checked={selectedCard === null} 
                     onChange={() => setSelectedCard(null)} 
                   />
-                  Add New Card
+                  <label htmlFor='addNewCard' style={{ color: 'white' }}>Add New Card</label>
                 </div>
 
                 {/*show the selected card's details for editing */}
@@ -376,11 +385,11 @@ const UserAccountPage = () => {
         <h2>Annual Fees</h2>
         {userDetails.subscription ? (
           <div>
-            Renewal: {userDetails.subscription.autoRenew ? 'auto' : 'manual'}
+            <b>Renewal:</b> {userDetails.subscription.autoRenew ? 'auto' : 'manual'}
             {!userDetails.subscription.autoRenew ? (
               <button className='user-account-button' onClick={handlePayFee}>Pay Annual Fee</button>
             ) : (
-              <div>Billing date: {new Date(userDetails.subscription.expiryDate).toString()}</div>
+              <div><b>Billing date:</b> {new Date(userDetails.subscription.expiryDate).toString()}</div>
             )}
           </div>
         ) : (
@@ -388,6 +397,7 @@ const UserAccountPage = () => {
         )}
 
         <button className='user-account-button' onClick={handleUnregister}>Unregister Account</button>
+      </div>
       </div>
       <Footer />
     </div>

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext';
 import RegistrationForm from './RegistrationForm';
 import '../styles/LoginForm.css';
+import '../styles/Global.css';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -72,7 +73,7 @@ function LoginForm() {
   }
 
   return (
-    <div className='login-container'>
+    <div className='page-body'>
     <div className='login-form'>
       <h1 className="login-header">Login</h1>
       <form className="login-form-container" onSubmit={handleAuthentication}>

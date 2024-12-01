@@ -68,7 +68,7 @@
     .receipt {
       position: absolute;
       left: 0;
-      top: 72%;
+      top: 50%;
       width: 100%;
     }
   
@@ -85,3 +85,25 @@
     }
 }
   
+
+#receipt .popup-content {
+    background-color: black;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    width: 400px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+  
+#receipt .popup-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 20px;
+}

@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import CancellationNotification from '../components/notifications/CancellationNotification';
 import '../styles/CancelTicketPage.css';
+import '../styles/Global.css';
 
 //not sure completely how we want to implement this either
 const CancelTicketPage = () => {
@@ -47,6 +48,8 @@ const CancelTicketPage = () => {
   return (
     <div>
       <Header />
+      <div className='page-body'>
+        <div className='cancel-ticket-container'>
       {showRefundPopup && <CancellationNotification refundData={refundData}/>}
         <h1 className='cancel-ticket-page-header'>Cancel Ticket</h1>
         {message && <div className='cancel-ticket-page-error'>{message}</div>}
@@ -65,6 +68,8 @@ const CancelTicketPage = () => {
           /><br/>
         </div>
         <button className='cancel-ticket-page-buttons' onClick={handleCancelTicket}>Cancel Ticket</button>
+        </div>
+      </div>
       <Footer />
     </div>
   );

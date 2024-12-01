@@ -1,33 +1,44 @@
 /* Registration Form */
-
-.registration-header {
-    color: white;
-    margin-left: 23%;
-}
-
-/* Container for all input fields */
-.registration-container {
+.registration-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 580px;
+    height: 600px;
     background-color: #282828;
-    width: 725px;
+    width: 800px;
     border-radius: 10px;
-    margin: 0 auto;
-    transform: translateY(-15px);
-    padding-left: 10px;
+    padding: 40px;
+    padding-bottom: 60px;
 }
 
-.registration-input {
-    margin-bottom: 10px;
-    padding-top: 12px;
+.registration-header {
+    color: white;
+}
+
+.registration-table {
+    width: 100%;
+    table-layout: auto;
+    border-spacing: 10px;
+    border-collapse: collapse;
+}
+
+.registration-table td {
+    padding: 10px;
+    vertical-align: middle;
+    width: 40%;
+}
+
+.registration-container {
     display: flex;
     flex-direction: column;
-    background-color: #282828;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 10px;
+    margin: 0 auto;
+    transform: translateY(-18px);
 }
-
+  
 .registration-input label {
     color: white;
     font-size: 14px;
@@ -56,12 +67,11 @@
     outline: none;
 }
 
-/* Registration table left */
-.registration-table-left {
-    padding-top: 22px;
+.payment-method-list{
+    font-size: 14px;
+    color: white;
 }
 
-/* Registration table right */
 .payment-method-list select {
     width: 96%;
     padding: 8px;
@@ -83,11 +93,10 @@
     outline: none;
 }
 
- 
 /* Buttons */
 .registration-button {
-    width: 55%;
-    margin-right: 10px;
+    width: auto;
+    height: auto;
     font-size: 16px;
     border: none;
     border-radius: 5px;
@@ -102,24 +111,37 @@
 }
 
 .registration-switch {
-    display: block;
-    padding: 5px 15px;
     font-size: 14px;
     color: white;
     background-color: transparent;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    margin-left: 315px;
-    margin-top: -5px;
-    margin-bottom: 25px;
+    font-weight: 600;
+    padding-right: 40px;
+    height: auto;
 }
 
 .registration-switch:hover {
-    background-color: #4ccc;
-    color: #000;
+    background-color: transparent;
+    color: #4ccc;
 }
 
+.registration-button-container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    padding: 0;
+}
+
+.registration-button-container td{
+    width: 100%;
+}
+
+.registration-table td.registration-button-container {
+    width: 100%;
+}
 
 /* error */
 .registration-error-message {

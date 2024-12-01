@@ -1,9 +1,19 @@
 /* Cancel Ticket Page */
+.cancel-ticket-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    background-color: #282828;
+    width: 600px;
+    border-radius: 10px;
+    padding: 40px;
+    padding-bottom: 60px;
+}
 
 .cancel-ticket-page-header {
     color: white;
-    margin-left: 35%;
-    margin-bottom: -10px;
 }
 
 .cancel-ticket-page {
@@ -15,10 +25,7 @@
     background-color: #282828;
     width: 400px;
     border-radius: 10px;
-    margin: 20px auto;
-    padding-left: 10px;
     position: relative;
-    padding: 10px;
 }
 
 .cancel-ticket-page label {
@@ -55,7 +62,7 @@
 
 /* buttons */
 .cancel-ticket-page-buttons {
-    width: 15%;
+    width: 100px;
     font-size: 14px;
     border: none;
     border-radius: 5px;
@@ -63,8 +70,6 @@
     color: #333;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-left: 43%;
-    margin-top: -10px;
 }
 
 .cancel-ticket-page-buttons:hover {
@@ -73,6 +78,4 @@
 
 .cancel-ticket-page-error {
     color: white;
-    padding-top: 25px;
-    margin-left: 35%;
 }

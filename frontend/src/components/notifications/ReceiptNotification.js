@@ -9,27 +9,6 @@ const ReceiptNotification = ({ receiptData }) => {
   const [showPopup, setShowPopup] = useState(true);
   const navigate = useNavigate();
 
-  //to see notif with example data if payment page is not fully implemented, rename to receiptData and get rid of prop and set showreceiptpopup state to true in payment page
-//   const receiptData = {
-//     movie: "The Avengers: Endgame",
-//     theatre: "Downtown Cinema",
-//     seatName: "A12",
-//     showtime: {
-//       time: "2024-11-28T19:30:00Z" // ISO format time string
-//     },
-//     ticketPrice: 15.00,
-//     discount: 2.00,
-//     gst: 0.65, // 5% GST on the ticket price
-//     totalPrice: 13.65, // ticketPrice - discount + gst
-//     bookingId: 342934873486,
-//     paymentCard: {
-//       paymentMethod: "Credit Card",
-//       cardholderName: "John Doe",
-//       cardNumber: "1234567812345678",
-//       expiryDate: "12/25"
-//     }
-//   };
-
   useEffect(() => {
     if (receiptData && receiptData.movie) {
       setShowPopup(true);
@@ -48,7 +27,7 @@ const ReceiptNotification = ({ receiptData }) => {
   return (
     <>
       {showPopup && (
-        <div className="notification-popup">
+        <div className="notification-popup" id='receipt'>
           <div className="popup-content">
             <h4>Thank you for your purchase!</h4>
             <button className="close-btn" onClick={handleClose}>
@@ -76,7 +55,7 @@ const ReceiptNotification = ({ receiptData }) => {
                 <b>Booking ID:</b>
                 <span className="booking-id" onClick={() => {navigator.clipboard.writeText(receiptData.bookingId)}}>{receiptData.bookingId ? receiptData.bookingId : 'N/A'}</span>
               </div>
-              <div className='barcode'>{receiptData.bookingId}</div>
+              <div className='barcode'>{receiptData.bookingId.substring(0,23)}</div>
             </div>
             <div className="receipt">
               <h4 className="receipt-header">Receipt</h4>

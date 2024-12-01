@@ -1,25 +1,34 @@
 /* User Account Page */
+.user-account-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;  /* Keep items at the top */
+    align-items: center;
+    background-color: #282828;
+    width: 600px;
+    border-radius: 10px;
+    padding: 40px;
+    padding-bottom: 60px;
+    min-height: 650px;
+    height: auto;
+}
 
 .user-account-header {
     color: white;
-    margin-left: 24%;
-    margin-bottom: 3px;
 }
 
-.user-account-page {
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    height: 550px;
-    background-color: #282828;
-    width: 700px;
-    border-radius: 10px;
-    margin: 20px auto;
-    padding-left: 10px;
-    position: relative;
+.user-account-page td {
+    vertical-align: top;
     padding: 10px;
+}
+
+.user-account-page h4 {
+    color: white;
+    padding-top: 20px;
+}
+
+.user-account-page select-card {
+    color: white;
 }
 
 .user-account-input {
@@ -64,8 +73,10 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    height: 500px;
-    width: 700px;
+    text-align: center;
+    height: 200px;
+    width: 660px;
+    background-color: #282828;
     border-radius: 10px;
     margin: 20px auto;
     padding-left: 10px;
@@ -100,4 +111,27 @@
 
 .user-account-button:hover {
     background-color: #4ccc;
+}
+
+
+.payment-method-list select {
+    width: 96%;
+    padding: 8px;
+    margin-bottom: 14px;
+    font-size: 14px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    box-sizing: border-box;
+}
+
+.payment-method-list select:hover {
+    border-color: #4ccc;
+    outline: none;
+}
+
+.payment-method-list select:focus {
+    border-color: #4ccc;
+    outline: none;
 }

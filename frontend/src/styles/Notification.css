@@ -20,7 +20,7 @@
     text-align: center;
     position: relative;
     width: 310px;
-    height: 625px;
+    height: 500px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -65,8 +65,4 @@ h4 {
     outline: none;
     box-shadow: none;
     background-color: black;
-}
-
-.print-btn {
-    margin-top: -5px;
 }
