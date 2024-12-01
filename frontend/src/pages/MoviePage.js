@@ -77,10 +77,10 @@ const MoviePage = () => {
         </div>
         <div className="movie-details">
           <h1 className='movie-header'> {movie.movieName}</h1>
-          <p>Duration: {Math.floor(movie.durationInSeconds / 60)} minutes</p>
+          <p><b>Duration</b>&emsp;{Math.floor(movie.durationInSeconds / 3600)}h {Math.floor((movie.durationInSeconds % 3600)) / 60}m</p>
+          <p><b>Genre</b>&emsp;{movie.genre}</p>
+          <p><b>Rating</b>&emsp;{movie.ratingOutOfTen}/10</p>
           <p>{movie.description}</p>
-          <p>Genre: {movie.genre}</p>
-          <p>Rating: {movie.ratingOutOfTen}/10</p>
           <div className="movie-page-selectors">
             <div className="selection-lists">
             <select value={selectedTheatre} onChange={handleTheatreChange}>
