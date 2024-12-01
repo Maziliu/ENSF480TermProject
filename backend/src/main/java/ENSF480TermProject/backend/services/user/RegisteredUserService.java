@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import ENSF480TermProject.backend.dtos.auth.RegisterUserRequestDTO;
 import ENSF480TermProject.backend.dtos.user.PaymentCardDTO;
 import ENSF480TermProject.backend.dtos.user.UserDetailsDTO;
 import ENSF480TermProject.backend.factories.PaymentCardFactory;
@@ -86,6 +87,19 @@ public class RegisteredUserService {
         return registeredUserRepository.findById(userId);
     }
 
+    public Optional<RegisteredUser> promoteUserToAdmin(Long userId){
+        Optional<RegisteredUser> userOpt = registeredUserRepository.findById(userId);
+        if(userOpt.isEmpty()){
+            return Optional.of(null);
+        }
+
+        RegisteredUser user = userOpt.get();
+        user.setIsAdmin(true);
+
+        return Optional.of(registeredUserRepository.save(user));
+    }
+
+
     private void updatePaymentCard(Long userId, PaymentCardDTO paymentCardDTO){
         Optional<PaymentCard> paymentCardOptional = paymentCardRepository.findById(paymentCardDTO.getCardId());
         if(!paymentCardOptional.isPresent()) {
@@ -102,5 +116,7 @@ public class RegisteredUserService {
         }
         
     }
+
+    
     
 }
