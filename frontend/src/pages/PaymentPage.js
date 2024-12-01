@@ -6,8 +6,8 @@ import { useAuthContext } from '../contexts/AuthContext.js';
 import { useSelectionContext } from '../contexts/SelectionContext.js';
 import ReceiptNotification from '../components/notifications/ReceiptNotification.js';
 import '../styles/PaymentPage.css';
+import '../styles/Global.css';
 
-//STILL HAS SOME ISSUES TO RESOLVE
 const PaymentPage = () => {
   const { showtimeId, seatName } = useParams();
   const navigate = useNavigate();
@@ -197,8 +197,9 @@ const PaymentPage = () => {
   return (
     <div>
       <Header />
-      <h1 className="payment-header">Payment Page</h1>
+      <div className='page-body'>
       <div className="payment-page">
+      <h1 className="payment-header">Payment Page</h1>
         <table>
           <tr>
             <td className="order-summary">
@@ -227,32 +228,36 @@ const PaymentPage = () => {
             <td className="payment-input">
               <h2>Payment Information</h2>
 
-              {/* displaying different card selection options based on the role */}
-              {role === 'user' && ( // only show the Add New Payment Card option for 'user' role
-                <div>
-                  <br></br>
-                  <label>
-                    <input type="radio" name="paymentCard" value="newCard" checked={showCardFields} onChange={handleNewCardSelection} />
-                    Add New Payment Card
-                  </label>
+              {/* Add New Payment Card Option */}
+              {role === 'user' && (
+                <div  className='radio-option'>
+                  <input
+                    type="radio"
+                    name="paymentCard"
+                    value="newCard"
+                    checked={showCardFields}
+                    onChange={handleNewCardSelection}
+                    id="newCardOption"
+                  />
+                  <label htmlFor="newCardOption"> Add New Payment Card </label>
                 </div>
               )}
 
-              {/* displaying saved cards if authenticated and role is 'user' */}
-             {role === 'user' && savedCards.length > 0 && (  
+              {/* Displaying Saved Cards if Available */}
+              {role === 'user' && savedCards.length > 0 && (
                 <div>
-                  <br></br>
-                  <label>Choose a Saved Payment Card</label>
+                  <label><br/><b>Choose a Saved Payment Card:</b></label>
                   {savedCards.map((card) => (
-                    <div key={card.cardId}>
-                      <label>
-                        <input
-                          type="radio"
-                          name="paymentCard"
-                          value={card.id}
-                          checked={selectedCard === card.cardId}
-                          onChange={() => handleSelectedSavedCard(card)}
-                        />
+                    <div key={card.cardId} className='radio-option'>
+                      <input
+                        type="radio"
+                        name="paymentCard"
+                        id={`card-${card.cardId}`}
+                        value={card.cardId}
+                        checked={selectedCard === card.cardId}
+                        onChange={() => handleSelectedSavedCard(card)}
+                      />
+                      <label htmlFor={`card-${card.cardId}`}>
                         {card.cardHolderName} - {card.cardNumber.slice(-4)} {/* show last 4 digits */}
                       </label>
                     </div>
@@ -270,7 +275,7 @@ const PaymentPage = () => {
                       <option value="DEBIT">DEBIT</option>
                     </select>
                   </div>
-                  <br></br>
+                  <br/>
                   <label>Cardholder Name</label>
                   <input
                     type="text"
@@ -280,7 +285,6 @@ const PaymentPage = () => {
                     required
                   />{' '}
                   <br />
-                  <br></br>
                   <label>Card Number</label>
                   <input type="text" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} placeholder="Enter Card Number" required /> <br />
                   <br></br>
@@ -293,7 +297,7 @@ const PaymentPage = () => {
               )}
 
               <div>
-                <br></br>
+                <br/>
                 <label>
                   Discount Code
                   <input type="text" value={promoCode} onChange={(e) => setPromoCode(e.target.value)} />
@@ -303,11 +307,11 @@ const PaymentPage = () => {
             </td>
           </tr>
         </table>
+        <button className="payment-button" onClick={handlePayment}>
+          Pay Now
+        </button>
       </div>
-
-      <button className="payment-button" onClick={handlePayment}>
-        Pay Now
-      </button>
+      </div>
       <Footer />
     </div>
   );
