@@ -6,6 +6,7 @@ import { useSelectionContext } from '../contexts/SelectionContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/MoviePage.css';
+import '../styles/Global.css';
 
 const MoviePage = () => {
   const { id } = useParams();
@@ -65,54 +66,53 @@ const MoviePage = () => {
   return (
     <div>
       <Header />
-      <h1 className='movie-header'> {movie.movieName}</h1>
+      <div className='page-body'>
       <div className="movie-page">
-        <table>
-          <tr>
-            <td className='movie-page-poster'>
-              <img 
-                src={posterUrl} 
-                alt={movie.movieName || 'Movie Poster'} 
-                onError={() => setPosterUrl('/images/posters/default-poster.png')}
-              />
-            </td>
-            <td className="movie-details">
-              <p>Duration: {Math.floor(movie.durationInSeconds / 60)} minutes</p>
-              <p>{movie.description}</p>
-              <p>Genre: {movie.genre}</p>
-              <p>Rating: {movie.ratingOutOfTen}/10</p>
-            </td>
-          </tr>
-        </table>
+        <div className='movie-poster'>
+          <img 
+            src={posterUrl} 
+            alt={movie.movieName || 'Movie Poster'} 
+            onError={() => setPosterUrl('/images/posters/default-poster.png')}
+            />
+        </div>
+        <div className="movie-details">
+          <h1 className='movie-header'> {movie.movieName}</h1>
+          <p>Duration: {Math.floor(movie.durationInSeconds / 60)} minutes</p>
+          <p>{movie.description}</p>
+          <p>Genre: {movie.genre}</p>
+          <p>Rating: {movie.ratingOutOfTen}/10</p>
+          <div className="movie-page-selectors">
+            <div className="selection-lists">
+            <select value={selectedTheatre} onChange={handleTheatreChange}>
+              <option value="">Select a Theatre</option>
+              {theatres?.map((theatre) => (
+                <option key={theatre.theatreId} value={theatre.theatreId}>
+                  {theatre.theatreName}
+                </option>
+              ))}
+            </select>
+            <select value={selectedShowtime} onChange={handleShowtimeChange} disabled={!selectedTheatre}>
+              <option value="">Select a Showtime</option>
+              {showtimes
+                ?.filter((showtime) =>
+                  theatres
+                    ?.find((theatre) => theatre.theatreId === parseInt(selectedTheatre))
+                    ?.theatreRooms.some((room) => room.showtimes.some((st) => st.showtimeId === showtime.showtimeId))
+                )
+                .map((showtime) => (
+                  <option key={showtime.showtimeId} value={showtime.showtimeId}>
+                    {new Date(showtime.airTime).toLocaleString()}
+                  </option>
+                ))}
+            </select>
+            </div><div class="button-container">
+            <button className='select-movie-button' onClick={handleGetTicketsClick} disabled={!selectedTheatre || !selectedShowtime}>
+              Get Tickets
+            </button></div>
+          </div>
+        </div>
       </div>
-
-      <div className="selection-lists">
-        <select value={selectedTheatre} onChange={handleTheatreChange}>
-          <option value="">Select a Theatre</option>
-          {theatres?.map((theatre) => (
-            <option key={theatre.theatreId} value={theatre.theatreId}>
-              {theatre.theatreName}
-            </option>
-          ))}
-        </select>
-        <select value={selectedShowtime} onChange={handleShowtimeChange} disabled={!selectedTheatre}>
-          <option value="">Select a Showtime</option>
-          {showtimes
-            ?.filter((showtime) =>
-              theatres
-                ?.find((theatre) => theatre.theatreId === parseInt(selectedTheatre))
-                ?.theatreRooms.some((room) => room.showtimes.some((st) => st.showtimeId === showtime.showtimeId))
-            )
-            .map((showtime) => (
-              <option key={showtime.showtimeId} value={showtime.showtimeId}>
-                {new Date(showtime.airTime).toLocaleString()}
-              </option>
-            ))}
-        </select>
       </div>
-      <button className='select-movie-button' onClick={handleGetTicketsClick} disabled={!selectedTheatre || !selectedShowtime}>
-        Get Tickets
-      </button>
       <Footer />
     </div>
   );

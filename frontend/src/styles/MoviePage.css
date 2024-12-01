@@ -1,60 +1,54 @@
 /* Movie Page */
-
 .movie-header {
     color: white;
-    margin-left: 29%;
-    margin-bottom: 3px;
+    padding: 0;
 }
 
 /* Box containing elements */
 .movie-page {
-    color: white;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    height: 325px;
-    background-color: #282828;
-    width: 560px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items:center;
+    background-color: black;
+    width: 800px;
     border-radius: 10px;
-    margin: 0 auto;
-    padding-left: 10px;
+    min-height: 380px;
+    height: auto;
+    color: white;
     position: relative;
 }
 
-.movie-page-poster {
-    background-color: #282828;
-    width: 175px;
-    height: 200px;
+.movie-page .movie-poster {
+    display: flex;
+    justify-content: left;
+    background-color:black;
+    width: 40%;
 }
 
-
-.movie-page-poster img {
-    max-width: 120%;
-    max-height: 120%;
+.movie-page .movie-poster img {
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
-    margin-left: 0px;
-    margin-top: 50px;
 }
 
-.movie-details {
-    background-color: #282828;
-    width: 300px;
-    height: 200px;
-    padding-top: 50px;
-    padding-left: 25px;
+.movie-page .movie-details {
+    background-color: transparent;
+    width: 60%;
+    height: auto;
+    padding: 50px 50px 50px 50px;
 }
 
 .selection-lists {
+    width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    margin-top: 8px;
 }
 
 .selection-lists select {
-    width: 50;
+    width: auto;
     padding: 8px;
     font-size: 14px;
     border: 2px solid #ccc;
@@ -62,7 +56,6 @@
     background-color: #333;
     color: white;
     box-sizing: border-box;
-    margin-right: 15px;
 }
 
 .selection-lists select:hover {
@@ -75,9 +68,27 @@
     outline: none;
 }
 
+.movie-page-selectors {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
 /* Buttons */
+.button-container {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 .select-movie-button {
-    width: 20%;
+    width: auto;
+    margin-top: 0px;
     font-size: 14px;
     border: none;
     border-radius: 5px;
@@ -85,7 +96,6 @@
     color: #333;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-left: 540px;
 }
 
 .select-movie-button:hover {
