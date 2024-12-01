@@ -1,18 +1,32 @@
 /* Login Form */
+.login-container {
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    background-color: #282828;
+    width: 600px;
+    border-radius: 10px;
+    padding: 40px;
+    padding-bottom: 60px;
+}
 
 .login-header {
     color: white;
-    margin-left: 28.2%;
 }
 
-.login-container {
+.login-form-container {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    height: 270px;
-    background-color: #282828;
-    width: 600px;
     border-radius: 10px;
     margin: 0 auto;
     transform: translateY(-18px);
@@ -51,10 +65,15 @@
     border-color: #4ccc;
     outline: none;
 }
-  
+
+.login-button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%; 
+}
+
 .login-button {
-    width: 55%;
-    margin-right: 10px;
+    width: auto; 
     font-size: 16px;
     border: none;
     border-radius: 5px;
@@ -69,24 +88,17 @@
 }
 
 .login-switch {
-    display: block;
-    margin-top: 20px;
-    margin: 0 auto;
-    padding: 5px 15px;
     font-size: 14px;
     color: white;
     background-color: transparent;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    margin-left: 383px;
-    margin-top: -10px;
-    margin-bottom: 25px;
+    font-weight: 600;
 }
 
 .login-switch:hover {
-    background-color: #4ccc;
-    color: #000;
+    color: #4ccc;
+    background-color: transparent;
 }
 
 .login-error-message {
@@ -95,4 +107,3 @@
     font-size: 14px;
     margin-bottom: 20px;
 }
- 

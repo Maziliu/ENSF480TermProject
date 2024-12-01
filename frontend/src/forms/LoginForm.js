@@ -72,9 +72,10 @@ function LoginForm() {
   }
 
   return (
-    <div>
+    <div className='login-container'>
+    <div className='login-form'>
       <h1 className="login-header">Login</h1>
-      <form className="login-container" onSubmit={handleAuthentication}>
+      <form className="login-form-container" onSubmit={handleAuthentication}>
         <p className="login-error-message">{authenticationMessage}</p>
 
         <div className="login-input">
@@ -86,15 +87,16 @@ function LoginForm() {
           <label>Password</label>
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" required />
         </div>
-
-        <button className="login-button" type="submit">
-          Login
+        <div className='login-button-container'>
+          <button className="login-button" type="submit">
+            Login
+          </button>
+          <button className="login-switch" onClick={gotoSignupForm}>
+          Switch to Signup
         </button>
+      </div>
       </form>
-
-      <button className="login-switch" onClick={gotoSignupForm}>
-        Switch to Signup
-      </button>
+    </div>
     </div>
   );
 }
