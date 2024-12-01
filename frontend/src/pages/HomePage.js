@@ -58,6 +58,7 @@ const HomePage = () => {
       {showNewReleases && <NewReleaseNotification movies={newReleases} />}
       <SearchBar handleSetMovieList={setQueriedMovies} setQuery={setQuery} query={query} />
       <TheatreList />
+      <br></br>
       <MovieGrid handleSetMovieList={setMovies} movies={movies} queriedMovies={queriedMovies} query={query} setNewReleases={setNewReleases} />
       <Footer />
     </div>

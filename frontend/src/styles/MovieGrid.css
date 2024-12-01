@@ -1,8 +1,7 @@
 .movie-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Flexible column width */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Flexible column width */
   gap: 20px;
-  padding: 50px;
 }
 
 .movie-item {
@@ -11,11 +10,9 @@
   overflow: hidden;
   text-align: center;
   width: 100%;
-  height: auto; /* Zero height */
-  padding-top: calc(480 / 290 * 100%); /* Maintain aspect ratio */
+  height: 565px; /* Zero height */
   position: relative; /* For positioning child elements */
-  border: 2px solid transparent;
-
+  border: 2px solid #ccc;
 }
 
 .movie-item:hover {
@@ -29,23 +26,36 @@
   width: 100%;
   height: auto;
   display: block;
-  position: absolute; 
-  top: 0;
-  left: 0;
+  object-fit: cover;
+}
+
+.movie-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 25%;
+}
+
+.movie-title, .movie-item p {
+  font-size: 1.15em;
+  word-break: break-word;
+  text-align: left;
+  color: white;
+  margin: 0;
 }
 
 .movie-title {
-  font-size: 1.15em;
+  margin-bottom: 5px;
   font-weight: bold;
-  word-break: break-word;
-  text-align: left;
-  position: absolute;
-  bottom: 10px;
-  width: 100%;
-  padding-left: 20px;
-  padding-bottom: 8px;
+  padding: 5px;
 }
 
+.movie-item p {
+  color: #dbdbdb;
+  text-align: left;
+  padding-top: 5px;
+  padding-left: 5px;
+}
 .movie-poster-placeholder1 {
   width: 100%;
   height: 80%; /* Ensure it fills the parent */
@@ -57,10 +67,4 @@
   position: absolute; /* Ensure it fits within the parent */
   top: 0;
   left: 0;
-}
-
-.movie-item p {
-  color: #dbdbdb;
-  text-align: left;
-  padding-left: 20px;
 }

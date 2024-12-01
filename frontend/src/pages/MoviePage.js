@@ -69,7 +69,7 @@ const MoviePage = () => {
       <div className="movie-page">
         <table>
           <tr>
-            <td className='movie-poster'>
+            <td className='movie-page-poster'>
               <img 
                 src={posterUrl} 
                 alt={movie.movieName || 'Movie Poster'} 

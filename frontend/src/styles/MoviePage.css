@@ -22,19 +22,19 @@
     position: relative;
 }
 
-.movie-poster {
+.movie-page-poster {
     background-color: #282828;
     width: 175px;
     height: 200px;
 }
 
 
-.movie-poster img {
-    max-width: 75%;
-    max-height: 75%;
+.movie-page-poster img {
+    max-width: 120%;
+    max-height: 120%;
     object-fit: contain;
-    margin-left: -100px;
-    margin-top: 35px;
+    margin-left: 0px;
+    margin-top: 50px;
 }
 
 .movie-details {

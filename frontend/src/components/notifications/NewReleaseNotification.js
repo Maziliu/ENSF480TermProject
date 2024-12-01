@@ -92,20 +92,29 @@ const NewReleaseNotification = ({ movies }) => {
               customDot={<CustomDot />}
               className="movie-carousel"
             >
-                {movies.map((movie) => (
+            {movies.map((movie) => {
+              const posterPath = `/images/posters/${movie.movieName}.jpg`;
+              const defaultPoster = '/images/posters/default-poster.jpg';
+
+              return (
                 <div className="movie-item2" key={movie.id}>
-                    <div className="movie-poster-placeholder2" 
-                    onClick={() => handleMovieClick(movie.movieId, movie.movieName)} />
-                        <img
-                        src={movie.posterUrl}
-                        alt={movie.movieName}
-                        className="movie-poster2"
-                        />
-                        <div className="movie-details2">
-                        <h3>{movie.movieName}</h3>
-                    </div>
+                    <div
+                      onClick={() => handleMovieClick(movie.movieId, movie.movieName)}
+                    >
+                    <img
+                      className="movie-poster-placeholder2"
+                      src={posterPath}
+                      alt={movie.movieName}
+                      onClick={() => handleMovieClick(movie.movieId, movie.movieName)}
+                      onError={(e) => {e.target.src = defaultPoster;}}
+                    />
+                  </div>
+                  <div className="movie-details2">
+                    <h3>{movie.movieName}</h3>
+                  </div>
                 </div>
-              ))}
+              );
+            })}
             </Carousel>
             </div>
         </div>
