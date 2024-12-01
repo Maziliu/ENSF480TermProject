@@ -332,6 +332,7 @@ const UserAccountPage = () => {
                     <option value="CREDIT">CREDIT</option>
                     <option value="DEBIT">DEBIT</option>
                   </select></div>
+                    <br></br>
                     <label>Cardholder Name</label>
                     <input
                       type="text"
