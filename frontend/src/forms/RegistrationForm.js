@@ -127,7 +127,7 @@ const RegistrationForm = () => {
           <tr>
             <td className="registration-input">
               <label>Email</label>
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" required />
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter Email" required />
             </td>
             <td className="payment-method-list">
             <label>Payment Method </label>
@@ -141,7 +141,7 @@ const RegistrationForm = () => {
             <tr>
             <td className="registration-input">
                 <label>Password</label>
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" required />
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter Password" required />
             </td> 
             <td className="registration-input">
             <label>Cardholder Name </label>
@@ -161,7 +161,7 @@ const RegistrationForm = () => {
                   type="password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  placeholder="Confirm your password"
+                  placeholder="Confirm Password"
                   required
                 />
               </td>

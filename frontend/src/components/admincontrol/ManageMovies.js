@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/ManageMovies.css';
+import '../../styles/AdminPage.css';
 
 //NOT ADJUSTED TO THIS FRONTEND ROUTING
-//ALSO NEED TO FIX SHOWTIME ADD/UPDATE/DELETE and add delete option for all thingies
 const ManageMovies = () => {
   const [movies, setMovies] = useState([]);
   const [newMovie, setNewMovie] = useState({ title: '', genre: '', duration: '', description: '', rating: '' });
@@ -102,7 +102,7 @@ const ManageMovies = () => {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className='loading'>Loading...</div>;
   }
 
   return (

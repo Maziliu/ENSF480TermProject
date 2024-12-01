@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/ManageTheatres.css';
+import '../../styles/AdminPage.css';
 
 //NOT ADJUSTED TO THIS FRONTEND FORMAT AT ALL
-//ALSO NEED TO FIX SHOWTIME ADD/UPDATE/DELETE and add delete option for all thingies
 const ManageTheatres = () => {
   const [theatres, setTheatres] = useState([]);
   const [newTheatre, setNewTheatre] = useState({ name: '', location: '' });
@@ -90,7 +90,7 @@ const ManageTheatres = () => {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className='loading'>Loading...</div>;
   }
 
   return (

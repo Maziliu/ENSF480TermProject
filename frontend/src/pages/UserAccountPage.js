@@ -389,7 +389,8 @@ const UserAccountPage = () => {
             {!userDetails.subscription.autoRenew ? (
               <button className='user-account-button' onClick={handlePayFee}>Pay Annual Fee</button>
             ) : (
-              <div><b>Billing date:</b> {new Date(userDetails.subscription.expiryDate).toString()}</div>
+              <div><b>Billing date:</b> {new Date(userDetails.subscription.expiryDate).toString()}
+              <p>Amount due: $20.00</p></div>
             )}
           </div>
         ) : (

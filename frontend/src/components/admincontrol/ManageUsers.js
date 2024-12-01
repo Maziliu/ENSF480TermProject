@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/ManageUsers.css';
+import '../../styles/AdminPage.css';
 
 //NOT ADJUSTED TO THIS FRONTEND ROUTING
 const ManageUsers = () => {
@@ -66,7 +67,7 @@ const ManageUsers = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className='loading'>Loading...</div>;
   }
 
   return (

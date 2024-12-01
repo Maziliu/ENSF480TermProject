@@ -6,6 +6,7 @@ import ManageMovies from '../components/admincontrol/ManageMovies';
 import ManageTheatres from '../components/admincontrol/ManageTheatres';
 import ManageShowtimes from '../components/admincontrol/ManageShowtimes';
 import '../styles/AdminPage.css';
+import '../styles/Global.css';
 
 // NOT ADJUSTED TO THIS FRONTEND FORMAT AT ALL
 // ALSO NEED TO FIX SHOWTIME ADD/UPDATE/DELETE and add delete option for all thingies
@@ -16,8 +17,8 @@ const AdminPage = () => {
   return (
     <div>
       <Header />
-      <h1 className='admin-header'>Admin Dashboard</h1>
       <div className='admin-page'>
+      <h1 className='admin-header'>Admin Dashboard</h1>
         <button className='admin-button' onClick={() => setSelectedTab('manageUsers')}>Manage Users</button>
         <button className='admin-button' onClick={() => setSelectedTab('theatres')}>Manage Theatres</button>
         <button className='admin-button' onClick={() => setSelectedTab('movies')}>Manage Movies</button>

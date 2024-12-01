@@ -2,8 +2,6 @@
 
 .admin-header {
     color: white;
-    margin-left: 31.5%;
-    margin-bottom: -10px;
 }
 
 .admin-page {
@@ -12,13 +10,13 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    height: 250px;
+    height: 350px;
     background-color: #282828;
     width: 500px;
     border-radius: 10px;
     margin: 20px auto;
-    padding-left: 10px;
     position: relative; 
+    padding-top: 10px;
 }
 
 /* Buttons */
@@ -35,4 +33,9 @@
 
 .admin-button:hover {
     background-color: #4ccc;
+}
+
+.loading {
+    color:white;
+    text-align: center;
 }
