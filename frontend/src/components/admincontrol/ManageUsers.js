@@ -14,6 +14,7 @@ const ManageUsers = () => {
         const usersResponse = await fetch('http://localhost:8080/user/users');
         const usersData = await usersResponse.json();
         setUsers(usersData);
+        console.log("users: ", usersData);
       } catch (error) {
         console.error('Error fetching data:', error);
         setMessage('Failed to load data.');
@@ -25,37 +26,38 @@ const ManageUsers = () => {
     fetchData();
   }, []); // run only once(twice, really)
 
-  const handleUpdateUserRole = (username, newIsAdmin) => {
-    fetch(`http://localhost:5000/User/Update/${username}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ admin: newIsAdmin }),
+  const handleUpdateUserRole = (userId, newIsAdmin) => {
+    fetch(`http://localhost:8080/admin/toggle-admin?userId=${userId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        // No need for a body as the parameters are sent via URL
     })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.message) {
-          setUsers(users.map((user) => (user.username === username ? { ...user, admin: newIsAdmin } : user)));
-          setMessage(`User role updated to ${newIsAdmin ? 'admin' : 'user'}`);
+    .then((response) => response.json())
+    .then((data) => {
+        if (data) {
+            setUsers(users.map((user) => (user.userId === userId ? { ...user, admin: newIsAdmin } : user)));
+            setMessage(`User role updated to ${newIsAdmin ? 'admin' : 'user'}`);
         } else {
-          setMessage('Failed to update user role.');
+            setMessage('Failed to update user role.');
         }
-      })
-      .catch((error) => {
+    })
+    .catch((error) => {
         console.error('Error:', error);
         setMessage('Failed to update user role.');
-      });
-  };
+    });
+};
 
-  const handleRemoveUser = (username) => {
-    fetch(`http://localhost:5000/User/${username}/Unregister`, { method: 'DELETE' })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.message) {
-          setUsers(users.filter((user) => user.username !== username));
-          setMessage('User removed successfully.');
-        } else {
-          setMessage('Failed to remove user.');
+  const handleRemoveUser = (userId) => {
+    fetch(`http://localhost:8080/user/${userId}/delete-user`, { method: 'DELETE' })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to remove account.');
         }
+        return response.text(); // Assuming the server returns a plain text response
+      })
+      .then(data=>{
+          setUsers(users.filter((user) => user.userId !== userId));
+          setMessage('User removed successfully.');
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -74,12 +76,12 @@ const ManageUsers = () => {
       <br />
       <ul>
         {users.map((user) => (
-          <li key={user.username}>
-            {user.username} ({user.admin ? 'admin' : 'user'})
-            <button className="manage-users-buttons" onClick={() => handleUpdateUserRole(user.username, user.admin === true ? false : true)}>
+          <li key={user.email}>
+            {user.email} ({user.admin ? 'admin' : 'user'})
+            <button className="manage-users-buttons" onClick={() => handleUpdateUserRole(user.userId, user.admin === true ? false : true)}>
               Toggle Role
             </button>
-            <button onClick={() => handleRemoveUser(user.username)}>Remove</button>
+            <button onClick={() => handleRemoveUser(user.userId)}>Remove</button>
           </li>
         ))}
       </ul>
