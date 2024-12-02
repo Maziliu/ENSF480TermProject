@@ -1,8 +1,9 @@
 .movie-grid {
   display: grid;
   padding-top: 30px;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Flexible column width */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Flexible column width */
   gap: 20px;
+  padding: 20px;
 }
 
 .movie-item {
