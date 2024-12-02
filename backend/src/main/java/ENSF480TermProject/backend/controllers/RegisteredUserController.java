@@ -1,5 +1,6 @@
 package ENSF480TermProject.backend.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -65,5 +66,10 @@ public class RegisteredUserController {
     @PutMapping("/{userId:[0-9]+}/renew-subscription")
     public ResponseEntity<Subscription> renewSubscription(@PathVariable("userId") Long userId){
         return ResponseEntity.ok(subscriptionService.renewOrExtendSubscriptionManually(userId).orElse(null));
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<RegisteredUser>> getAllRegisteredUsers(){
+        return ResponseEntity.ok(registeredUserService.getAllUsers());
     }
 }

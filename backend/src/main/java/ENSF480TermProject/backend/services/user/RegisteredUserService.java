@@ -1,5 +1,6 @@
 package ENSF480TermProject.backend.services.user;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -87,18 +88,26 @@ public class RegisteredUserService {
         return registeredUserRepository.findById(userId);
     }
 
-    public Optional<RegisteredUser> promoteUserToAdmin(Long userId){
+    public Optional<RegisteredUser> toggleUserAdmin(Long userId){
         Optional<RegisteredUser> userOpt = registeredUserRepository.findById(userId);
         if(userOpt.isEmpty()){
             return Optional.of(null);
         }
 
         RegisteredUser user = userOpt.get();
-        user.setIsAdmin(true);
+        if(user.isAdmin()){
+            user.setIsAdmin(false);
+        }
+        else {
+            user.setIsAdmin(true);
+        }
 
         return Optional.of(registeredUserRepository.save(user));
     }
 
+    public List<RegisteredUser> getAllUsers(){
+        return registeredUserRepository.findAll();
+    }
 
     private void updatePaymentCard(Long userId, PaymentCardDTO paymentCardDTO){
         Optional<PaymentCard> paymentCardOptional = paymentCardRepository.findById(paymentCardDTO.getCardId());
@@ -116,7 +125,5 @@ public class RegisteredUserService {
         }
         
     }
-
-    
     
 }

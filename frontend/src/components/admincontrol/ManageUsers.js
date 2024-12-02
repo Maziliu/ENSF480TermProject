@@ -11,10 +11,9 @@ const ManageUsers = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const usersResponse = await fetch('http://localhost:5000/users');
+        const usersResponse = await fetch('http://localhost:8080/user/users');
         const usersData = await usersResponse.json();
         setUsers(usersData);
-
       } catch (error) {
         console.error('Error fetching data:', error);
         setMessage('Failed to load data.');
@@ -32,18 +31,16 @@ const ManageUsers = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ admin: newIsAdmin }),
     })
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         if (data.message) {
-          setUsers(
-            users.map(user => (user.username === username ? { ...user, admin: newIsAdmin } : user))
-          );
+          setUsers(users.map((user) => (user.username === username ? { ...user, admin: newIsAdmin } : user)));
           setMessage(`User role updated to ${newIsAdmin ? 'admin' : 'user'}`);
         } else {
           setMessage('Failed to update user role.');
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error:', error);
         setMessage('Failed to update user role.');
       });
@@ -51,34 +48,37 @@ const ManageUsers = () => {
 
   const handleRemoveUser = (username) => {
     fetch(`http://localhost:5000/User/${username}/Unregister`, { method: 'DELETE' })
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         if (data.message) {
-          setUsers(users.filter(user => user.username !== username));
+          setUsers(users.filter((user) => user.username !== username));
           setMessage('User removed successfully.');
         } else {
           setMessage('Failed to remove user.');
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error:', error);
         setMessage('Failed to remove user.');
       });
   };
 
   if (isLoading) {
-    return <div className='loading'>Loading...</div>;
+    return <div className="loading">Loading...</div>;
   }
 
   return (
-    <div className='manage-users'>
+    <div className="manage-users">
       <h2>Manage Users</h2>
-      <div>{message}</div><br/>
+      <div>{message}</div>
+      <br />
       <ul>
-        {users.map(user => (
+        {users.map((user) => (
           <li key={user.username}>
             {user.username} ({user.admin ? 'admin' : 'user'})
-            <button className='manage-users-buttons' onClick={() => handleUpdateUserRole(user.username, user.admin === true ? false : true)}>Toggle Role</button>
+            <button className="manage-users-buttons" onClick={() => handleUpdateUserRole(user.username, user.admin === true ? false : true)}>
+              Toggle Role
+            </button>
             <button onClick={() => handleRemoveUser(user.username)}>Remove</button>
           </li>
         ))}

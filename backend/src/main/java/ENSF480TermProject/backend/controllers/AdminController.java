@@ -22,9 +22,9 @@ public class AdminController {
         this.registeredUserService = registeredUserService;
     }
 
-    @PutMapping("/promote-admin")
-    public ResponseEntity<RegisteredUser> promoteUserToAdmin(@RequestParam Long userId){
-        Optional<RegisteredUser> userOpt = registeredUserService.promoteUserToAdmin(userId);
+    @PutMapping("/toggle-admin")
+    public ResponseEntity<RegisteredUser> toggleUserAdmin(@RequestParam Long userId){
+        Optional<RegisteredUser> userOpt = registeredUserService.toggleUserAdmin(userId);
 
         if(userOpt.isEmpty()){
             return ResponseEntity.badRequest().build();
