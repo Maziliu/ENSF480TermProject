@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/ManageShowtimes.css';
 import '../../styles/AdminPage.css';
 
-//NOT ADJUSTED TO THIS FRONTEND FORMAT AT ALL
+//NOT FULLY IMPLEMENTED
 const ManageShowtimes = () => {
   const [theatres, setTheatres] = useState([]);
   const [movies, setMovies] = useState([]);

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/ManageMovies.css';
 import '../../styles/AdminPage.css';
 
-//NOT ADJUSTED TO THIS FRONTEND ROUTING
+//NOT FULLY IMPLEMENTED
 const ManageMovies = () => {
   const [movies, setMovies] = useState([]);
   const [newMovie, setNewMovie] = useState({ movieName: '', genre: '', durationInSeconds: '', description: '', ratingOutOfTen: '' });

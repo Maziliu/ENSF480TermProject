@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/ManageTheatres.css';
 import '../../styles/AdminPage.css';
 
-//NOT ADJUSTED TO THIS FRONTEND FORMAT AT ALL
+//NOT FULLY IMPLEMENTED
 const ManageTheatres = () => {
   const [theatres, setTheatres] = useState([]);
   const [newTheatre, setNewTheatre] = useState({ name: '', location: '' });
