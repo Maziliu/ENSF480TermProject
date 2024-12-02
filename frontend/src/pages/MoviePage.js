@@ -36,9 +36,8 @@ const MoviePage = () => {
       
       setAvailableTheatres(filteredTheatres);
     }
-  }, [showtimes, movie, theatres]);
+  }, [showtimes, movie, theatres, selectedTheatre]);
 
-  
   useEffect(() => {
     if (movie?.movieName) {
       const posterPath = `/images/posters/${movie.movieName}.jpg`;
@@ -53,20 +52,25 @@ const MoviePage = () => {
     }
   }, [movie]);
 
+  useEffect(() => {
+    if (selectedTheatre) {
+      const filteredShowtimes = showtimes?.filter((showtime) =>
+        theatres
+          ?.find((theatre) => theatre.theatreId === parseInt(selectedTheatre))
+          ?.theatreRooms.some((room) =>
+            room.showtimes.some((st) =>
+              st.showtimeId === showtime.showtimeId && showtime.movie.movieId === movie.movieId
+            )
+          )
+      );
+      setAvailableShowtimes(filteredShowtimes || []);
+    }
+  }, [selectedTheatre, showtimes, movie, theatres]);  
+
   const handleTheatreChange = (event) => {
     const theatreId = event.target.value;
     const theatreName = event.target.options[event.target.selectedIndex].text;
     handleSelectTheatre(theatreId, theatreName);
-    const filteredShowtimes = showtimes?.filter((showtime) =>
-      theatres
-        ?.find((theatre) => theatre.theatreId === parseInt(theatreId))
-        ?.theatreRooms.some((room) =>
-          room.showtimes.some((st) =>
-            st.showtimeId === showtime.showtimeId && showtime.movie.movieId === movie.movieId
-          )
-        )
-    );
-    setAvailableShowtimes(filteredShowtimes || []);
     handleSelectShowtime(''); 
   };
   
