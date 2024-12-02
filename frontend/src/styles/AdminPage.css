@@ -39,3 +39,9 @@
     color:white;
     text-align: center;
 }
+
+.admin-management button{
+    width: auto;
+    margin-left: 5px;
+    padding: 5px;
+}

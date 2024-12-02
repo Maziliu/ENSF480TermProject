@@ -24,7 +24,7 @@ const AdminPage = () => {
         <button className='admin-button' onClick={() => setSelectedTab('movies')}>Manage Movies</button>
         <button className='admin-button' onClick={() => setSelectedTab('showtimes')}>Manage Showtimes</button>
       </div>
-      
+      <div className='admin-management'>
       {selectedTab === 'manageUsers' && (
         <ManageUsers />
       )}
@@ -42,6 +42,7 @@ const AdminPage = () => {
       {selectedTab === 'showtimes' && (
         <ManageShowtimes />
       )}
+      </div>
       <Footer />
     </div>
   );

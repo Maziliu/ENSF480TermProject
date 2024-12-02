@@ -5,7 +5,7 @@ import '../../styles/AdminPage.css';
 //NOT ADJUSTED TO THIS FRONTEND ROUTING
 const ManageMovies = () => {
   const [movies, setMovies] = useState([]);
-  const [newMovie, setNewMovie] = useState({ title: '', genre: '', duration: '', description: '', rating: '' });
+  const [newMovie, setNewMovie] = useState({ movieName: '', genre: '', durationInSeconds: '', description: '', ratingOutOfTen: '' });
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -31,28 +31,28 @@ const ManageMovies = () => {
     // prefill form logic
     if (selectedMovie) {
       setNewMovie({
-        title: selectedMovie.title,
+        movieName: selectedMovie.movieName,
         genre: selectedMovie.genre,
-        duration: selectedMovie.duration,
+        durationInSeconds: selectedMovie.durationInSeconds,
         description: selectedMovie.description,
-        rating: selectedMovie.rating,
+        ratingOutOfTen: selectedMovie.ratingOutOfTen,
       });
     } else {
-      setNewMovie({ title: '', genre: '', duration: '', description: '', rating: '' });
+      setNewMovie({ movieName: '', genre: '', durationInSeconds: '', description: '', ratingOutOfTen: '' });
     }
   }, [selectedMovie]); // effect when selection changes
 
   const handleAddOrUpdateMovie = () => {
     const newMovieData = {
-      title: newMovie.title,
+      movieName: newMovie.movieName,
       genre: newMovie.genre,
-      duration: newMovie.duration,
+      durationInSeconds: newMovie.durationInSeconds,
       description: newMovie.description,
-      rating: newMovie.rating,
+      ratingOutOfTen: newMovie.ratingOutOfTen,
     };
     console.log('sending: ', newMovieData);
     const method = selectedMovie ? 'PUT' : 'POST';
-    const url = selectedMovie ? `http://localhost:5000/Movies/Update/${selectedMovie.id}` : 'http://localhost:5000/Movies/Add';
+    const url = selectedMovie ? `http://localhost:8080/movies/update/${selectedMovie.movieId}` : 'http://localhost:8080/movies/add';
 
     fetch(url, {
       method,
@@ -63,14 +63,14 @@ const ManageMovies = () => {
       .then((data) => {
         if (data.message) {
           if (selectedMovie) {
-            setMovies(movies.map((movie) => (movie.id === selectedMovie.id ? { ...movie, ...newMovieData } : movie)));
+            setMovies(movies.map((movie) => (movie.movieId === selectedMovie.movieId ? { ...movie, ...newMovieData } : movie)));
             setMessage('Movie updated successfully.');
           } else {
-            setMovies([...movies, { id: Date.now(), ...newMovieData }]);
+            setMovies([...movies, { movieId: Date.now(), ...newMovieData }]);
             setMessage('New movie added successfully.');
           }
           setSelectedMovie(null);
-          setNewMovie({ title: '', genre: '', duration: '', description: '', rating: '' });
+          setNewMovie({ movieName: '', genre: '', durationInSeconds: '', description: '', ratingOutOfTen: '' });
         } else {
           setMessage('Failed to add or update movie.');
         }
@@ -82,11 +82,11 @@ const ManageMovies = () => {
   };
 
   const handleRemoveMovie = (movieId) => {
-    fetch(`http://localhost:5000/Movies/Delete/${movieId}`, { method: 'DELETE' })
+    fetch(`http://localhost:8080/movies/delete/${movieId}`, { method: 'DELETE' })
       .then((response) => response.json())
       .then((data) => {
         if (data.message) {
-          setMovies(movies.filter((movie) => movie.id !== movieId));
+          setMovies(movies.filter((movie) => movie.movieId !== movieId));
           setMessage('Movie removed successfully.');
         } else {
           setMessage('Failed to remove movie.');
@@ -107,26 +107,26 @@ const ManageMovies = () => {
       <h2>Manage Movies</h2>
       <div>{message}</div>
       <br />
-      <input type="text" placeholder="Movie Title" value={newMovie.title} onChange={(e) => setNewMovie({ ...newMovie, title: e.target.value })} />
+      <input type="text" placeholder="Movie Title" value={newMovie.movieName} onChange={(e) => setNewMovie({ ...newMovie, movieName: e.target.value })} />
       <input type="text" placeholder="Genre" value={newMovie.genre} onChange={(e) => setNewMovie({ ...newMovie, genre: e.target.value })} />
-      <input type="text" placeholder="Duration" value={newMovie.duration} onChange={(e) => setNewMovie({ ...newMovie, duration: e.target.value })} />
+      <input type="text" placeholder="Duration" value={newMovie.durationInSeconds} onChange={(e) => setNewMovie({ ...newMovie, durationInSeconds: e.target.value })} />
       <textarea placeholder="Description" value={newMovie.description} onChange={(e) => setNewMovie({ ...newMovie, description: e.target.value })} />
-      <input type="text" placeholder="Rating" value={newMovie.rating} onChange={(e) => setNewMovie({ ...newMovie, rating: e.target.value })} />
+      <input type="text" placeholder="Rating" value={newMovie.ratingOutOfTen} onChange={(e) => setNewMovie({ ...newMovie, ratingOutOfTen: e.target.value })} />
       <button
         className="manage-movies-buttons"
         onClick={handleAddOrUpdateMovie}
-        disabled={!newMovie.title || !newMovie.genre || !newMovie.duration || !newMovie.description || !newMovie.rating}
+        disabled={!newMovie.movieName || !newMovie.genre || !newMovie.durationInSeconds || !newMovie.description || !newMovie.ratingOutOfTen}
       >
         {selectedMovie ? 'Update Movie' : 'Add Movie'}
       </button>
       <ul>
-        {movies.map((movie) => (
-          <li key={movie.id}>
-            {movie.title} - {movie.genre}
+        {movies.map((movie) =>  (
+          <li key={movie.movieId}>
+            {movie.movieName} - {movie.genre}
             <button className="manage-movies-buttons" onClick={() => setSelectedMovie(movie)}>
               Edit
             </button>
-            <button className="manage-movies-buttons" onClick={() => handleRemoveMovie(movie.id)}>
+            <button className="manage-movies-buttons" onClick={() => handleRemoveMovie(movie.movieId)}>
               Remove
             </button>
           </li>
