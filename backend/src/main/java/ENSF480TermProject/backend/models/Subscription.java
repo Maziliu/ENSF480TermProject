@@ -51,8 +51,8 @@ public class Subscription {
         expiryDate = startDate.plusSeconds(3);
     }
 
-    public void activateAutoRenew(){
-        this.isAutoRenew = true;
+    public void toggleAutoRenew(){
+        this.isAutoRenew = (this.isAutoRenew) ? false : true;
     }
 
     //Get
