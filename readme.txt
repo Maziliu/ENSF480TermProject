@@ -1,5 +1,6 @@
 Prerequisites:
 JDK17 (or higher), maven, Node.js, mySQL
+ensure apache-maven-3.9.9\bin is added to PATH
 
 ---------------------------------------------------------------------------------------------------
 
