@@ -36,7 +36,7 @@ const CancelTicketPage = () => {
           setRefundData(data);
           setShowRefundPopup(true);
         } else {
-          setMessage('Failed to cancel ticket. ', data.refundStatus);
+          setMessage(data.refundStatus === "FAILED_PAST_REFUND_PERIOD" ? "Ticket has passed its refund period." : "Failed to cancel ticket.");
         }
       })
       .catch(error => {
